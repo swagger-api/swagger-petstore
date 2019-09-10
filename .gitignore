@@ -1,0 +1,12 @@
+build/
+lib/*.jar
+target
+.idea
+.idea_modules
+.settings
+.project
+.classpath
+.cache
+atlassian-ide-plugin.xml
+*.iml
+.java-version
