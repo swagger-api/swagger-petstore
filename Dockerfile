@@ -4,7 +4,7 @@ WORKDIR /swagger-petstore
 
 COPY target/lib/jetty-runner.jar /swagger-petstore/jetty-runner.jar
 COPY target/*.war /swagger-petstore/server.war
-COPY src/main/resources/openapi-inflector.yaml /swagger-petstore/openapi.yaml
+COPY src/main/resources/openapi.yaml /swagger-petstore/openapi.yaml
 COPY inflector.yaml /swagger-petstore/
 
 EXPOSE 8080
