@@ -17,7 +17,8 @@
     <scala-test-version>2.1.3</scala-test-version>
     <jersey-version>1.13</jersey-version>
     <junit-version>4.8.1</junit-version>
-    <jetty-version>8.1.11.v20130520</jetty-version>
+    <jetty-version>9.2.9.v20150224</jetty-version>
+    <jetty-maven-version>8.1.11.v20130520</jetty-maven-version>
   </properties>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
@@ -51,9 +52,31 @@
         </executions>
       </plugin>
       <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.eclipse.jetty</groupId>
+                  <artifactId>jetty-runner</artifactId>
+                  <version>${jetty-version}</version>
+                  <destFileName>jetty-runner.jar</destFileName>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <version>${jetty-version}</version>
+        <version>${jetty-maven-version}</version>
         <configuration>
           <webAppConfig>
             <contextPath>/</contextPath>
