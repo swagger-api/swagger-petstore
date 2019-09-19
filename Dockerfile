@@ -1,7 +1,7 @@
 FROM openjdk:8-jre
 
 WORKDIR /petstore
-COPY ./jetty-runner* /petstore/jetty-runner.jar
+COPY target/lib/jetty-runner* /petstore/jetty-runner.jar
 COPY ./run.sh /petstore/
 ADD target/swagger-petstore-v2-1.0.2-SNAPSHOT /petstore/webapp
 
