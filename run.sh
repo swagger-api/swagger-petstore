@@ -23,4 +23,4 @@ FULL_SWAGGER_PATH=$(sed -e 's,/,\\/,g' <<< $FULL_PATH)
 sed -i "s/FULL_SWAGGER_PATH/$FULL_SWAGGER_PATH/g" /petstore/webapp/index.html
 sed -i "s/FULL_SWAGGER_PATH/$FULL_SWAGGER_PATH/g" /petstore/webapp/WEB-INF/web.xml
 
-java -jar /petstore/jetty-runner.jar /petstore/webapp
+java -jar /petstore/jetty-runner.jar --log /var/log/yyyy_mm_dd-requests.log /petstore/webapp
