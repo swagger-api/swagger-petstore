@@ -11,7 +11,7 @@
   <name>swagger-petstore-v2</name>
   <version>1.0.3-SNAPSHOT</version>
   <properties>
-    <swagger-version>1.5.7</swagger-version>
+    <swagger-version>1.5.24-SNAPSHOT</swagger-version>
     <logback-version>1.0.1</logback-version>
     <servlet-api-version>2.5</servlet-api-version>
     <scala-test-version>2.1.3</scala-test-version>
@@ -19,6 +19,7 @@
     <junit-version>4.8.1</junit-version>
     <jetty-version>9.2.9.v20150224</jetty-version>
     <jetty-maven-version>8.1.11.v20130520</jetty-maven-version>
+    <jackson-version>2.9.10</jackson-version>
   </properties>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
@@ -165,6 +166,11 @@
       <groupId>io.swagger</groupId>
       <artifactId>swagger-jersey-jaxrs</artifactId>
       <version>${swagger-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.jaxrs</groupId>
+      <artifactId>jackson-jaxrs-json-provider</artifactId>
+      <version>${jackson-version}</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
