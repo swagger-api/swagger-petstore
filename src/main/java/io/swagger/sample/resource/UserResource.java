@@ -36,7 +36,7 @@ public class UserResource {
   @POST
   @ApiOperation(value = "Create user",
     notes = "This can only be done by the logged in user.",
-    position = 1)
+    position = 1, consumes = "application/json")
   public Response createUser(
       @ApiParam(value = "Created user object", required = true) User user) {
     userData.addUser(user);
@@ -46,7 +46,7 @@ public class UserResource {
   @POST
   @Path("/createWithArray")
   @ApiOperation(value = "Creates list of users with given input array",
-    position = 2)
+    position = 2, consumes = "application/json")
   public Response createUsersWithArrayInput(@ApiParam(value = "List of user object", required = true) User[] users) {
       for (User user : users) {
           userData.addUser(user);
@@ -57,7 +57,7 @@ public class UserResource {
   @POST
   @Path("/createWithList")
   @ApiOperation(value = "Creates list of users with given input array",
-    position = 3)
+    position = 3, consumes = "application/json")
   public Response createUsersWithListInput(@ApiParam(value = "List of user object", required = true) java.util.List<User> users) {
       for (User user : users) {
           userData.addUser(user);
@@ -69,7 +69,7 @@ public class UserResource {
   @Path("/{username}")
   @ApiOperation(value = "Updated user",
     notes = "This can only be done by the logged in user.",
-    position = 4)
+    position = 4, consumes = "application/json")
   @ApiResponses(value = {
       @ApiResponse(code = 400, message = "Invalid user supplied"),
       @ApiResponse(code = 404, message = "User not found") })

@@ -67,7 +67,7 @@ public class PetStoreResource {
 
   @POST
   @Path("/order")
-  @ApiOperation(value = "Place an order for a pet")
+  @ApiOperation(value = "Place an order for a pet", consumes = "application/json")
   @ApiResponses({ @ApiResponse(code = 400, message = "Invalid Order") })
   public Order placeOrder(
       @ApiParam(value = "order placed for purchasing the pet",
