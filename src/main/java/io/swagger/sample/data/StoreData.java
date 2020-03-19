@@ -18,58 +18,58 @@ package io.swagger.sample.data;
 
 import io.swagger.sample.model.Order;
 
+import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class StoreData {
-  static List<Order> orders = new ArrayList<Order>();
+
+  static Map<Long, Order> orders = Collections.synchronizedMap(new LinkedHashMap<Long, Order>());
 
   static {
-    orders.add(createOrder(1, 1, 2, new Date(), "placed"));
-    orders.add(createOrder(2, 1, 2, new Date(), "delivered"));
-    orders.add(createOrder(3, 2, 2, new Date(), "placed"));
-    orders.add(createOrder(4, 2, 2, new Date(), "delivered"));
-    orders.add(createOrder(5, 3, 2, new Date(), "placed"));
-    orders.add(createOrder(6, 3, 2, new Date(), "placed"));
-    orders.add(createOrder(7, 3, 2, new Date(), "placed"));
-    orders.add(createOrder(8, 3, 2, new Date(), "placed"));
-    orders.add(createOrder(9, 3, 2, new Date(), "placed"));
-    orders.add(createOrder(10, 3, 2, new Date(), "placed"));
+    orders.put(1L, createOrder(1, 1, 2, new Date(), "placed"));
+    orders.put(2L, createOrder(2, 1, 2, new Date(), "delivered"));
+    orders.put(3L, createOrder(3, 2, 2, new Date(), "placed"));
+    orders.put(4L, createOrder(4, 2, 2, new Date(), "delivered"));
+    orders.put(5L, createOrder(5, 3, 2, new Date(), "placed"));
+    orders.put(6L, createOrder(6, 3, 2, new Date(), "placed"));
+    orders.put(7L, createOrder(7, 3, 2, new Date(), "placed"));
+    orders.put(8L, createOrder(8, 3, 2, new Date(), "placed"));
+    orders.put(9L, createOrder(9, 3, 2, new Date(), "placed"));
+    orders.put(10L, createOrder(10, 3, 2, new Date(), "placed"));
   }
 
   public Order findOrderById(long orderId) {
-    for (Order order : orders) {
-      if (order.getId() == orderId) {
-        return order;
-      }
-    }
-    return null;
+
+    return orders.get(Long.valueOf(orderId));
+
   }
 
   public Order placeOrder(Order order) {
-    if (orders.size() > 0) {
-      for (int i = orders.size() - 1; i >= 0; i--) {
-        if (orders.get(i).getId() == order.getId()) {
-          orders.remove(i);
+    if(order.getId() <1) {
+      long maxId = 0;
+      for (Long orderId: orders.keySet()) {
+        if(orderId > maxId) {
+          maxId = orderId;
         }
       }
+      long newId = maxId > Long.MAX_VALUE -1 ? maxId : maxId + 1;
+      order.setId(newId);
     }
-    orders.add(order);
+    orders.put(order.getId(), order);
+    if (orders.size() > PetData.MAX_SIZE) {
+      Long id = orders.keySet().iterator().next();
+      orders.remove(id);
+    }
+
     return order;
   }
 
   public boolean deleteOrder(long orderId) {
-    if (orders.size() > 0) {
-      for (int i = orders.size() - 1; i >= 0; i--) {
-        if (orders.get(i).getId() == orderId) {
-          orders.remove(i);
-          return true;
-        }
-      }
-    }
-    return false;
+    return orders.remove(Long.valueOf(orderId)) == null ? false : true;
   }
+
 
   private static Order createOrder(long id, long petId, int quantity,
       Date shipDate, String status) {

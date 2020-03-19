@@ -21,6 +21,9 @@ import io.swagger.sample.data.PetData;
 import io.swagger.sample.data.StoreData;
 import io.swagger.sample.model.Order;
 import io.swagger.sample.exception.NotFoundException;
+import io.swagger.util.Json;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
@@ -33,11 +36,13 @@ public class PetStoreResource {
   static StoreData storeData = new StoreData();
   static PetData petData = new PetData();
 
+  private static Logger LOGGER = LoggerFactory.getLogger(PetStoreResource.class);
+
   @GET
   @Path("/inventory")
   @Produces({MediaType.APPLICATION_JSON})
-  @ApiOperation(value = "Returns pet inventories by status", 
-    notes = "Returns a map of status codes to quantities", 
+  @ApiOperation(value = "Returns pet inventories by status",
+    notes = "Returns a map of status codes to quantities",
     response = Integer.class,
     responseContainer = "map",
     authorizations = @Authorization(value = "api_key")
@@ -57,6 +62,7 @@ public class PetStoreResource {
       @ApiParam(value = "ID of pet that needs to be fetched", allowableValues = "range[1,10]", required = true)
       @PathParam("orderId") Long orderId)
       throws NotFoundException {
+    LOGGER.debug("getOrderById {}", orderId);
     Order order = storeData.findOrderById(orderId);
     if (null != order) {
       return Response.ok().entity(order).build();
@@ -72,6 +78,14 @@ public class PetStoreResource {
   public Order placeOrder(
       @ApiParam(value = "order placed for purchasing the pet",
         required = true) Order order) {
+    try {
+      LOGGER.info("placeOrder ID {} STATUS {}", order.getId(), order.getStatus());
+      if (LOGGER.isDebugEnabled()) {
+        LOGGER.debug("placeOrder {}", Json.mapper().writeValueAsString(order));
+      }
+    } catch (Throwable e) {
+      e.printStackTrace();
+    }
     storeData.placeOrder(order);
     return storeData.placeOrder(order);
   }
@@ -85,10 +99,11 @@ public class PetStoreResource {
   public Response deleteOrder(
       @ApiParam(value = "ID of the order that needs to be deleted", allowableValues = "range[1,infinity]", required = true)
       @PathParam("orderId") Long orderId) {
+    LOGGER.debug("deleteOrder {}", orderId);
     if (storeData.deleteOrder(orderId)) {
-      return Response.ok().entity("").build();
+      return Response.ok().entity(new io.swagger.sample.model.ApiResponse(200, String.valueOf(orderId))).build();
     } else {
-      return Response.status(Response.Status.NOT_FOUND).entity("Order not found").build();
+      return Response.status(Response.Status.NOT_FOUND).entity(new io.swagger.sample.model.ApiResponse(Response.Status.NOT_FOUND.getStatusCode(), String.valueOf("Order Not Found"))).build();
     }
   }
 }

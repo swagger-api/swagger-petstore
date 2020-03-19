@@ -21,6 +21,9 @@ import io.swagger.sample.data.UserData;
 import io.swagger.sample.exception.ApiException;
 import io.swagger.sample.exception.NotFoundException;
 import io.swagger.sample.model.User;
+import io.swagger.util.Json;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -33,14 +36,24 @@ import java.util.Date;
 public class UserResource {
   static UserData userData = new UserData();
 
+  private static Logger LOGGER = LoggerFactory.getLogger(UserResource.class);
+
   @POST
   @ApiOperation(value = "Create user",
     notes = "This can only be done by the logged in user.",
     position = 1, consumes = "application/json")
   public Response createUser(
       @ApiParam(value = "Created user object", required = true) User user) {
+    try {
+      LOGGER.info("createUser ID {} STATUS {}", user.getId(), user.getUsername());
+      if (LOGGER.isDebugEnabled()) {
+        LOGGER.debug("createUser {}", Json.mapper().writeValueAsString(user));
+      }
+    } catch (Throwable e) {
+      e.printStackTrace();
+    }
     userData.addUser(user);
-    return Response.ok().entity("").build();
+    return Response.ok().entity(new io.swagger.sample.model.ApiResponse(200, String.valueOf(user.getId()))).build();
   }
 
   @POST
@@ -48,10 +61,18 @@ public class UserResource {
   @ApiOperation(value = "Creates list of users with given input array",
     position = 2, consumes = "application/json")
   public Response createUsersWithArrayInput(@ApiParam(value = "List of user object", required = true) User[] users) {
+      try {
+        LOGGER.info("createUsersWithArrayInput");
+        if (LOGGER.isDebugEnabled()) {
+          LOGGER.debug("createUsersWithArrayInput {}", Json.mapper().writeValueAsString(users));
+        }
+      } catch (Throwable e) {
+        e.printStackTrace();
+      }
       for (User user : users) {
           userData.addUser(user);
       }
-      return Response.ok().entity("").build();
+      return Response.ok().entity(new io.swagger.sample.model.ApiResponse(200, String.valueOf("ok"))).build();
   }
 
   @POST
@@ -59,10 +80,18 @@ public class UserResource {
   @ApiOperation(value = "Creates list of users with given input array",
     position = 3, consumes = "application/json")
   public Response createUsersWithListInput(@ApiParam(value = "List of user object", required = true) java.util.List<User> users) {
+      try {
+        LOGGER.info("createUsersWithListInput");
+        if (LOGGER.isDebugEnabled()) {
+          LOGGER.debug("createUsersWithListInput {}", Json.mapper().writeValueAsString(users));
+        }
+      } catch (Throwable e) {
+        e.printStackTrace();
+      }
       for (User user : users) {
           userData.addUser(user);
       }
-      return Response.ok().entity("").build();
+      return Response.ok().entity(new io.swagger.sample.model.ApiResponse(200, String.valueOf("ok"))).build();
   }
 
   @PUT
@@ -76,8 +105,16 @@ public class UserResource {
   public Response updateUser(
       @ApiParam(value = "name that need to be updated", required = true) @PathParam("username") String username,
       @ApiParam(value = "Updated user object", required = true) User user) {
+    try {
+      LOGGER.info("updateUser ID {} STATUS {}", user.getId(), user.getUsername());
+      if (LOGGER.isDebugEnabled()) {
+        LOGGER.debug("updateUser {}", Json.mapper().writeValueAsString(user));
+      }
+    } catch (Throwable e) {
+      e.printStackTrace();
+    }
     userData.addUser(user);
-    return Response.ok().entity("").build();
+    return Response.ok().entity(new io.swagger.sample.model.ApiResponse(200, String.valueOf(user.getId()))).build();
   }
 
   @DELETE
@@ -90,8 +127,9 @@ public class UserResource {
       @ApiResponse(code = 404, message = "User not found") })
   public Response deleteUser(
       @ApiParam(value = "The name that needs to be deleted", required = true) @PathParam("username") String username) {
+    LOGGER.debug("deleteUser {}", username);
     if (userData.removeUser(username)) {
-          return Response.ok().entity("").build();
+          return Response.ok().entity(new io.swagger.sample.model.ApiResponse(200, String.valueOf(username))).build();
       } else {
           return Response.status(Response.Status.NOT_FOUND).build();
       }
@@ -108,6 +146,7 @@ public class UserResource {
   public Response getUserByName(
       @ApiParam(value = "The name that needs to be fetched. Use user1 for testing. ", required = true) @PathParam("username") String username)
     throws ApiException {
+    LOGGER.debug("getUserByName {}", username);
     User user = userData.findUserByName(username);
     if (null != user) {
       return Response.ok().entity(user).build();
@@ -129,20 +168,23 @@ public class UserResource {
   public Response loginUser(
       @ApiParam(value = "The user name for login", required = true) @QueryParam("username") String username,
       @ApiParam(value = "The password for login in clear text", required = true) @QueryParam("password") String password) {
-
+    LOGGER.debug("loginUser {}", username);
+    LOGGER.trace("loginUser {}", password);
     Date date = new Date(System.currentTimeMillis() + 3600000);
     return Response.ok()
       .header("X-Expires-After", date.toString())
       .header("X-Rate-Limit", String.valueOf(5000))
-      .entity("logged in user session:" + System.currentTimeMillis())
+      .entity(new io.swagger.sample.model.ApiResponse(200, "logged in user session:" + System.currentTimeMillis()))
       .build();
   }
+
+
 
   @GET
   @Path("/logout")
   @ApiOperation(value = "Logs out current logged in user session",
     position = 7)
   public Response logoutUser() {
-    return Response.ok().entity("").build();
+    return Response.ok().entity(new io.swagger.sample.model.ApiResponse(200, String.valueOf("ok"))).build();
   }
 }
