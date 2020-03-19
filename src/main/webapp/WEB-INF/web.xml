@@ -19,10 +19,10 @@
       <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
       <param-value>true</param-value>
     </init-param>
-    <init-param> 
-      <param-name>com.sun.jersey.config.feature.DisableWADL</param-name> 
-      <param-value>true</param-value> 
-    </init-param> 
+    <init-param>
+      <param-name>com.sun.jersey.config.feature.DisableWADL</param-name>
+      <param-value>true</param-value>
+    </init-param>
    <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
@@ -35,7 +35,7 @@
     <servlet-class>io.swagger.jaxrs.config.DefaultJaxrsConfig</servlet-class>
     <init-param>
       <param-name>api.version</param-name>
-      <param-value>1.0.4-SNAPSHOT</param-value>
+      <param-value>1.0.4</param-value>
     </init-param>
     <init-param>
       <param-name>swagger.api.title</param-name>
