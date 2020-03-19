@@ -11,6 +11,8 @@
   <name>swagger-petstore-v2</name>
   <version>1.0.4-SNAPSHOT</version>
   <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <swagger-version>1.5.24</swagger-version>
     <logback-version>1.0.1</logback-version>
     <servlet-api-version>2.5</servlet-api-version>

@@ -23,60 +23,49 @@ import io.swagger.sample.model.Tag;
 import java.util.*;
 
 public class PetData {
-  static List<Pet> pets = new ArrayList<Pet>();
-  static List<Category> categories = new ArrayList<Category>();
+
+  public static final Long MAX_SIZE = 1000L;
+
+  static Map<Long, Pet> pets = Collections.synchronizedMap(new LinkedHashMap<Long, Pet>());
+  static Map<Long, Category> categories = Collections.synchronizedMap(new LinkedHashMap<Long, Category>());
 
   static {
-    categories.add(createCategory(1, "Dogs"));
-    categories.add(createCategory(2, "Cats"));
-    categories.add(createCategory(3, "Rabbits"));
-    categories.add(createCategory(4, "Lions"));
+    categories.put(1L, createCategory(1, "Dogs"));
+    categories.put(2L, createCategory(2, "Cats"));
+    categories.put(3L, createCategory(3, "Rabbits"));
+    categories.put(4L, createCategory(4, "Lions"));
 
-    pets.add(createPet(1, categories.get(1), "Cat 1", new String[] {
+    pets.put(1L, createPet(1, categories.get(2L), "Cat 1", new String[] {
         "url1", "url2" }, new String[] { "tag1", "tag2" }, "available"));
-    pets.add(createPet(2, categories.get(1), "Cat 2", new String[] {
+    pets.put(2L, createPet(2, categories.get(2L), "Cat 2", new String[] {
         "url1", "url2" }, new String[] { "tag2", "tag3" }, "available"));
-    pets.add(createPet(3, categories.get(1), "Cat 3", new String[] {
+    pets.put(3L, createPet(3, categories.get(2L), "Cat 3", new String[] {
         "url1", "url2" }, new String[] { "tag3", "tag4" }, "pending"));
 
-    pets.add(createPet(4, categories.get(0), "Dog 1", new String[] {
+    pets.put(4L, createPet(4, categories.get(1L), "Dog 1", new String[] {
         "url1", "url2" }, new String[] { "tag1", "tag2" }, "available"));
-    pets.add(createPet(5, categories.get(0), "Dog 2", new String[] {
+    pets.put(5L, createPet(5, categories.get(1L), "Dog 2", new String[] {
         "url1", "url2" }, new String[] { "tag2", "tag3" }, "sold"));
-    pets.add(createPet(6, categories.get(0), "Dog 3", new String[] {
+    pets.put(6L, createPet(6, categories.get(1L), "Dog 3", new String[] {
         "url1", "url2" }, new String[] { "tag3", "tag4" }, "pending"));
 
-    pets.add(createPet(7, categories.get(3), "Lion 1", new String[] {
+    pets.put(7L, createPet(7, categories.get(4L), "Lion 1", new String[] {
         "url1", "url2" }, new String[] { "tag1", "tag2" }, "available"));
-    pets.add(createPet(8, categories.get(3), "Lion 2", new String[] {
+    pets.put(8L, createPet(8, categories.get(4L), "Lion 2", new String[] {
         "url1", "url2" }, new String[] { "tag2", "tag3" }, "available"));
-    pets.add(createPet(9, categories.get(3), "Lion 3", new String[] {
+    pets.put(9L, createPet(9, categories.get(4L), "Lion 3", new String[] {
         "url1", "url2" }, new String[] { "tag3", "tag4" }, "available"));
 
-    pets.add(createPet(10, categories.get(2), "Rabbit 1", new String[] {
+    pets.put(10L, createPet(10, categories.get(3L), "Rabbit 1", new String[] {
         "url1", "url2" }, new String[] { "tag3", "tag4" }, "available"));
   }
 
   public Pet getPetById(long petId) {
-    for (Pet pet : pets) {
-      if (pet.getId() == petId) {
-        return pet;
-      }
-    }
-    return null;
+    return pets.get(Long.valueOf(petId));
   }
 
   public boolean deletePet(long petId) {
-    if(pets.size() > 0) {
-      for (int i = pets.size() - 1; i >= 0; i--) {
-        Pet pet = pets.get(i);
-        if(pet.getId() == petId) {
-          pets.remove(i);
-          return true;
-        }
-      }
-    }
-    return false;
+    return pets.remove(Long.valueOf(petId)) == null ? false : true;
   }
 
   public List<Pet> findPetByStatus(String status) {
@@ -85,7 +74,7 @@ public class PetData {
       return result;
     }
     String[] statuses = status.split(",");
-    for (Pet pet : pets) {
+    for (Pet pet : pets.values()) {
       for (String s : statuses) {
         if (s.equals(pet.getStatus())) {
           result.add(pet);
@@ -100,9 +89,9 @@ public class PetData {
 
     if(tags == null) {
       return result;
-    }    
+    }
     String[] tagList = tags.split(",");
-    for (Pet pet : pets) {
+    for (Pet pet : pets.values()) {
       if (null != pet.getTags()) {
         for (Tag tag : pet.getTags()) {
           for (String tagListString : tagList) {
@@ -116,29 +105,28 @@ public class PetData {
   }
 
   public Pet addPet(Pet pet) {
-    if(pet.getId() == 0) {
+    if(pet.getId() <1) {
       long maxId = 0;
-      for (int i = pets.size() - 1; i >= 0; i--) {
-        if(pets.get(i).getId() > maxId) {
-          maxId = pets.get(i).getId();
+      for (Long petId: pets.keySet()) {
+        if(petId > maxId) {
+          maxId = petId;
         }
       }
-      pet.setId(maxId + 1);
+      long newId = maxId > Long.MAX_VALUE -1 ? maxId : maxId + 1;
+      pet.setId(newId);
     }
-    if (pets.size() > 0) {
-      for (int i = pets.size() - 1; i >= 0; i--) {
-        if (pets.get(i).getId() == pet.getId()) {
-          pets.remove(i);
-        }
-      }
+    pets.put(pet.getId(), pet);
+    if (pets.size() > MAX_SIZE) {
+      Long id = pets.keySet().iterator().next();
+      pets.remove(id);
     }
-    pets.add(pet);
+
     return pet;
   }
 
   public Map<String, Integer> getInventoryByStatus() {
     Map<String, Integer> output = new HashMap<String, Integer>();
-    for(Pet pet : pets) {
+    for(Pet pet : pets.values()) {
       String status = pet.getStatus();
       if(status != null && !"".equals(status)) {
         Integer count = output.get(status);
