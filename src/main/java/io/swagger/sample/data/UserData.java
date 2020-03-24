@@ -17,6 +17,7 @@
 package io.swagger.sample.data;
 
 import io.swagger.sample.model.User;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -81,12 +82,12 @@ public class UserData {
   }
 
   public boolean removeUser(String username) {
-    if (users.size() > 0) {
-      for (int i = users.size() - 1; i >= 0; i--) {
-        if (users.get(i).getUsername().equals(username)) {
-          users.remove(i);
-          return true;
-        }
+    if (users.isEmpty() || StringUtils.isBlank(username)) {
+      return false;
+    }
+    for (User user : users.values()) {
+      if (username.equals(user.getUsername())) {
+        return users.remove(user.getId()) != null;
       }
     }
     return false;
