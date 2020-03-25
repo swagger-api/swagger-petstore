@@ -19,6 +19,7 @@ package io.swagger.sample.resource;
 import io.swagger.annotations.*;
 import io.swagger.sample.data.PetData;
 import io.swagger.sample.data.StoreData;
+import io.swagger.sample.exception.BadRequestException;
 import io.swagger.sample.model.Order;
 import io.swagger.sample.exception.NotFoundException;
 import io.swagger.util.Json;
@@ -77,7 +78,10 @@ public class PetStoreResource {
   @ApiResponses({ @ApiResponse(code = 400, message = "Invalid Order") })
   public Order placeOrder(
       @ApiParam(value = "order placed for purchasing the pet",
-        required = true) Order order) {
+        required = true) Order order) throws BadRequestException {
+    if (order == null) {
+      throw new BadRequestException(400, "No data");
+    }
     try {
       LOGGER.info("placeOrder ID {} STATUS {}", order.getId(), order.getStatus());
       if (LOGGER.isDebugEnabled()) {

@@ -44,6 +44,9 @@ public class UserResource {
     position = 1, consumes = "application/json")
   public Response createUser(
       @ApiParam(value = "Created user object", required = true) User user) {
+    if (user == null) {
+      return Response.status(405).entity(new io.swagger.sample.model.ApiResponse(405, "no data")).build();
+    }
     try {
       LOGGER.info("createUser ID {} STATUS {}", user.getId(), user.getUsername());
       if (LOGGER.isDebugEnabled()) {
@@ -61,6 +64,9 @@ public class UserResource {
   @ApiOperation(value = "Creates list of users with given input array",
     position = 2, consumes = "application/json")
   public Response createUsersWithArrayInput(@ApiParam(value = "List of user object", required = true) User[] users) {
+    if (users == null) {
+      return Response.status(405).entity(new io.swagger.sample.model.ApiResponse(405, "no data")).build();
+    }
       try {
         LOGGER.info("createUsersWithArrayInput");
         if (LOGGER.isDebugEnabled()) {
@@ -80,6 +86,9 @@ public class UserResource {
   @ApiOperation(value = "Creates list of users with given input array",
     position = 3, consumes = "application/json")
   public Response createUsersWithListInput(@ApiParam(value = "List of user object", required = true) java.util.List<User> users) {
+    if (users == null) {
+      return Response.status(405).entity(new io.swagger.sample.model.ApiResponse(405, "no data")).build();
+    }
       try {
         LOGGER.info("createUsersWithListInput");
         if (LOGGER.isDebugEnabled()) {
@@ -105,6 +114,9 @@ public class UserResource {
   public Response updateUser(
       @ApiParam(value = "name that need to be updated", required = true) @PathParam("username") String username,
       @ApiParam(value = "Updated user object", required = true) User user) {
+    if (user == null) {
+      return Response.status(405).entity(new io.swagger.sample.model.ApiResponse(405, "no data")).build();
+    }
     try {
       LOGGER.info("updateUser ID {} STATUS {}", user.getId(), user.getUsername());
       if (LOGGER.isDebugEnabled()) {

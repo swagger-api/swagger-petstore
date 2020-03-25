@@ -114,6 +114,9 @@ public class PetResource {
   @ApiResponses(value = { @ApiResponse(code = 405, message = "Invalid input") })
   public Response addPet(
       @ApiParam(value = "Pet object that needs to be added to the store", required = true) Pet pet) {
+    if (pet == null) {
+      return Response.status(405).entity(new io.swagger.sample.model.ApiResponse(405, "no data")).build();
+    }
     try {
       LOGGER.info("addPet ID {} STATUS {}", pet.getId(), pet.getStatus());
       if (LOGGER.isDebugEnabled()) {
@@ -134,6 +137,9 @@ public class PetResource {
       @ApiResponse(code = 405, message = "Validation exception") })
   public Response updatePet(
       @ApiParam(value = "Pet object that needs to be added to the store", required = true) Pet pet) {
+    if (pet == null) {
+      return Response.status(405).entity(new io.swagger.sample.model.ApiResponse(405, "no data")).build();
+    }
     try {
       LOGGER.info("updatePet ID {} STATUS {}", pet.getId(), pet.getStatus());
       if (LOGGER.isDebugEnabled()) {
@@ -197,6 +203,6 @@ public class PetResource {
       return Response.ok().entity(new io.swagger.sample.model.ApiResponse(200, String.valueOf(petId))).build();
     }
     else
-      return Response.status(404).build();
+      return Response.status(404).entity(new io.swagger.sample.model.ApiResponse(404, "not found")).build();
   }
 }
