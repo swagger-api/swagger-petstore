@@ -76,7 +76,7 @@ pipeline {
                 sudo service docker start
                 sudo usermod -a -G docker jenkins
                 sudo docker system prune -a -f
-                sudo docker build --no-cache -t ${DOCKERHUBUSERNAME}/petstore3:${version}
+                sudo docker build . --no-cache -t ${DOCKERHUBUSERNAME}/petstore3:${version}
                 sudo docker login --username=${DOCKERHUBUSERNAME} --password ${DOCKERHUBPASSW}
                 sudo docker push ${DOCKERHUBUSERNAME}/petstore3:${version}
                 sudo docker logout
