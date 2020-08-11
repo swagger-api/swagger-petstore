@@ -60,7 +60,10 @@ pipeline {
                 expression { "${params.Action}" == 'build' }
             }
             steps {
-             sh "mvn clean install"  
+             sh """
+             sh +x
+             mvn clean install
+             """  
             }
         }
         
@@ -73,6 +76,7 @@ pipeline {
              script{
                 print ('Building the image')
                 sh """
+                sh +x
                 sudo yum remove docker \
                   docker-client \
                   docker-client-latest \
