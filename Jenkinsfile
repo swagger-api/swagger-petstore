@@ -17,7 +17,7 @@ pipeline {
             DEF_AWS_ACCESS_KEY_ID = credentials('aws_access_key_id')
             DEF_AWS_ACCESS_SECRET_KEY = credentials('aws_access_key')
             AWS_REGION = "${params.Region}"
-            RELEASE_VERSION = "${params.ReleaseVersion}"
+            RELEASE_VERSION = "${params.BuildReleaseVersion}"
             DOCKERHUBUSERNAME = credentials('dockerhub_username')
             DOCKERHUBPASSW = credentials('dockerhub_pw')
     }
