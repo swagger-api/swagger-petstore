@@ -2,9 +2,10 @@ pipeline {
     agent any
 
     parameters {
-       choice(name: 'Action', choices: ['build','deploy'], description: 'build: to build an image and push to dockerhub. deploy: to deploy to k8s')
+       choice(name: 'Action', choices: ['build','deploy'], description: 'build: to build an image and push to dockerhub. deploy: to deploy to ECS service')
        choice(name: 'Region', choices: ['us-east-1'], description: 'AWS REGION')
-       string(name: 'ReleaseVersion', defaultValue:'1', description: 'RELEASE VERSION NUMBER')
+       string(name: 'BuildReleaseVersion', defaultValue:'1', description: 'Update build RELEASE VERSION. N/A for Action: deploy')
+       string(name: 'DeploymentImageVersion', defaultValue:'', description: 'Image version to deploy. N/A for Action: build')
     }
 
     options {
@@ -24,6 +25,9 @@ pipeline {
     stages {
         
 	    stage('Set version') {
+            when {
+                expression { "${params.Action}" == 'build' }
+            }
             steps {
               script {
                 // use 'version' to tag an image before publishing to a docker registry 
@@ -36,6 +40,9 @@ pipeline {
             }
         
         stage('Install aws cli and configure') {
+            when {
+                expression { "${params.Action}" == 'deploy' }
+            }
             steps {
               sh """
               curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" > /dev/null
@@ -49,6 +56,9 @@ pipeline {
         }
 
         stage('Build artifact') {
+            when {
+                expression { "${params.Action}" == 'build' }
+            }
             steps {
              sh "mvn clean install"  
             }
@@ -104,7 +114,7 @@ pipeline {
                 new_task_revision = taskDef['taskDefinition']['revision'].toInteger() + 1
                 writeJSON(file: 'containerDefinitions.json', json: container_definition)
                 sh """
-                sed -i -e 's;${current_image};${DOCKERHUBUSERNAME}/petstore3:${version};g' containerDefinitions.json
+                sed -i -e 's;${current_image};${DOCKERHUBUSERNAME}/petstore3:${params.DeploymentImageVersion};g' containerDefinitions.json
                 echo "NEW TASK DEFINITION(REVISON: ${new_task_revision}"
                 cat containerDefinitions.json
                 echo ""
