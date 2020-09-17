@@ -1,0 +1,23 @@
+{
+  "exclude": [],
+  "formats": {
+    "openapi": {
+      "rootDir": "reference",
+      "include": [
+        "**"
+      ]
+    },
+    "json_schema": {
+      "rootDir": "reference",
+      "include": [
+        "**"
+      ]
+    },
+    "markdown": {
+      "rootDir": "docs"
+    },
+    "image": {
+      "rootDir": "assets/images"
+    }
+  }
+}
