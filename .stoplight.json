@@ -2,13 +2,13 @@
   "exclude": [],
   "formats": {
     "openapi": {
-      "rootDir": "reference",
+      "rootDir": "apis",
       "include": [
         "**"
       ]
     },
     "json_schema": {
-      "rootDir": "src/main/resources",
+      "rootDir": "apis",
       "include": [
         "**"
       ]
