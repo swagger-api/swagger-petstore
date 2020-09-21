@@ -22,6 +22,7 @@ tags: [cool, demo, investigation]
 - [x] PR based commits for web-portal changes
 - [X] Markdown and supporting content creation through web-portal
 - [x] User management and entitlement capabilities (Stoplight and fine-grained through github)
+- [ ] Submodules do not break studio, but resolution of submodules is not supported in studio -- supposedly desktop app plus github CLI works, but not like they think we want. 
 
 ## Project structure table
 
