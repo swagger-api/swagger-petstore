@@ -3,7 +3,7 @@ tags: [cool, demo, investigation]
 ---
 
 # Investigations into Stoplight capabilities
-
+![img](../../assets/images/banner_portal.png)
 
 ## Capabilities:
 
@@ -13,9 +13,12 @@ tags: [cool, demo, investigation]
 - [x] **External publishable docs**
 - [x] github hooks integration
 - [x] inline request demos
-> ```json http
+```json http
 {
   "method": "get",
   "url": "https://todos.stoplight.io/todos"
 }
 ```
+- [x] PR based commits for web-portal changes
+- [X] Markdown and supporting content creation through web-portal
+- [x] User management and entitlement capabilities (Stoplight and fine-grained through github)
