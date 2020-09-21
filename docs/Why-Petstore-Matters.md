@@ -1,8 +1,7 @@
-# Why-Petstore-Matters
+# Project Demo
 
-The beginning of an awesome article...
+This project servces as a demo and playground for the Stoplight api documentation tool.
 
-Here, we can have product driven content which can be contributed to and managed by product team members. 
 
 ## Heading two
 anything to demonstrate page tree
