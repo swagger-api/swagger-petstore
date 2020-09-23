@@ -38,7 +38,7 @@ jobs:
         
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: echo Hello, world! ${{ secrets.STOPLIGHT_CLI }}
       - name: Show repo contents
         run: ls
         
@@ -46,8 +46,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run Stoplight publish
-        run: |
-          npx @stoplight/cli@4 push --ci-token ${{ secrets.STOPLIGHT_CLI }} --url https://topaz.stoplight.io
+        run: npx @stoplight/cli@4 push --ci-token ${{ secrets.STOPLIGHT_CLI }} --url https://topaz.stoplight.io
           
   # This is a basic workflow that is manually triggered
 
