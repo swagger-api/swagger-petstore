@@ -2,7 +2,11 @@
 tags: [cool, demo, investigation]
 ---
 
-# Investigations into Stoplight capabilities
+<!-- theme: info -->
+
+> ### Investigations into Stoplight capabilities
+>
+> A living list of investigated functionalities
 ![img](../../assets/images/banner_portal.png)
 
 ## Capabilities:

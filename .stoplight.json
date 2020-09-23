@@ -16,7 +16,9 @@
     "markdown": {
       "rootDir": "docs",
       "include": [
-        "**"
+        "docs/Investigations/**",
+        "docs/markdown/**",
+        "docs/FAQ/**"
       ]
     },
     "image": {
