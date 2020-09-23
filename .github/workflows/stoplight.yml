@@ -40,7 +40,7 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world! ${{ secrets.STOPLIGHT_CLI }}
       - name: Show repo contents
-        run: ls
+        run: ls ./docs/markdown/
         
         
 
