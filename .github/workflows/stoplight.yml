@@ -28,7 +28,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - uses: srt32/git-actions@v0.0.3
 #       - uses: textbook/git-checkout-submodule-action@master
       - uses: actions/setup-node@v2.1.1
         with:
@@ -40,8 +39,8 @@ jobs:
         run: echo Hello, world! ${{ github.event.inputs.name }}
       - name: Show repo contents
         run: ls ./docs/markdown/
-        id: steps:
       - name: Checkout submodules
+        uses: srt32/git-actions@v0.0.3
         with:
           args: git submodule update --init --recursive
         
