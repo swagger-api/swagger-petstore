@@ -1,0 +1,22 @@
+{
+    "items": [
+        {
+            "type": "divider",
+            "title": "User Guides"
+        },
+        {
+            "type": "item",
+            "title": "A Custom Article Title",
+            "uri": "/docs/Investigations/"
+        },
+        {
+            "type": "divider",
+            "title": "API Documentation"
+        },
+        {
+            "type": "item",
+            "title": "Custom API Title",
+            "uri": "/reference/test.json"
+        }
+    ]
+}
