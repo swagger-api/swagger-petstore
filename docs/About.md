@@ -1,6 +1,6 @@
 <!-- theme: warning -->
 
-> #### 💡 Start building a beautiful home page
+> #### 💡 About IIN Product Name
 >
 > This is a template to give you a head start on building a beautiful landing page for your workspace. You can edit or completely replace this template using [Stoplight Flavoured Markdown](https://meta.stoplight.io/docs/studio/docs/Documentation/03a-stoplight-flavored-markdown.md) from the [workspace settings](../admin/basics). We hope this template helps to get the creative juices flowing.
 
