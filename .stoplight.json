@@ -14,10 +14,16 @@
       ]
     },
     "markdown": {
-      "rootDir": "docs"
+      "rootDir": "docs",
+      "include": [
+        "**"
+      ]
     },
     "image": {
-      "rootDir": "assets/images"
+      "rootDir": "assets/images",
+      "include": [
+        "**"
+      ]
     }
   }
 }
