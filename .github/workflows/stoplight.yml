@@ -7,8 +7,6 @@ name: Stoplight Deploy
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
   workflow_dispatch:
     inputs:
         name:
@@ -38,7 +36,7 @@ jobs:
         
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world! ${{ secrets.STOPLIGHT_CLI }}
+        run: echo Hello, world! ${{ github.event.inputs.name }}
       - name: Show repo contents
         run: ls ./docs/markdown/
         
