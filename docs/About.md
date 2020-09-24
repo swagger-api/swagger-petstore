@@ -6,6 +6,8 @@
 
 # 👋 Welcome to your Stoplight workspace
 
+> Sree, are you there?
+
 #### With Stoplight, you can:
 
 <!-- theme: success -->
