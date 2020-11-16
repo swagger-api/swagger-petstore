@@ -154,8 +154,7 @@ paths:
         - pet
       summary: Finds Pets by tags
       description: >-
-        Multiple tags can be provided with comma separated strings. Use tag1,
-        tag2, tag3 for testing.
+        Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
       operationId: findPetsByTags
       parameters:
         - name: tags
@@ -253,6 +252,7 @@ paths:
             - 'write:pets'
             - 'read:pets'
     delete:
+      x-internal: true
       tags:
         - pet
       summary: Deletes a pet
@@ -372,8 +372,7 @@ paths:
       summary: Find purchase order by ID
       x-swagger-router-controller: OrderController
       description: >-
-        For valid response try integer IDs with value <= 5 or > 10. Other values
-        will generated exceptions
+        For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
       operationId: getOrderById
       parameters:
         - name: orderId
@@ -398,13 +397,13 @@ paths:
         '404':
           description: Order not found
     delete:
+      x-internal: true
       tags:
         - store
       summary: Delete purchase order by ID
       x-swagger-router-controller: OrderController
       description: >-
-        For valid response try integer IDs with value < 1000. Anything above
-        1000 or nonintegers will generate API errors
+        For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
       operationId: deleteOrder
       parameters:
         - name: orderId
@@ -567,7 +566,7 @@ paths:
       parameters:
         - name: username
           in: path
-          description: name that need to be deleted
+          description: name that needs to be updated
           required: true
           schema:
             type: string
@@ -587,6 +586,7 @@ paths:
             schema:
               $ref: '#/components/schemas/User'
     delete:
+      x-internal: true
       tags:
         - user
       summary: Delete user
