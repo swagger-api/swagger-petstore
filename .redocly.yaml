@@ -1,0 +1,17 @@
+# See https://redoc.ly/docs/cli/configuration/ for more information.
+apiDefinitions:
+  main: src/main/resources/openapi.yaml
+lint:
+  extends:
+    - recommended
+  plugins:
+    - './plugins/internal-plugin.js'
+  decorators:
+    internal/remove-internal-operations: error
+
+# referenceDocs:
+#   htmlTemplate: ./docs/index.html
+#   theme:
+#     colors:
+#       primary:
+#         main: "#32329f"
