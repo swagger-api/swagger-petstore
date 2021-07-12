@@ -33,7 +33,7 @@ tags:
       description: Find out more about our store
       url: 'http://swagger.io'
 paths:
-  /pet:
+  /pets:
     post:
       tags:
         - pet
@@ -108,7 +108,7 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/Pet'
-  /pet/findByStatus:
+  /pets/findByStatus:
     get:
       tags:
         - pet
@@ -148,7 +148,7 @@ paths:
         - petstore_auth:
             - 'write:pets'
             - 'read:pets'
-  /pet/findByTags:
+  /pets/findByTags:
     get:
       tags:
         - pet
@@ -187,7 +187,7 @@ paths:
         - petstore_auth:
             - 'write:pets'
             - 'read:pets'
-  '/pet/{petId}':
+  '/pets/{petId}':
     get:
       tags:
         - pet
@@ -279,7 +279,7 @@ paths:
         - petstore_auth:
             - 'write:pets'
             - 'read:pets'
-  '/pet/{petId}/uploadImage':
+  '/pets/{petId}/uploadImage':
     post:
       tags:
         - pet
@@ -365,7 +365,7 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/Order'
-  '/store/order/{orderId}':
+  '/store/orders/{orderId}':
     get:
       tags:
         - store
@@ -419,7 +419,7 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Order not found
-  /user:
+  /users:
     post:
       tags:
         - user
@@ -448,7 +448,7 @@ paths:
             schema:
               $ref: '#/components/schemas/User'
         description: Created user object
-  /user/createWithList:
+  /users/createWithList:
     post:
       tags:
         - user
@@ -529,7 +529,7 @@ paths:
       responses:
         default:
           description: successful operation
-  '/user/{username}':
+  '/users/{username}':
     get:
       tags:
         - user
