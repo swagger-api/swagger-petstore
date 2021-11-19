@@ -39,7 +39,7 @@ paths:
         - pet
       summary: Add a new pet to the store updated via stoplight.io
       description: Add a new pet to the store
-      operationId: addPet
+      operationId: addPetFoo
       responses:
         '200':
           description: Successful operation
