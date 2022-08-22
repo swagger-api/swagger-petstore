@@ -11,7 +11,7 @@ info:
     Some useful links:
     - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
     - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
-  version: 1.0.6-SNAPSHOT
+  version: 1.0.15
   title: Swagger Petstore - OpenAPI 3.0
   termsOfService: 'http://swagger.io/terms/'
   contact:
@@ -26,12 +26,12 @@ tags:
       description: Find out more
       url: 'http://swagger.io'
   - name: store
-    description: Operations about user
-  - name: user
     description: Access to Petstore orders
     externalDocs:
       description: Find out more about our store
       url: 'http://swagger.io'
+  - name: user
+    description: Operations about user
 paths:
   /pet:
     post:
@@ -373,7 +373,7 @@ paths:
       x-swagger-router-controller: OrderController
       description: >-
         For valid response try integer IDs with value <= 5 or > 10. Other values
-        will generated exceptions
+        will generate exceptions.
       operationId: getOrderById
       parameters:
         - name: orderId
@@ -505,7 +505,7 @@ paths:
                 type: integer
                 format: int32
             X-Expires-After:
-              description: date in UTC when toekn expires
+              description: date in UTC when token expires
               schema:
                 type: string
                 format: date-time
