@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: swagger-petstore
+  annotations:
+    github.com/project-slug: scaganoff/swagger-petstore
+spec:
+  type: other
+  lifecycle: unknown
+  owner: guests
