@@ -567,7 +567,7 @@ paths:
       parameters:
         - name: username
           in: path
-          description: name that need to be deleted
+          description: name that needs to be updated
           required: true
           schema:
             type: string
