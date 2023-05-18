@@ -63,12 +63,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Pet'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Pet'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Pet'
+         
     put:
       tags:
         - pet
@@ -79,9 +74,6 @@ paths:
         '200':
           description: Successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
             application/json:
               schema:
                 $ref: '#/components/schemas/Pet'
@@ -102,12 +94,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Pet'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Pet'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Pet'
+       
   /pet/findByStatus:
     get:
       tags:
@@ -132,11 +119,6 @@ paths:
         '200':
           description: successful operation
           content:
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
             application/json:
               schema:
                 type: array
@@ -171,11 +153,6 @@ paths:
         '200':
           description: successful operation
           content:
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
             application/json:
               schema:
                 type: array
@@ -206,9 +183,6 @@ paths:
         '200':
           description: successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
             application/json:
               schema:
                 $ref: '#/components/schemas/Pet'
@@ -359,12 +333,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Order'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Order'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Order'
+        
+          
   '/store/order/{orderId}':
     get:
       tags:
@@ -387,9 +357,6 @@ paths:
         '200':
           description: successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Order'
             application/json:
               schema:
                 $ref: '#/components/schemas/Order'
@@ -433,18 +400,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
       requestBody:
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/User'
         description: Created user object
@@ -460,9 +418,6 @@ paths:
         '200':
           description: Successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
@@ -510,9 +465,6 @@ paths:
                 type: string
                 format: date-time
           content:
-            application/xml:
-              schema:
-                type: string
             application/json:
               schema:
                 type: string
@@ -547,9 +499,6 @@ paths:
         '200':
           description: successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
@@ -580,12 +529,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/User'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/User'
+       
     delete:
       tags:
         - user
@@ -637,9 +581,6 @@ components:
           example: approved
         complete:
           type: boolean
-      xml:
-        name: order
-      type: object
     Customer:
       properties:
         id:
@@ -653,12 +594,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Address'
-          xml:
-            wrapped: true
-            name: addresses
-      xml:
-        name: customer
-      type: object
     Address:
       properties:
         street:
@@ -673,9 +608,6 @@ components:
         zip:
           type: string
           example: 94301
-      xml:
-        name: address
-      type: object
     Category:
       x-swagger-router-model: io.swagger.petstore.model.Category
       properties:
@@ -686,9 +618,6 @@ components:
         name:
           type: string
           example: Dogs
-      xml:
-        name: category
-      type: object
     User:
       x-swagger-router-model: io.swagger.petstore.model.User
       properties:
@@ -719,9 +648,6 @@ components:
           format: int32
           example: 1
           description: User Status
-      xml:
-        name: user
-      type: object
     Tag:
       x-swagger-router-model: io.swagger.petstore.model.Tag
       properties:
@@ -730,9 +656,6 @@ components:
           format: int64
         name:
           type: string
-      xml:
-        name: tag
-      type: object
     Pet:
       x-swagger-router-model: io.swagger.petstore.model.Pet
       required:
@@ -790,9 +713,6 @@ components:
     Pet:
       content:
         application/json:
-          schema:
-            $ref: '#/components/schemas/Pet'
-        application/xml:
           schema:
             $ref: '#/components/schemas/Pet'
       description: Pet object that needs to be added to the store
