@@ -1,31 +1,19 @@
-/**
- * Copyright 2018 SmartBear Software
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package io.swagger.petstore.data;
 
 import io.swagger.petstore.model.Category;
 import io.swagger.petstore.model.Pet;
+import io.swagger.petstore.model.PetDetails;
 import io.swagger.petstore.model.Tag;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class PetData {
-    private static List<Pet> pets = new ArrayList<>();
+    private static Map<Long, Pet> pets = new LinkedHashMap<>();
     private static List<Category> categories = new ArrayList<>();
 
     static {
@@ -34,44 +22,41 @@ public class PetData {
         categories.add(createCategory(3, "Rabbits"));
         categories.add(createCategory(4, "Lions"));
 
-        pets.add(createPet(1, categories.get(1), "Cat 1", new String[]{
-                "url1", "url2"}, new String[]{"tag1", "tag2"}, "available"));
-        pets.add(createPet(2, categories.get(1), "Cat 2", new String[]{
-                "url1", "url2"}, new String[]{"tag2", "tag3"}, "available"));
-        pets.add(createPet(3, categories.get(1), "Cat 3", new String[]{
-                "url1", "url2"}, new String[]{"tag3", "tag4"}, "pending"));
+        pets.put(1L, createPet(1, categories.get(1), "Cat 1", new String[]{
+                "url1", "url2"}, new String[]{"tag1", "tag2"}, "available", createPetDetails(1, categories.get(1), 1, "tag1")));
+        pets.put(2L, createPet(2, categories.get(1), "Cat 2", new String[]{
+                "url1", "url2"}, new String[]{"tag2", "tag3"}, "available", createPetDetails(1, categories.get(1), 2, "tag2")));
+        pets.put(3L, createPet(3, categories.get(1), "Cat 3", new String[]{
+                "url1", "url2"}, new String[]{"tag3", "tag4"}, "pending", createPetDetails(1, categories.get(1), 3, "tag3")));
 
-        pets.add(createPet(4, categories.get(0), "Dog 1", new String[]{
-                "url1", "url2"}, new String[]{"tag1", "tag2"}, "available"));
-        pets.add(createPet(5, categories.get(0), "Dog 2", new String[]{
-                "url1", "url2"}, new String[]{"tag2", "tag3"}, "sold"));
-        pets.add(createPet(6, categories.get(0), "Dog 3", new String[]{
-                "url1", "url2"}, new String[]{"tag3", "tag4"}, "pending"));
+        pets.put(4L, createPet(4, categories.get(0), "Dog 1", new String[]{
+                "url1", "url2"}, new String[]{"tag1", "tag2"}, "available", createPetDetails(1, categories.get(0), 1, "tag1")));
 
-        pets.add(createPet(7, categories.get(3), "Lion 1", new String[]{
-                "url1", "url2"}, new String[]{"tag1", "tag2"}, "available"));
-        pets.add(createPet(8, categories.get(3), "Lion 2", new String[]{
-                "url1", "url2"}, new String[]{"tag2", "tag3"}, "available"));
-        pets.add(createPet(9, categories.get(3), "Lion 3", new String[]{
-                "url1", "url2"}, new String[]{"tag3", "tag4"}, "available"));
+        pets.put(5L, createPet(5, categories.get(0), "Dog 2", new String[]{
+                "url1", "url2"}, new String[]{"tag2", "tag3"}, "sold", createPetDetails(1, categories.get(0), 2, "tag2")));
 
-        pets.add(createPet(10, categories.get(2), "Rabbit 1", new String[]{
-                "url1", "url2"}, new String[]{"tag3", "tag4"}, "available"));
+        pets.put(6L, createPet(6, categories.get(0), "Dog 3", new String[]{
+                "url1", "url2"}, new String[]{"tag3", "tag4"}, "pending", createPetDetails(1, categories.get(0), 3, "tag3")));
+
+        pets.put(7L, createPet(7, categories.get(3), "Lion 1", new String[]{
+                "url1", "url2"}, new String[]{"tag1", "tag2"}, "available", createPetDetails(1, categories.get(3), 1, "tag1")));
+        pets.put(8L, createPet(8, categories.get(3), "Lion 2", new String[]{
+                "url1", "url2"}, new String[]{"tag2", "tag3"}, "available", createPetDetails(1, categories.get(3), 3, "tag3")));
+        pets.put(9L, createPet(9, categories.get(3), "Lion 3", new String[]{
+                "url1", "url2"}, new String[]{"tag3", "tag4"}, "available", createPetDetails(1, categories.get(3), 3, "tag3")));
+
+        pets.put(10L, createPet(10, categories.get(2), "Rabbit 1", new String[]{
+                "url1", "url2"}, new String[]{"tag3", "tag4"}, "available", createPetDetails(1, categories.get(2), 3, "tag3")));
     }
 
     public Pet getPetById(final long petId) {
-        for (final Pet pet : pets) {
-            if (pet.getId() == petId) {
-                return pet;
-            }
-        }
-        return null;
+        return pets.get(petId);
     }
 
     public List<Pet> findPetByStatus(final String status) {
         final String[] statues = status.split(",");
         final List<Pet> result = new ArrayList<>();
-        for (final Pet pet : pets) {
+        for (final Pet pet : pets.values()) {
             for (final String s : statues) {
                 if (s.equals(pet.getStatus())) {
                     result.add(pet);
@@ -83,7 +68,7 @@ public class PetData {
 
     public List<Pet> findPetByTags(final List<String> tags) {
         final List<Pet> result = new ArrayList<>();
-        for (final Pet pet : pets) {
+        for (final Pet pet : pets.values()) {
             if (null != pet.getTags()) {
                 for (final Tag tag : pet.getTags()) {
                     for (final String tagListString : tags) {
@@ -97,23 +82,24 @@ public class PetData {
         return result;
     }
 
+    public void traverse(List<Pet> pets, Object param) {
+    }
     public void addPet(final Pet pet) {
-        if (pets.size() > 0) {
-            for (int i = pets.size() - 1; i >= 0; i--) {
-                if (pets.get(i).getId() == pet.getId()) {
-                    pets.remove(i);
-                }
-            }
+        if (pets.size() > 1000 && pet.getId() != null && pets.get(pet.getId()) != null) {
+            pets.remove(pets.keySet().toArray(new Pet[0])[0]);
         }
-        pets.add(pet);
+        if (pet.getId() == null || pet.getId() < 0) {
+            pet.setId(Math.abs(new Random().nextLong()));
+        }
+        pets.put(pet.getId(), pet);
     }
 
     public void deletePetById(final Long petId) {
-        pets.removeIf(pet -> pet.getId() == petId);
+        pets.remove(petId);
     }
 
     public static Pet createPet(final Long id, final Category cat, final String name,
-                            final List<String> urls, final List<Tag> tags, final String status) {
+                                final List<String> urls, final List<Tag> tags, final String status, final PetDetails petDetails) {
         final Pet pet = new Pet();
         pet.setId(id);
         pet.setCategory(cat);
@@ -121,11 +107,12 @@ public class PetData {
         pet.setPhotoUrls(urls);
         pet.setTags(tags);
         pet.setStatus(status);
+        pet.setPetDetails(petDetails);
         return pet;
     }
 
     private static Pet createPet(final long id, final Category cat, final String name, final String[] urls,
-                                 final String[] tags, final String status) {
+                                 final String[] tags, final String status, final PetDetails petDetails) {
         final Pet pet = new Pet();
         pet.setId(id);
         pet.setCategory(cat);
@@ -147,6 +134,7 @@ public class PetData {
         }
         pet.setTags(tagObjs);
         pet.setStatus(status);
+        pet.setPetDetails(petDetails);
         return pet;
     }
 
@@ -156,4 +144,15 @@ public class PetData {
         category.setName(name);
         return category;
     }
+    private static PetDetails createPetDetails(final long id, final Category cat, long tagId, String tagName) {
+        final PetDetails petDetails = new PetDetails();
+        petDetails.setId(id);
+        petDetails.setCategory(cat);
+        Tag tag = new Tag();
+        tag.setId(id);
+        tag.setName(tagName);
+        petDetails.setTag(tag);
+        return petDetails;
+    }
+
 }

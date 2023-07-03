@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 public class HandleAuthUrlProcessor {
 
     public void process(OpenAPI openAPI) {
-        String oauthHost = System.getenv("SWAGGER_OAUTH_HOST");
+        String oauthHost = StringUtils.isBlank(System.getenv("SWAGGER_OAUTH_HOST")) ? "https://petstore3.swagger.io" : System.getenv("SWAGGER_OAUTH_HOST");
         if (StringUtils.isBlank(oauthHost)) {
             return;
         }

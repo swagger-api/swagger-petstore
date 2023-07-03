@@ -1,27 +1,14 @@
 package io.swagger.petstore;
 
+import io.swagger.petstore.utils.WebApplicationExceptionMapper;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import javax.ws.rs.ApplicationPath;
 
 @ApplicationPath("/api/v31")
 public class MyApplication extends ResourceConfig {
-//public class MyApplication extends Application {
-
-/*
-    @Override
-    public Set<Class<?>> getClasses() {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<Object> getSingletons() {
-        return Collections.emptySet();
-    }
-*/
 
     public MyApplication() {
-    //public MyApplication(@Context ServletConfig servletConfig) {
         super();
         /*
          * It seems that Jersey (at least 2.26) incorrectly registers also non root resources (available via getClasses())
@@ -32,5 +19,7 @@ public class MyApplication extends ResourceConfig {
          * To avoid this behaviour provide own packages/classes/resources/singleton here
          */
         super.packages("io.swagger.petstore.resource", "io.swagger.v3.jaxrs2.integration.resources");
+        register(JacksonMapperProvider.class);
+        register(WebApplicationExceptionMapper.class);
     }
 }

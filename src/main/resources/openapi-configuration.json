@@ -5,6 +5,7 @@
     "prettyPrint" : true,
     "cacheTTL": 0,
     "openAPI31": true,
+    "skipResolveAppPath": true,
     "openAPI": {
         "info": {
             "version": "1.0",
