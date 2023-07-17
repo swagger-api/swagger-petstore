@@ -214,6 +214,7 @@
   "components" : {
     "schemas" : {
       "Category" : {
+        "$id" : "/components/schemas/category",
         "description" : "Category",
         "properties" : {
           "id" : {
@@ -307,11 +308,11 @@
             "example" : 10
           },
           "category" : {
-            "$ref" : "/#/components/schemas/Category",
+            "$ref" : "/components/schemas/category",
             "description" : "PetDetails Category"
           },
           "tag" : {
-            "$ref" : "/#/components/schemas/Tag"
+            "$ref" : "/components/schemas/tag"
           }
         },
         "xml" : {
@@ -319,6 +320,7 @@
         }
       },
       "Tag" : {
+        "$id" : "/components/schemas/tag",
         "properties" : {
           "id" : {
             "type" : "integer",

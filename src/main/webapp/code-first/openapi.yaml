@@ -169,6 +169,7 @@ paths:
 components:
   schemas:
     Category:
+      $id: /components/schemas/category
       description: Category
       properties:
         id:
@@ -244,13 +245,14 @@ components:
           $anchor: pet_details_id
           example: 10
         category:
-          $ref: /#/components/schemas/Category
+          $ref: /components/schemas/category
           description: PetDetails Category
         tag:
-          $ref: /#/components/schemas/Tag
+          $ref: /components/schemas/tag
       xml:
         name: PetDetails
     Tag:
+      $id: /components/schemas/tag
       properties:
         id:
           type: integer

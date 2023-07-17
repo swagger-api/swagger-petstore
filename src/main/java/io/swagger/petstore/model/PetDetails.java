@@ -32,7 +32,7 @@ public class PetDetails {
         this.id = id;
     }
 
-    @Schema(description = "PetDetails Category", ref = "/#/components/schemas/Category")
+    @Schema(description = "PetDetails Category", ref = "/components/schemas/category")
     public Category getCategory() {
         return category;
     }
@@ -41,7 +41,7 @@ public class PetDetails {
         this.category = category;
     }
 
-    @Schema(ref = "/#/components/schemas/Tag")
+    @Schema(ref = "/components/schemas/tag")
     public Tag getTag() {
         return tag;
     }
