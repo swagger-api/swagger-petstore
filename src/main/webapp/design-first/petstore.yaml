@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0 AND (MIT OR GPL-2.0-only)
     identifier: Apache-2.0 AND (MIT OR GPL-2.0-only)
-  version: 1.0
+  version: 1.0.2
   x-namespace: Swagger
 externalDocs:
   description: Find out more about Swagger
@@ -287,7 +287,7 @@ paths:
 components:
   schemas:
     Category:
-      type: object
+      $id: /components/schemas/category
       description: Category
       properties:
         id:
@@ -298,8 +298,9 @@ components:
           type: string
           example: Dogs
       xml:
-        name: category
+        name: Category
     Tag:
+      $id: /components/schemas/tag
       type: object
       properties:
         id:
@@ -373,9 +374,9 @@ components:
           example: 10
           $anchor: pet_details_id
         tag:
-          $ref: '/#/components/schemas/Tag'
+          $ref: '/components/schemas/tag'
         category:
-          $ref: '/#/components/schemas/Category'
+          $ref: '/components/schemas/category'
           description: PetDetails Category
     ApiResponse:
       type: object
