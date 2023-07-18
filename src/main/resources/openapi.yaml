@@ -640,25 +640,6 @@ components:
       xml:
         name: order
       type: object
-    Customer:
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 100000
-        username:
-          type: string
-          example: fehguy
-        address:
-          type: array
-          items:
-            $ref: '#/components/schemas/Address'
-          xml:
-            wrapped: true
-            name: addresses
-      xml:
-        name: customer
-      type: object
     Address:
       properties:
         street:
