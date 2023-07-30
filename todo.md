@@ -1,5 +1,5 @@
 ## 06-26-2023
-[x] remove zip file build from POM.file. Use ChatGPT for help 
+[x] remove zip file build from POM.file.
 [x] az acr build
 
 
