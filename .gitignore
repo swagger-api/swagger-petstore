@@ -15,4 +15,5 @@ atlassian-ide-plugin.xml
 .env
 # ignore .vscode folder
 .vscode/
+compose.log
 ```
