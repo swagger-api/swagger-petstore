@@ -10,3 +10,6 @@ target
 atlassian-ide-plugin.xml
 *.iml
 .java-version
+.DS_Store
+.env
+```

@@ -17,10 +17,10 @@ FROM eclipse-temurin:11-jre-alpine
 
 WORKDIR /swagger-petstore
 
-COPY FROM:build/target/lib/jetty-runner.jar /swagger-petstore/jetty-runner.jar
-COPY target/*.war /swagger-petstore/server.war
-COPY src/main/resources/openapi.yaml /swagger-petstore/openapi.yaml
-COPY inflector.yaml /swagger-petstore/
+COPY --chown=1001:0 --from=build  /home/app/target/lib/jetty-runner.jar /swagger-petstore/jetty-runner.jar
+COPY --chown=1001:0 --from=build /home/app/target/*.war /swagger-petstore/server.war
+COPY --chown=1001:0 src/main/resources/openapi.yaml /swagger-petstore/openapi.yaml
+COPY --chown=1001:0 inflector.yaml /swagger-petstore/
 
 EXPOSE 8080
 

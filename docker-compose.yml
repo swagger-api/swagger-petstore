@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
 
-  tdpcbmqpreader:
+  Petstore:
     env_file:
       - .env
     image: ${registryserver}/${repository}:${imagetag}
