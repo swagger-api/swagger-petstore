@@ -13,5 +13,6 @@ atlassian-ide-plugin.xml
 .DS_Store
 # ignore .env file
 .env
-.vscode
+# ignore .vscode folder
+.vscode/
 ```
