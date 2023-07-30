@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+
+  tdpcbmqpreader:
+    env_file:
+      - .env
+    image: ${registryserver}/${repository}:${imagetag}
+    build:
+      context: .
+      args:
+        - ENVIRONMENT=${ENVIRONMENT}
+      dockerfile: Dockerfile
+      no_cache: true
+    restart: always
+    ports:
+      - ${httpport}:8080
+      - ${httpsport}:8443
+    environment:
+      app.http.port: ${apphttpport}
+      app.https.port: ${apphttpsport}
+      app.name: ${appname}
+      app.version: ${appversion}

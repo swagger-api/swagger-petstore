@@ -215,7 +215,7 @@
         <maven-plugin-version>1.0.0</maven-plugin-version>
         <swagger-parser-version>2.0.27</swagger-parser-version>
         <swagger-core-version>2.1.10</swagger-core-version>
-        <jackson-version>2.12.1</jackson-version>
+        <jackson-version>2.15.2</jackson-version>
         <swagger-inflector-version>2.0.5</swagger-inflector-version>
         <jetty-version>9.4.9.v20180320</jetty-version>
         <logback-version>1.0.1</logback-version>
