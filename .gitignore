@@ -11,5 +11,6 @@ atlassian-ide-plugin.xml
 *.iml
 .java-version
 .DS_Store
+# ignore .env file
 .env
 ```
