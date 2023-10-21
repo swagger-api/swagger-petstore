@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0 AND (MIT OR GPL-2.0-only)
     identifier: Apache-2.0 AND (MIT OR GPL-2.0-only)
-  version: 1.0.2
+  version: 1.0.3
   x-namespace: Swagger
 externalDocs:
   description: Find out more about Swagger
