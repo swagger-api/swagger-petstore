@@ -23,6 +23,7 @@ import io.swagger.petstore.model.User;
 import io.swagger.petstore.utils.Util;
 import org.apache.commons.lang.math.RandomUtils;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Date;
 
@@ -103,7 +104,7 @@ public class UserController {
     public ResponseContext loginUser(final RequestContext request, final String username, final String password) {
         Date date = new Date(System.currentTimeMillis() + 3600000);
         return new ResponseContext()
-                .contentType(Util.getMediaType(request))
+                .contentType(MediaType.TEXT_PLAIN)
                 .header("X-Rate-Limit", String.valueOf(5000))
                 .header("X-Expires-After", date.toString())
                 .entity("Logged in user session: " + RandomUtils.nextLong());
@@ -111,9 +112,8 @@ public class UserController {
 
     public ResponseContext logoutUser(final RequestContext request) {
         return new ResponseContext()
-                .contentType(Util.getMediaType(request))
+                .contentType(MediaType.TEXT_PLAIN)
                 .entity("User logged out");
-
     }
 
     public ResponseContext deleteUser(final RequestContext request, final String username) {
