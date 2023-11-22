@@ -273,6 +273,8 @@ paths:
             type: integer
             format: int64
       responses:
+        '200':
+          description: Successful operation
         '400':
           description: Invalid pet value
       security:
@@ -415,6 +417,8 @@ paths:
             type: integer
             format: int64
       responses:
+        '200':
+          description: Successful operation
         '400':
           description: Invalid ID supplied
         '404':
