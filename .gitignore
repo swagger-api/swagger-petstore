@@ -16,4 +16,6 @@ atlassian-ide-plugin.xml
 # ignore .vscode folder
 .vscode/
 compose.log
+svcprincipal_create.md
+draft.md
 ```
