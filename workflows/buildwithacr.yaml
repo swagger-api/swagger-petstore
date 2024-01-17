@@ -16,4 +16,3 @@
           run: docker build . -t ${{ secrets.REGISTRY_NAME }}.azurecr.io/${{ github.repository }}:latest
         - name: Push docker image
           run: docker push ${{ secrets.REGISTRY_NAME }}.azurecr.io/${{ github.repository }}:latest
-

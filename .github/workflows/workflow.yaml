@@ -10,6 +10,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@master
       - name: Azure login
         uses: azure/login@v1
         with:
@@ -23,3 +25,15 @@ jobs:
           azcliversion: latest
           inlineScript: |
             az account show
+      - name: Login to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_NAME }}.azurecr.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and push
+        uses: azure/docker-build-push@v1
+        with:
+          azure-container-registry: ${{ secrets.REGISTRY_NAME }}
+          image: ${{ secrets.REGISTRY_NAME }}.azurecr.io/azure-login-oidc
+          include-tags: true
