@@ -1,39 +1,35 @@
 # File: .github/workflows/workflow.yml
-
-name: Run Azure Login with OIDC
+ 
 on: [push]
-
-permissions:
-      id-token: write
-      contents: read
-jobs: 
+ 
+name: Run Azure Login With a Service Principal Secret
+ 
+jobs:
+ 
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Azure login
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  
-      - name: Azure CLI script
-        uses: azure/CLI@v1
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az account show
-      - name: Login to Azure Container Registry
-        uses: azure/docker-login@v1
-        with:
-          login-server: ${{ secrets.REGISTRY_NAME }}.azurecr.io
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-      - name: Build and push
-        uses: azure/docker-build-push@v1
-        with:
-          azure-container-registry: ${{ secrets.REGISTRY_NAME }}
-          image: ${{ secrets.REGISTRY_NAME }}.azurecr.io/azure-login-oidc
-          include-tags: true
+    - name: downcase REPO
+      run: |
+        echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+    - name: use REPO
+      run: |
+        echo "The value of REPO is: ${REPO}"
+ 
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Login to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.REGISTRY_NAME }}.azurecr.io
+        username: $(az acr credential show -n ${{ secrets.REGISTRY_NAME }} --query username -o tsv)
+        password: $(az acr credential show -n ${{ secrets.REGISTRY_NAME }} --query "passwords[0].value" -o tsv)
+    - name: List Directory
+      run: |
+       pwd
+       ls -la
+    - name: Build docker image
+      run: docker build . -t ${{ secrets.REGISTRY_NAME }}.azurecr.io/${REPO}-test:latest
+    - name: Push docker image
+      run: docker push ${{ secrets.REGISTRY_NAME }}.azurecr.io/${REPO}-test:latest

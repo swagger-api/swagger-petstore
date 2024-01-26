@@ -10,8 +10,8 @@
           uses: azure/docker-login@v1
           with:
             login-server: ${{ secrets.REGISTRY_NAME }}.azurecr.io
-            username: ${{ secrets.REGISTRY_USERNAME }}
-            password: ${{ secrets.REGISTRY_PASSWORD }}
+            username: $(az acr credential show -n $azureacr --query username -o tsv)${{ secrets.REGISTRY_USERNAME }}
+            password: $(az acr credential show -n $containerRegistryName --query "passwords[0].value" -o tsv)
         - name: Build docker image
           run: docker build . -t ${{ secrets.REGISTRY_NAME }}.azurecr.io/${{ github.repository }}:latest
         - name: Push docker image
