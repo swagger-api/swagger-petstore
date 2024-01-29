@@ -18,4 +18,5 @@ atlassian-ide-plugin.xml
 compose.log
 svcprincipal_create.md
 draft.md
+creds.json
 ```
