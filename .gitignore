@@ -12,7 +12,7 @@ atlassian-ide-plugin.xml
 .java-version
 .DS_Store
 # ignore .env file
-.env
+# .env
 # ignore .vscode folder
 .vscode/
 compose.log
