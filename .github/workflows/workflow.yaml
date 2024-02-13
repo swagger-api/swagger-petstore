@@ -54,4 +54,4 @@ jobs:
     - name: Deploy Azure Container App
       shell: pwsh
       run: |
-        deploy_infra.ps1
+        ./deploy_infra.ps1
