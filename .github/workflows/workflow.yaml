@@ -8,16 +8,17 @@ permissions:
   contents: read
 env:
   resourceGroupName: 'myResourceGroup'
+  branch: 'buildtoacr_01082024'
  
 jobs:
  
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    # - name: Checkout
-    #   uses: actions/checkout@v4
-      # with: 
-      #   ref: ${{ env.branch}}
+    - name: Checkout
+      uses: actions/checkout@v4
+      with: 
+        ref: ${{ env.branch}}
     # - name: Login to Azure Container Registry
     #   uses: Azure/docker-login@v1
     #   with:
