@@ -30,7 +30,7 @@ jobs:
 
     - name: Build the Docker image
       run:         
-        docker build . --file WebApp.Dockerfile --tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
+        docker build . --file Dockerfile --tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
         docker tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
         docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
         docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
