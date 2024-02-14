@@ -7,9 +7,9 @@ permissions:
   id-token: write
   contents: read
 env:
-  TestMessage: "Hello from Environment"
   resourceGroupName: 'myResourceGroup'
   branch: 'buildtoacr_01082024'
+  subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
  
 jobs:
  
@@ -20,22 +20,22 @@ jobs:
       uses: actions/checkout@v4
       with: 
         ref: ${{ env.branch}}
-    # - name: Login to Azure Container Registry
-    #   uses: Azure/docker-login@v1
-    #   with:
-    #     # Container registry username
-    #     username: ${{ secrets.ACR_USERNAME }}
-    #     # Container registry password
-    #     password: ${{ secrets.ACR_PASSWORD }}
-    #     # Container registry server url
-    #     login-server: ${{ secrets.ACRNAME }}.azurecr.io
+    - name: Login to Azure Container Registry
+      uses: Azure/docker-login@v1
+      with:
+        # Container registry username
+        username: ${{ secrets.ACR_USERNAME }}
+        # Container registry password
+        password: ${{ secrets.ACR_PASSWORD }}
+        # Container registry server url
+        login-server: ${{ secrets.ACRNAME }}.azurecr.io
 
-    # - name: Build the Docker image
-    #   run:         
-    #     docker build . --file Dockerfile --tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
-    #     docker tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
-    #     docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
-    #     docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
+    - name: Build the Docker image
+      run:         
+        docker build . --file Dockerfile --tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
+        docker tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
+        docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
+        docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
 
     # Add id token and contents to the permissions
     - name: Azure login

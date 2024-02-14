@@ -8,7 +8,7 @@ param(
     # get createResourceGroup from parameters
     [string]$createResourceGroup=$envParameters.createResourceGroup,
     
-    [string]$subscriptionId=$envParameters.subscriptionId,
+    [string]$subscriptionId=$env:subscriptionId,
 
     # get resource group name from parameters
     # if createResourceGroup is false, use the resource group name from parameters else
@@ -23,6 +23,7 @@ param(
     [string]$repository=$envParameters.repository,
     [string]$imagetag=$envParameters.deploymentImageTag,
     # Container image in the format of <container registry>/<image name>:<image tag>
+    #TODO: use the registry server from the parameters
     [string]$containerImage="$($registryserver)/$($repository):$($imagetag)",
         
     #Azure Container Environment Related values
@@ -64,7 +65,7 @@ if ($createResourceGroup -eq "true") {
 }
 Write-Host "Resource Group Name: $resourceGroupName"
 # Test message
-Write-Host "****** TestMassage: $env:TestMessage ******"
+# Write-Host "****** TestMassage: $env:TestMessage ******"
 # Image configuration
 Write-Host "****** Image configuration ******"
 Write-Host "Registry Server: $registryserver"
