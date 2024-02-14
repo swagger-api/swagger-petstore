@@ -132,7 +132,7 @@ resource storage 'Microsoft.App/managedEnvironments/storages@2022-11-01-preview'
 }
 }
 
-resource containerApp 'Microsoft.App/containerApps@2022-06-01-preview' = {
+resource containerApp 'Microsoft.App/containerApps@2023-05-01'= {
   name: containerAppName
   location: location
   properties: {

@@ -7,9 +7,9 @@ permissions:
   id-token: write
   contents: read
 env:
-  resourceGroupName: 'myResourceGroup'
   branch: 'buildtoacr_01082024'
   subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest
  
 jobs:
  
@@ -31,11 +31,12 @@ jobs:
         login-server: ${{ secrets.ACRNAME }}.azurecr.io
 
     - name: Build the Docker image
-      run:         
-        docker build . --file Dockerfile --tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
-        docker tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
-        docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
-        docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
+      run:  
+        az acr build --registry ${{secrets.ACRNAME}} --image swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER --file Dockerfile .
+        # docker build . --file Dockerfile --tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
+        # docker tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
+        # docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
+        # docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
 
     # Add id token and contents to the permissions
     - name: Azure login
@@ -44,15 +45,7 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        # enable-AzPSSession: 
-    # # Deploy azure resource using bicep
-    # - uses: azure@arm-deploy@v1
-    #   with:
-    #     scope: 'resource-group'
-    #     deployment-name: ${{github.run_id}}
-    #     resource-group: 'myResourceGroup'
-    #     template: ./infra/main.bicep
-    #     deployment-mode: 'Incremental'
+  
     - name: Deploy Azure Container App
       shell: pwsh
       run: |

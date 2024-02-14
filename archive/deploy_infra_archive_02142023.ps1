@@ -19,7 +19,13 @@ param(
     [string]$containerRegistryName=$envParameters.containerRegistryName,
 
     # Image configuration
-    # Get Container image from github workflow environment
+    # [string]$registryserver=$envParameters.registryserver,
+    # [string]$repository=$envParameters.repository,
+    # [string]$imagetag=$envParameters.deploymentImageTag,
+    # Container image in the format of <container registry>/<image name>:<image tag>
+    # [string]$containerImage="$($registryserver)/$($repository):$($imagetag)",
+    
+    # New: Get Container image from github workflow environment
     [string]$containerImage=$env:registryserver,
 
     #Azure Container Environment Related values
