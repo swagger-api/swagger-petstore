@@ -10,6 +10,8 @@ env:
   branch: 'buildtoacr_01082024'
   subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   containerImage: ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest
+  containerRegistryName: ${{secrets.ACRNAME}}
+  registryserver: ${{secrets.ACRNAME}}.azurecr.io
  
 jobs:
  

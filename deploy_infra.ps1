@@ -16,11 +16,12 @@ param(
     [string]$resourceGroupName=$(if ($createResourceGroup -eq "false") {
       $envParameters.resourceGroup} else {
         "$name-rg"}), 
-    [string]$containerRegistryName=$envParameters.containerRegistryName,
+    [string]$containerRegistryName=$env:containerRegistryName,
 
     # Image configuration
     # Get Container image from github workflow environment
-    [string]$containerImage=$env:registryserver,
+    [string]$registryserver=$env:registryserver,
+    [string]$containerImage=$env:containerImage,
 
     #Azure Container Environment Related values
     [string]$acenv_fileshare_resource_group=$envParameters.acenv_fileshare_resource_group,
@@ -65,8 +66,6 @@ Write-Host "Resource Group Name: $resourceGroupName"
 # Image configuration
 Write-Host "****** Image configuration ******"
 Write-Host "Registry Server: $registryserver"
-Write-Host "Repository: $repository"
-Write-Host "Image Tag: $imagetag"
 Write-Host "Container Image: $containerImage"
 
 # Azure Container Apps Related values
