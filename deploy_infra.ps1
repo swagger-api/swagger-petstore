@@ -63,7 +63,8 @@ if ($createResourceGroup -eq "true") {
   az group create --name $resourceGroupName --location $location
 }
 Write-Host "Resource Group Name: $resourceGroupName"
-
+# Test message
+Write-Host "****** TestMassage: $TestMessage ******"
 # Image configuration
 Write-Host "****** Image configuration ******"
 Write-Host "Registry Server: $registryserver"

@@ -7,6 +7,7 @@ permissions:
   id-token: write
   contents: read
 env:
+  TestMessage: "Hello from Environment"
   resourceGroupName: 'myResourceGroup'
   branch: 'buildtoacr_01082024'
  
@@ -43,7 +44,8 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        # enable-AzPSSession: true
+        # enable-AzPSSession: 
+    # # Deploy azure resource using bicep
     # - uses: azure@arm-deploy@v1
     #   with:
     #     scope: 'resource-group'

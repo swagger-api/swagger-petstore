@@ -9,6 +9,7 @@ on:
       - master
 
 env:
+  TestMessage: "Hello from Environment"
   RESOURCE_GROUP_NAME: ${{ secrets.RESOURCE_GROUP_NAME }}
   AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
   TEMPLATE_FILE: "./infra/main.bicep"
