@@ -39,8 +39,11 @@ jobs:
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     - name: Build the Docker image
       run:  
-        az acr build --registry ${{secrets.ACRNAME}} --image swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER --file Dockerfile .;
-        docker tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
+        az acr build --registry ${{secrets.ACRNAME}}`
+         --image swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER`
+         -t ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest`
+          --file Dockerfile .;
+        # docker tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
         # docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
         # docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
 
