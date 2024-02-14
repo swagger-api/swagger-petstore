@@ -56,6 +56,7 @@ jobs:
     - name: Deploy Azure Container App
       shell: pwsh
       run: |
+        echo $env:TestMessage
         # Test message
         Write-Host "****** TestMassage: $TestMessage ******"
         # ./deploy_infra.ps1
