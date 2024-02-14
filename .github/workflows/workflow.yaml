@@ -9,7 +9,7 @@ permissions:
 env:
   branch: 'buildtoacr_01082024'
   subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest
+  containerImage: ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest
  
 jobs:
  
