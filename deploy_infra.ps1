@@ -64,7 +64,7 @@ if ($createResourceGroup -eq "true") {
 }
 Write-Host "Resource Group Name: $resourceGroupName"
 # Test message
-Write-Host "****** TestMassage: $TestMessage ******"
+Write-Host "****** TestMassage: $env:TestMessage ******"
 # Image configuration
 Write-Host "****** Image configuration ******"
 Write-Host "Registry Server: $registryserver"
