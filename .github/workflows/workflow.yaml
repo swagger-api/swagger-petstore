@@ -58,5 +58,5 @@ jobs:
       run: |
         echo $env:TestMessage
         # Test message
-        Write-Host "****** TestMassage: $TestMessage ******"
+        Write-Host "****** TestMassage: $env:TestMessage ******"
         # ./deploy_infra.ps1
