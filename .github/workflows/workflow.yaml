@@ -45,7 +45,7 @@ jobs:
         # docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
 
   
-    # - name: Deploy Azure Container App
-    #   shell: pwsh
-    #   run: |
-    #     ./deploy_infra.ps1
+    - name: Deploy Azure Container App
+      shell: pwsh
+      run: |
+        ./deploy_infra.ps1
