@@ -3,10 +3,10 @@ param(
     # read pararmeters from .env file
     $envParameters = $(Get-Content .\.env | ConvertFrom-StringData),
     # get name from parameters
-    [string]$name=$envParameters.name,
+    [string]$name=$env:name,
     [string]$location=$envParameters.location,
     # get createResourceGroup from parameters
-    [string]$createResourceGroup=$envParameters.createResourceGroup,
+    [string]$createResourceGroup=$env:createResourceGroup,
     
     [string]$subscriptionId=$env:subscriptionId,
 
@@ -16,7 +16,7 @@ param(
     [string]$resourceGroupName=$(if ($createResourceGroup -eq "false") {
       $envParameters.resourceGroup} else {
         "$name-rg"}), 
-    [string]$containerRegistryName=$env:containerRegistryName,
+    [string]$containerRegistryName = $env:containerRegistryName + "_rg",
 
     # Image configuration
     # Get Container image from github workflow environment
