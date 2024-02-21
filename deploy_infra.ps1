@@ -89,6 +89,7 @@ Write-Host "Container Registry Server: $registryserver"
 Write-Host "Container Registry Username: $acrUsername"
 
 # deploy the template
+Write-Host "Deploying the template"
 az deployment group create `
   -g $resourceGroupName `
   --template-file $templateFile `
