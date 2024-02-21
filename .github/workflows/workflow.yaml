@@ -22,8 +22,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-      with: 
-        ref: ${{ env.branch}}
+      # with: 
+      #   ref: ${{ env.branch}}
         
     - name: Login to Azure Container Registry
       uses: Azure/docker-login@v1
@@ -34,10 +34,7 @@ jobs:
           password: ${{ secrets.ACR_PASSWORD }}
           # Container registry server url
           login-server: ${{ secrets.ACRNAME }}.azurecr.io
-    - name: set dotnet publish
-      shell: pwsh
-      run: |
-        dotnet publish -c Release -o ./publish
+
 
     # Add id token and contents to the permissions
     - name: Azure login
