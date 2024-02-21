@@ -14,7 +14,7 @@ env:
   containerRegistryName: ${{secrets.ACRNAME}}
   registryserver: ${{secrets.ACRNAME}}.azurecr.io
   createResourceGroup: true
-  name: ${{ github.repository }}
+  name: "petstore-dev"
 jobs:
  
   build-and-deploy:
