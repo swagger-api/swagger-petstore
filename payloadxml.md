@@ -1,0 +1,4 @@
+{
+  "name": "message",
+  "value": "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>\n<ResponseService Version=\"2.3\">\n  <Header>\n    <Partner>MISSciencesMT</Partner>\n    <Password>geTru25s</Password>\n    <ServiceID>1</ServiceID>\n  </Header>\n  <ResponseList>\n    <Response SequenceNumber=\"1\" Type=\"SMS\" Format=\"Text\">\n      <TransactionID>17506662</TransactionID>\n      <OriginatingNumber>12024948986</OriginatingNumber>\n      <Time>202402162256</Time>\n      <Data>Test - TG</Data>\n      <Deliverer>11</Deliverer>\n      <Destination>696873</Destination>\n      <Operator>31003</Operator>\n    </Response>\n  </ResponseList>\n</ResponseService>\n"
+}

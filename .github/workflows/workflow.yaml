@@ -34,10 +34,10 @@ jobs:
           password: ${{ secrets.ACR_PASSWORD }}
           # Container registry server url
           login-server: ${{ secrets.ACRNAME }}.azurecr.io
-    # - name: set dotnet publish
-    #   shell: pwsh
-    #   run: |
-    #     dotnet publish -c Release -o ./publish
+    - name: set dotnet publish
+      shell: pwsh
+      run: |
+        dotnet publish -c Release -o ./publish
 
     # Add id token and contents to the permissions
     - name: Azure login
@@ -50,12 +50,22 @@ jobs:
     - name: Build the Docker image
       run:  
         az acr build --registry ${{secrets.ACRNAME}} --image swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER -t ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest --file Dockerfile .;
-        # docker tag ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
-        # docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
-        # docker push ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest;
+
 
   
     - name: Deploy Azure Container App
       shell: pwsh
       run: |
         ./deploy_infra.ps1
+    # Deploy K8s manifest
+    - name: Deploy K8s manifest
+      uses: Azure/k8s-deploy@v4
+      with:
+        azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+        namespace: default
+        manifests: |
+          k8s/deployment.yaml
+          k8s/service.yaml
+          k8s/ingress.yaml
+        imagePullSecrets: ${{ secrets.ACRNAME }}
+    

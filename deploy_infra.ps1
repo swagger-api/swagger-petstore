@@ -16,7 +16,7 @@ param(
     [string]$resourceGroupName=$(if ($createResourceGroup -eq "false") {
       $envParameters.resourceGroup} else {
         "$name-rg"}), 
-    [string]$containerRegistryName = $env:containerRegistryName + "_rg",
+    [string]$containerRegistryName=$env:containerRegistryName,
 
     # Image configuration
     # Get Container image from github workflow environment
