@@ -13,8 +13,8 @@ env:
   containerImage: ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest
   containerRegistryName: ${{secrets.ACRNAME}}
   registryserver: ${{secrets.ACRNAME}}.azurecr.io
-  createResourceGroup: true
-  name: "petstore-dev"
+  createResourceGroup: false
+  name: "petstoredev2"
 jobs:
  
   build-and-deploy:
