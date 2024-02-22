@@ -171,7 +171,7 @@
                         <include>**/When*.java</include>
                     </includes>
                     <systemPropertyVariables>
-                        <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
+                        <restapi.baseurl>${restapi.baseurl}</restapi.baseurl>
                         <junit.jupiter.extensions.autodetection.enabled>true</junit.jupiter.extensions.autodetection.enabled>
                     </systemPropertyVariables>
                 </configuration>
@@ -210,6 +210,20 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <restapi.baseurl>http://localhost:8080/api/v3/</restapi.baseurl>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <restapi.baseurl>https://petstore3.swagger.io/api/v3/</restapi.baseurl>
+            </properties>
+        </profile>
+    </profiles>
     <dependencies>
 
         <dependency>
@@ -277,6 +291,13 @@
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-ensure</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-screenplay-rest</artifactId>
             <version>${serenity.version}</version>
             <scope>test</scope>
         </dependency>
