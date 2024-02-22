@@ -1,6 +1,5 @@
 package petstore.pets;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static net.serenitybdd.rest.SerenityRest.*;
 import static org.hamcrest.Matchers.*;
@@ -14,6 +13,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import petstore.Base;
 import petstore.Paths;
 
+import java.util.Arrays;
+
 @ExtendWith(SerenityJUnit5Extension.class)
 public class GetByTagTest extends Base {
 
@@ -25,7 +26,6 @@ public class GetByTagTest extends Base {
   @Test
   @Description("Fetch pets by tag and validate tag presence")
   public void eachPetHasSameTagAsQueryTag() {
-    System.out.println(getDefaultBasePath());
     given()
       .basePath(Paths.FindByTags)
       .queryParam("tags", "tag2")
@@ -33,7 +33,23 @@ public class GetByTagTest extends Base {
       .accept(ContentType.JSON)
       .get()
       .then()
+      .contentType(ContentType.JSON)
+      .statusCode(200)
       .body("tags.name", everyItem(hasItem("tag2")));
+  }
+
+  @Test
+  public void fetchWithMultipleTags() {
+    given()
+      .basePath(Paths.FindByTags)
+      .queryParam("tags", Arrays.asList("tag1", "tag2"))
+      .contentType(ContentType.JSON)
+      .accept(ContentType.JSON)
+      .get()
+      .then()
+      .contentType(ContentType.JSON)
+      .statusCode(200)
+      .body("tags.name", everyItem(either(hasItem("tag1")).or(hasItem("tag2"))));
   }
 
   @Test
@@ -45,6 +61,8 @@ public class GetByTagTest extends Base {
       .accept(ContentType.JSON)
       .get()
       .then()
+      .contentType(ContentType.JSON)
+      .statusCode(200)
       .body(equalTo("[]"));
   }
 
@@ -57,6 +75,8 @@ public class GetByTagTest extends Base {
       .accept(ContentType.JSON)
       .get()
       .then()
+      .contentType(ContentType.JSON)
+      .statusCode(400)
       .body("message", equalTo("No tags provided. Try again?"));
   }
 
@@ -69,6 +89,7 @@ public class GetByTagTest extends Base {
       .accept(ContentType.JSON)
       .get()
       .then()
+      .contentType(ContentType.JSON)
       .assertThat()
       .body(matchesJsonSchemaInClasspath("schemas/petsByTag.json"));
   }
