@@ -3,13 +3,11 @@ package petstore;
 import io.restassured.RestAssured;
 import net.thucydides.model.util.EnvironmentVariables;
 
-
 public class Base {
 
-    EnvironmentVariables env;
+  EnvironmentVariables env;
 
-    public void setup() {
-        RestAssured.baseURI = env.getProperty("restapi.baseurl");
-
-    }
+  public void setup() {
+    RestAssured.baseURI = env.getProperty("restapi.baseurl");
+  }
 }

@@ -21,153 +21,215 @@ import io.swagger.oas.inflector.models.ResponseContext;
 import io.swagger.petstore.data.UserData;
 import io.swagger.petstore.model.User;
 import io.swagger.petstore.utils.Util;
+import java.util.Date;
+import javax.ws.rs.core.Response;
 import org.apache.commons.lang.math.RandomUtils;
 
-import javax.ws.rs.core.Response;
-import java.util.Date;
-
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaInflectorServerCodegen", date = "2017-04-08T15:48:56.501Z")
+@javax.annotation.Generated(
+  value = "class io.swagger.codegen.languages.JavaInflectorServerCodegen",
+  date = "2017-04-08T15:48:56.501Z"
+)
 public class UserController {
 
-    private static UserData userData = new UserData();
+  private static UserData userData = new UserData();
 
-    public ResponseContext createUser(final RequestContext request, final User user) {
-        if (user == null) {
-            return new ResponseContext()
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity("No User provided. Try again?");
-        }
-
-        userData.addUser(user);
-        return new ResponseContext()
-                .contentType(Util.getMediaType(request))
-                .entity(user);
+  public ResponseContext createUser(
+    final RequestContext request,
+    final User user
+  ) {
+    if (user == null) {
+      return new ResponseContext()
+        .status(Response.Status.BAD_REQUEST)
+        .entity("No User provided. Try again?");
     }
 
-    public ResponseContext createUser(final RequestContext request, final Long id, final String username,
-                                      final String firstName, final String lastName, final String email,
-                                      final String password, final String phone, final Integer userStatus) {
-        final User user = UserData.createUser(id, username, firstName, lastName, email, phone, userStatus);
-        return createUser(request, user);
+    userData.addUser(user);
+    return new ResponseContext()
+      .contentType(Util.getMediaType(request))
+      .entity(user);
+  }
+
+  public ResponseContext createUser(
+    final RequestContext request,
+    final Long id,
+    final String username,
+    final String firstName,
+    final String lastName,
+    final String email,
+    final String password,
+    final String phone,
+    final Integer userStatus
+  ) {
+    final User user = UserData.createUser(
+      id,
+      username,
+      firstName,
+      lastName,
+      email,
+      phone,
+      userStatus
+    );
+    return createUser(request, user);
+  }
+
+  public ResponseContext getUserByName(
+    final RequestContext request,
+    final String username
+  ) {
+    if (username == null) {
+      return new ResponseContext()
+        .status(Response.Status.BAD_REQUEST)
+        .entity("No username provided. Try again?");
     }
 
-    public ResponseContext getUserByName(final RequestContext request, final String username) {
-        if (username == null) {
-            return new ResponseContext()
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity("No username provided. Try again?");
-        }
-
-        final User user = userData.findUserByName(username);
-        if (user == null) {
-            return new ResponseContext().status(Response.Status.NOT_FOUND).entity("User not found");
-        }
-
-        return new ResponseContext()
-                .contentType(Util.getMediaType(request))
-                .entity(user);
+    final User user = userData.findUserByName(username);
+    if (user == null) {
+      return new ResponseContext()
+        .status(Response.Status.NOT_FOUND)
+        .entity("User not found");
     }
 
-    public ResponseContext createUsersWithArrayInput(final RequestContext request, final User[] users) {
-        if (users == null || users.length == 0) {
-            return new ResponseContext()
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity("No User provided. Try again?");
-        }
+    return new ResponseContext()
+      .contentType(Util.getMediaType(request))
+      .entity(user);
+  }
 
-        for (final User user : users) {
-            userData.addUser(user);
-        }
-
-        return new ResponseContext()
-                .contentType(Util.getMediaType(request))
-                .entity(users);
+  public ResponseContext createUsersWithArrayInput(
+    final RequestContext request,
+    final User[] users
+  ) {
+    if (users == null || users.length == 0) {
+      return new ResponseContext()
+        .status(Response.Status.BAD_REQUEST)
+        .entity("No User provided. Try again?");
     }
 
-    public ResponseContext createUsersWithListInput(final RequestContext request, final User[] users) {
-        if (users == null || users.length == 0) {
-            return new ResponseContext()
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity("No User provided. Try again?");
-        }
-
-        for (final User user : users) {
-            userData.addUser(user);
-        }
-
-        return new ResponseContext()
-                .contentType(Util.getMediaType(request))
-                .entity(users);
+    for (final User user : users) {
+      userData.addUser(user);
     }
 
-    public ResponseContext loginUser(final RequestContext request, final String username, final String password) {
-        Date date = new Date(System.currentTimeMillis() + 3600000);
-        return new ResponseContext()
-                .contentType(Util.getMediaType(request))
-                .header("X-Rate-Limit", String.valueOf(5000))
-                .header("X-Expires-After", date.toString())
-                .entity("Logged in user session: " + RandomUtils.nextLong());
+    return new ResponseContext()
+      .contentType(Util.getMediaType(request))
+      .entity(users);
+  }
+
+  public ResponseContext createUsersWithListInput(
+    final RequestContext request,
+    final User[] users
+  ) {
+    if (users == null || users.length == 0) {
+      return new ResponseContext()
+        .status(Response.Status.BAD_REQUEST)
+        .entity("No User provided. Try again?");
     }
 
-    public ResponseContext logoutUser(final RequestContext request) {
-        return new ResponseContext()
-                .contentType(Util.getMediaType(request))
-                .entity("User logged out");
-
+    for (final User user : users) {
+      userData.addUser(user);
     }
 
-    public ResponseContext deleteUser(final RequestContext request, final String username) {
-        if (username == null) {
-            return new ResponseContext()
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity("No username provided. Try again?");
-        }
+    return new ResponseContext()
+      .contentType(Util.getMediaType(request))
+      .entity(users);
+  }
 
-        userData.deleteUser(username);
+  public ResponseContext loginUser(
+    final RequestContext request,
+    final String username,
+    final String password
+  ) {
+    Date date = new Date(System.currentTimeMillis() + 3600000);
+    return new ResponseContext()
+      .contentType(Util.getMediaType(request))
+      .header("X-Rate-Limit", String.valueOf(5000))
+      .header("X-Expires-After", date.toString())
+      .entity("Logged in user session: " + RandomUtils.nextLong());
+  }
 
-        final User user = userData.findUserByName(username);
+  public ResponseContext logoutUser(final RequestContext request) {
+    return new ResponseContext()
+      .contentType(Util.getMediaType(request))
+      .entity("User logged out");
+  }
 
-        if (null == user) {
-            return new ResponseContext()
-                    .contentType(Util.getMediaType(request))
-                    .entity(user);
-        } else {
-            return new ResponseContext().status(Response.Status.NOT_MODIFIED).entity("User couldn't be deleted.");
-        }
+  public ResponseContext deleteUser(
+    final RequestContext request,
+    final String username
+  ) {
+    if (username == null) {
+      return new ResponseContext()
+        .status(Response.Status.BAD_REQUEST)
+        .entity("No username provided. Try again?");
     }
 
-    public ResponseContext updateUser(final RequestContext request, final String username, final User user) {
-        if (username == null) {
-            return new ResponseContext()
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity("No Username provided. Try again?");
-        }
+    userData.deleteUser(username);
 
-        if (user == null) {
-            return new ResponseContext()
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity("No User provided. Try again?");
-        }
+    final User user = userData.findUserByName(username);
 
-        final User existingUser = userData.findUserByName(username);
+    if (null == user) {
+      return new ResponseContext()
+        .contentType(Util.getMediaType(request))
+        .entity(user);
+    } else {
+      return new ResponseContext()
+        .status(Response.Status.NOT_MODIFIED)
+        .entity("User couldn't be deleted.");
+    }
+  }
 
-        if (existingUser == null) {
-            return new ResponseContext().status(Response.Status.NOT_FOUND).entity("User not found");
-        }
-
-        userData.deleteUser(existingUser.getUsername());
-        userData.addUser(user);
-
-        return new ResponseContext()
-                .contentType(Util.getMediaType(request))
-                .entity(user);
+  public ResponseContext updateUser(
+    final RequestContext request,
+    final String username,
+    final User user
+  ) {
+    if (username == null) {
+      return new ResponseContext()
+        .status(Response.Status.BAD_REQUEST)
+        .entity("No Username provided. Try again?");
     }
 
-    public ResponseContext updateUser(final RequestContext request, final String updatedUser, final Long id, final String username,
-                                      final String firstName, final String lastName, final String email,
-                                      final String password, final String phone, final Integer userStatus) {
-        final User user = UserData.createUser(id, username, firstName, lastName, email, phone, userStatus);
-        return updateUser(request, updatedUser, user);
+    if (user == null) {
+      return new ResponseContext()
+        .status(Response.Status.BAD_REQUEST)
+        .entity("No User provided. Try again?");
     }
+
+    final User existingUser = userData.findUserByName(username);
+
+    if (existingUser == null) {
+      return new ResponseContext()
+        .status(Response.Status.NOT_FOUND)
+        .entity("User not found");
+    }
+
+    userData.deleteUser(existingUser.getUsername());
+    userData.addUser(user);
+
+    return new ResponseContext()
+      .contentType(Util.getMediaType(request))
+      .entity(user);
+  }
+
+  public ResponseContext updateUser(
+    final RequestContext request,
+    final String updatedUser,
+    final Long id,
+    final String username,
+    final String firstName,
+    final String lastName,
+    final String email,
+    final String password,
+    final String phone,
+    final Integer userStatus
+  ) {
+    final User user = UserData.createUser(
+      id,
+      username,
+      firstName,
+      lastName,
+      email,
+      phone,
+      userStatus
+    );
+    return updateUser(request, updatedUser, user);
+  }
 }
-

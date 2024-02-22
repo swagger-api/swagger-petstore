@@ -21,76 +21,105 @@ import io.swagger.oas.inflector.models.ResponseContext;
 import io.swagger.petstore.data.OrderData;
 import io.swagger.petstore.model.Order;
 import io.swagger.petstore.utils.Util;
+import java.util.Date;
+import javax.ws.rs.core.Response;
 import org.joda.time.DateTime;
 
-import javax.ws.rs.core.Response;
-import java.util.Date;
-
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaInflectorServerCodegen", date = "2017-04-08T15:48:56.501Z")
+@javax.annotation.Generated(
+  value = "class io.swagger.codegen.languages.JavaInflectorServerCodegen",
+  date = "2017-04-08T15:48:56.501Z"
+)
 public class OrderController {
 
-    private static OrderData orderData = new OrderData();
+  private static OrderData orderData = new OrderData();
 
-    public ResponseContext getInventory(final RequestContext request) {
-        return new ResponseContext()
-                .contentType(Util.getMediaType(request))
-                .entity(orderData.getCountByStatus());
+  public ResponseContext getInventory(final RequestContext request) {
+    return new ResponseContext()
+      .contentType(Util.getMediaType(request))
+      .entity(orderData.getCountByStatus());
+  }
+
+  public ResponseContext getOrderById(
+    final RequestContext request,
+    final Long orderId
+  ) {
+    if (orderId == null) {
+      return new ResponseContext()
+        .status(Response.Status.BAD_REQUEST)
+        .entity("No orderId provided. Try again?");
     }
 
-    public ResponseContext getOrderById(final RequestContext request, final Long orderId) {
-        if (orderId == null) {
-            return new ResponseContext()
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity("No orderId provided. Try again?");
-        }
+    final Order order = orderData.getOrderById(orderId);
 
-        final Order order = orderData.getOrderById(orderId);
-
-        if (order != null) {
-            return new ResponseContext()
-                    .contentType(Util.getMediaType(request))
-                    .entity(order);
-        }
-
-        return new ResponseContext().status(Response.Status.NOT_FOUND).entity("Order not found");
+    if (order != null) {
+      return new ResponseContext()
+        .contentType(Util.getMediaType(request))
+        .entity(order);
     }
 
-    public ResponseContext placeOrder(final RequestContext request, final Order order) {
-        if (order == null) {
-            return new ResponseContext()
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity("No Order provided. Try again?");
-        }
+    return new ResponseContext()
+      .status(Response.Status.NOT_FOUND)
+      .entity("Order not found");
+  }
 
-        orderData.addOrder(order);
-        return new ResponseContext()
-                .contentType(Util.getMediaType(request))
-                .entity(order);
+  public ResponseContext placeOrder(
+    final RequestContext request,
+    final Order order
+  ) {
+    if (order == null) {
+      return new ResponseContext()
+        .status(Response.Status.BAD_REQUEST)
+        .entity("No Order provided. Try again?");
     }
 
-    public ResponseContext placeOrder(final RequestContext request, final Long id, final Long petId, final Integer quantity, final DateTime shipDate,
-                                      final String status, final Boolean complete) {
-        final Order order = OrderData.createOrder(id, petId, quantity, new Date(), status, complete);
-        return placeOrder(request,order);
+    orderData.addOrder(order);
+    return new ResponseContext()
+      .contentType(Util.getMediaType(request))
+      .entity(order);
+  }
+
+  public ResponseContext placeOrder(
+    final RequestContext request,
+    final Long id,
+    final Long petId,
+    final Integer quantity,
+    final DateTime shipDate,
+    final String status,
+    final Boolean complete
+  ) {
+    final Order order = OrderData.createOrder(
+      id,
+      petId,
+      quantity,
+      new Date(),
+      status,
+      complete
+    );
+    return placeOrder(request, order);
+  }
+
+  public ResponseContext deleteOrder(
+    final RequestContext request,
+    final Long orderId
+  ) {
+    if (orderId == null) {
+      return new ResponseContext()
+        .status(Response.Status.BAD_REQUEST)
+        .entity("No orderId provided. Try again?");
     }
 
-    public ResponseContext deleteOrder(final RequestContext request, final Long orderId) {
-        if (orderId == null) {
-            return new ResponseContext()
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity("No orderId provided. Try again?");
-        }
+    orderData.deleteOrderById(orderId);
 
-        orderData.deleteOrderById(orderId);
+    final Order order = orderData.getOrderById(orderId);
 
-        final Order order = orderData.getOrderById(orderId);
-
-        if (null == order) {
-            return new ResponseContext()
-                    .contentType(Util.getMediaType(request))
-                    .entity(order);
-        } else {
-            return new ResponseContext().status(Response.Status.NOT_MODIFIED).entity("Order couldn't be deleted.");
-        }
+    if (null == order) {
+      return new ResponseContext()
+        .contentType(Util.getMediaType(request))
+        .entity(order);
+    } else {
+      return new ResponseContext()
+        .status(Response.Status.NOT_MODIFIED)
+        .entity("Order couldn't be deleted.");
     }
+  }
 }

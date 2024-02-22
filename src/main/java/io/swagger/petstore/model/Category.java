@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "Category")
 public class Category {
+
   private long id;
   private String name;
 

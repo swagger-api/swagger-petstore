@@ -1,7 +1,11 @@
 package io.swagger.handler;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaInflectorServerCodegen", date = "2017-04-08T15:48:56.501Z")
+@javax.annotation.Generated(
+  value = "class io.swagger.codegen.languages.JavaInflectorServerCodegen",
+  date = "2017-04-08T15:48:56.501Z"
+)
 public class StringUtil {
+
   /**
    * Check if the given array contains the given value (with case-insensitive comparison).
    *

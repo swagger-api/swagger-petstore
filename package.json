@@ -1,0 +1,8 @@
+{
+  "name": "swagger-petstore",
+  "version": "0.0.1",
+  "author":  "Marcos Riveros",
+  "devDependencies": {
+    "prettier-plugin-java": "^2.5.0"
+  }
+}
