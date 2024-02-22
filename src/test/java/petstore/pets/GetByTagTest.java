@@ -1,5 +1,7 @@
 package petstore.pets;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static net.serenitybdd.rest.SerenityRest.*;
 import static org.hamcrest.Matchers.*;
 
@@ -56,5 +58,18 @@ public class GetByTagTest extends Base {
       .get()
       .then()
       .body("message", equalTo("No tags provided. Try again?"));
+  }
+
+  @Test
+  public void validateJsonSchema() {
+    given()
+      .basePath(Paths.FindByTags)
+      .queryParam("tags", "tag1")
+      .contentType(ContentType.JSON)
+      .accept(ContentType.JSON)
+      .get()
+      .then()
+      .assertThat()
+      .body(matchesJsonSchemaInClasspath("schemas/petsByTag.json"));
   }
 }
