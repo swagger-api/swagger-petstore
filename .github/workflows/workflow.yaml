@@ -9,8 +9,9 @@ permissions:
   contents: read
 env:
   branch: 'buildtoacr_01082024'
+  reponame: 'swagger-petstore'
   subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  containerImage: ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest
+  containerImage: ${{secrets.ACRNAME}}.azurecr.io/${{env.reponame}}:latest
   containerRegistryName: ${{secrets.ACRNAME}}
   registryserver: ${{secrets.ACRNAME}}.azurecr.io
   createResourceGroup: false
@@ -55,14 +56,14 @@ jobs:
       run: |
         ./deploy_infra.ps1
     # Deploy K8s manifest
-    - name: Deploy K8s manifest
-      uses: Azure/k8s-deploy@v4
-      with:
-        azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
-        namespace: default
-        manifests: |
-          k8s/deployment.yaml
-          k8s/service.yaml
-          k8s/ingress.yaml
-        imagePullSecrets: ${{ secrets.ACRNAME }}
+    # - name: Deploy K8s manifest
+    #   uses: Azure/k8s-deploy@v4
+    #   with:
+    #     azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+    #     namespace: default
+    #     manifests: |
+    #       k8s/deployment.yaml
+    #       k8s/service.yaml
+    #       k8s/ingress.yaml
+    #     imagePullSecrets: ${{ secrets.ACRNAME }}
     
