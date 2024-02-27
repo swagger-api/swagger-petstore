@@ -1,0 +1,18 @@
+---
+    name: "Build docker image using an azure container registry"
+    on: [push]
+    jobs:
+      build:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@master
+        - name: Login to Azure Container Registry
+          uses: azure/docker-login@v1
+          with:
+            login-server: ${{ secrets.REGISTRY_NAME }}.azurecr.io
+            username: $(az acr credential show -n $azureacr --query username -o tsv)${{ secrets.REGISTRY_USERNAME }}
+            password: $(az acr credential show -n $containerRegistryName --query "passwords[0].value" -o tsv)
+        - name: Build docker image
+          run: docker build . -t ${{ secrets.REGISTRY_NAME }}.azurecr.io/${{ github.repository }}:latest
+        - name: Push docker image
+          run: docker push ${{ secrets.REGISTRY_NAME }}.azurecr.io/${{ github.repository }}:latest

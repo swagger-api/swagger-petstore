@@ -1,0 +1,74 @@
+name: Deploy to Azure
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - master
+
+env:
+  TestMessage: "Hello from Environment"
+  RESOURCE_GROUP_NAME: ${{ secrets.RESOURCE_GROUP_NAME }}
+  AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+  TEMPLATE_FILE: "./infra/main.bicep"
+  SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+  CONTAINER_REGISTRY_NAME: ${{ secrets.CONTAINER_REGISTRY_NAME }}
+
+jobs:
+  build_and_deploy_job:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true # Set to 'true' to enable AzPSSession on the container. Default: false
+
+      - name: Set default subscription
+        run: |
+          az account set --subscription $SUBSCRIPTION_ID
+
+      - name: Get Container registry username
+        id: get-acr-username
+        run: |
+          echo "::set-output name=acr_username::$(az acr credential show -n $CONTAINER_REGISTRY_NAME --query username -o tsv)"
+
+      - name: Get Container registry password
+        id: get-acr-password
+        run: |
+          echo "::set-output name=acr_password::$(az acr credential show -n $CONTAINER_REGISTRY_NAME --query "passwords[0].value" -o tsv)"
+
+      - name: Create a resource group if not exist
+        run: |
+          az group create --name $RESOURCE_GROUP_NAME --location ${{ secrets.LOCATION }}
+
+      - name: Deploy the template
+        run: |
+          az deployment group create \
+            -g $RESOURCE_GROUP_NAME \
+            --template-file $TEMPLATE_FILE \
+            --parameters name=${{ secrets.NAME }} \
+            containerImage=${{ secrets.CONTAINER_IMAGE }} \
+            targetPort=${{ secrets.TARGET_PORT }} \
+            aca_volume_mountPath=${{ secrets.ACA_VOLUME_MOUNT_PATH }} \
+            aca_volumes_name=${{ secrets.ACA_VOLUMES_NAME }} \
+            maxReplicas=${{ secrets.MAX_REPLICAS }} \
+            minReplicas=${{ secrets.MIN_REPLICAS }} \
+            acenv_fileshare_resource_group=${{ secrets.ACENV_FILESHARE_RESOURCE_GROUP }} \
+            acenv_storage_account_name=${{ secrets.ACENV_STORAGE_ACCOUNT_NAME }} \
+            acenv_fileshareName=${{ secrets.ACENV_FILESHARE_NAME }} \
+            acenv_volumes_storagename=${{ secrets.ACENV_VOLUMES_STORAGENAME }} \
+            location=${{ secrets.LOCATION }} \
+            containerRegistryName=$CONTAINER_REGISTRY_NAME \
+            registryserver=${{ secrets.REGISTRY_SERVER }} \
+            acrUsername=${{ steps.get-acr-username.outputs.acr_username }} \
+            acrPassword=${{ steps.get-acr-password.outputs.acr_password }} \
+            --query properties.outputs.fqdn.value

@@ -10,3 +10,13 @@ target
 atlassian-ide-plugin.xml
 *.iml
 .java-version
+.DS_Store
+# ignore .env file
+# .env
+# ignore .vscode folder
+.vscode/
+compose.log
+svcprincipal_create.md
+draft.md
+creds.json
+```

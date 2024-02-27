@@ -1,0 +1,69 @@
+# File: .github/workflows/workflow.yml
+ 
+on: [push]
+# on: [workflow_dispatch]
+ 
+name: Deploy the petstore app using Github Actions
+permissions:
+  id-token: write
+  contents: read
+env:
+  branch: 'buildtoacr_01082024'
+  reponame: 'swagger-petstore'
+  subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  containerImage: ${{secrets.ACRNAME}}.azurecr.io/${{env.reponame}}:latest
+  containerRegistryName: ${{secrets.ACRNAME}}
+  registryserver: ${{secrets.ACRNAME}}.azurecr.io
+  createResourceGroup: false
+  name: "petstoredev2"
+jobs:
+ 
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      # with: 
+      #   ref: ${{ env.branch}}
+        
+    - name: Login to Azure Container Registry
+      uses: Azure/docker-login@v1
+      with:
+          # Container registry username
+          username: ${{ secrets.ACR_USERNAME }}
+          # Container registry password
+          password: ${{ secrets.ACR_PASSWORD }}
+          # Container registry server url
+          login-server: ${{ secrets.ACRNAME }}.azurecr.io
+
+
+    # Add id token and contents to the permissions
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Build the Docker image
+      run:  
+        az acr build --registry ${{secrets.ACRNAME}} --image swagger-petstore:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER -t ${{secrets.ACRNAME}}.azurecr.io/swagger-petstore:latest --file Dockerfile .;
+
+
+  
+    - name: Deploy Azure Container App
+      shell: pwsh
+      run: |
+        ./deploy_infra.ps1
+    # Deploy K8s manifest
+    # - name: Deploy K8s manifest
+    #   uses: Azure/k8s-deploy@v4
+    #   with:
+    #     azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+    #     namespace: default
+    #     manifests: |
+    #       k8s/deployment.yaml
+    #       k8s/service.yaml
+    #       k8s/ingress.yaml
+    #     imagePullSecrets: ${{ secrets.ACRNAME }}
+    
