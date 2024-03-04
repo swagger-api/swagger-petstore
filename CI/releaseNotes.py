@@ -9,8 +9,8 @@ def allPulls(releaseDate):
 
     result = ""
 
-    baseurl = "https://api.github.com/repos/swagger-api/validator-badge/pulls/"
-    content = ghApiClient.readUrl('repos/swagger-api/validator-badge/pulls?state=closed&base=master&per_page=100')
+    baseurl = "https://api.github.com/repos/swagger-api/swagger-petstore/pulls/"
+    content = ghApiClient.readUrl('repos/swagger-api/swagger-petstore/pulls?state=closed&base=master&per_page=100')
     for l in content:
         stripped = l["url"][len(baseurl):]
         mergedAt = l["merged_at"]
@@ -23,7 +23,7 @@ def allPulls(releaseDate):
 
 
 def lastReleaseDate(tag):
-    content = ghApiClient.readUrl('repos/swagger-api/validator-badge/releases/tags/' + tag)
+    content = ghApiClient.readUrl('repos/swagger-api/swagger-petstore/releases/tags/' + tag)
     publishedAt = content["published_at"]
     return datetime.strptime(publishedAt, '%Y-%m-%dT%H:%M:%SZ')
 
@@ -35,11 +35,11 @@ def addRelease(release_title, tag, content):
     payload += "\"draft\":" + "true" + ", "
     payload += "\"prerelease\":" + "false" + ", "
     payload += "\"target_commitish\":\"" + "master" + "\"}"
-    content = ghApiClient.postUrl('repos/swagger-api/validator-badge/releases', payload)
+    content = ghApiClient.postUrl('repos/swagger-api/swagger-petstore/releases', payload)
     return content
 
 def getReleases():
-    content = ghApiClient.readUrl('repos/swagger-api/validator-badge/releases')
+    content = ghApiClient.readUrl('repos/swagger-api/swagger-petstore/releases')
     return content
 
 # main

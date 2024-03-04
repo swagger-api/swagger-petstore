@@ -78,8 +78,8 @@ jobs:
         CLUSTER_ID="c-n8zp2"
         NAMESPACE_NAME="swagger-oss"
         K8S_OBJECT_TYPE="daemonsets"
-        K8S_OBJECT_NAME="swagger-validator-v2"
-        DEPLOY_IMAGE="swaggerapi/swagger-validator-v2:$SC_RELEASE_TAG"
+        K8S_OBJECT_NAME="swagger-petstore3"
+        DEPLOY_IMAGE="swaggerapi/swagger-petstore3:$SC_RELEASE_TAG"
         
         workloadStatus=""
         getStatus() {
@@ -185,12 +185,6 @@ jobs:
         exit 0
     env:
       ACTIONS_ALLOW_UNSECURE_COMMANDS:  true
-      MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-      MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SC_VERSION:
       SC_NEXT_VERSION:
-      GPG_PRIVATE_KEY: ${{ secrets.OSSRH_GPG_PRIVATE_KEY }}
-      GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_PRIVATE_PASSPHRASE }}
-      GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
-      GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}

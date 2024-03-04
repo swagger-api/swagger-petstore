@@ -4,7 +4,7 @@ import sys
 import ghApiClient
 
 def lastReleaseId(tag):
-    content = ghApiClient.readUrl('repos/swagger-api/validator-badge/releases')
+    content = ghApiClient.readUrl('repos/swagger-api/swagger-petstore/releases')
     for l in content:
         draft = l["draft"]
         draft_tag = l["tag_name"]
@@ -16,7 +16,7 @@ def publishRelease(tag):
     payload = "{\"tag_name\":\"" + tag + "\", "
     payload += "\"draft\":" + "false" + ", "
     payload += "\"target_commitish\":\"" + "master" + "\"}"
-    content = ghApiClient.postUrl('repos/swagger-api/validator-badge/releases/' + str(id), payload)
+    content = ghApiClient.postUrl('repos/swagger-api/swagger-petstore/releases/' + str(id), payload)
     return content
 
 # main
