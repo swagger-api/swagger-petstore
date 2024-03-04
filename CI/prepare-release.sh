@@ -10,7 +10,7 @@ SC_LAST_RELEASE=`python $CUR/CI/lastRelease.py`
 
 
 
-SC_RELEASE_TITLE="Swagger Validator $SC_VERSION released!"
+SC_RELEASE_TITLE="Swagger-Petstore $SC_VERSION released!"
 SC_RELEASE_TAG="v$SC_VERSION"
 
 echo "SC_VERSION: $SC_VERSION"
@@ -23,13 +23,6 @@ echo "SC_RELEASE_TAG: $SC_RELEASE_TAG"
 ### draft release Notes with next release after last release, with tag
 #####################
 python $CUR/CI/releaseNotes.py "$SC_LAST_RELEASE" "$SC_RELEASE_TITLE" "$SC_RELEASE_TAG"
-
-#####################
-### update the version to release in maven project with set version
-#####################
-mvn versions:set -DnewVersion=$SC_VERSION
-mvn versions:commit
-
 
 #####################
 ### update all other versions in files around to the new release

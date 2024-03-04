@@ -3,7 +3,7 @@
 import ghApiClient
 
 def getLastReleaseTag():
-    content = ghApiClient.readUrl('repos/swagger-api/validator-badge/releases')
+    content = ghApiClient.readUrl('repos/swagger-api/swagger-petstore/releases')
     for l in content:
         draft = l["draft"]
         tag = l["tag_name"]
