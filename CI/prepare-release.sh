@@ -25,20 +25,6 @@ echo "SC_RELEASE_TAG: $SC_RELEASE_TAG"
 python $CUR/CI/releaseNotes.py "$SC_LAST_RELEASE" "$SC_RELEASE_TITLE" "$SC_RELEASE_TAG"
 
 #####################
-### update all other versions in files around to the new release
-#####################
-sc_find="swagger\-validator\-v2\:v$SC_LAST_RELEASE"
-sc_replace="swagger-validator-v2:v$SC_VERSION"
-sed -i -e "s/$sc_find/$sc_replace/g" $CUR/README.md
-
-
-sc_find="version\: $SC_VERSION\-SNAPSHOT"
-sc_replace="version: $SC_VERSION"
-sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/swagger/swagger.yaml
-
-
-
-#####################
 ### build and test maven ###
 #####################
 mvn --no-transfer-progress -B install --file pom.xml
