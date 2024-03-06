@@ -48,8 +48,6 @@ jobs:
         branch: prepare-release-${{ env.SC_VERSION }}
     env:
       ACTIONS_ALLOW_UNSECURE_COMMANDS:  true
-      MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-      MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SC_VERSION:
       SC_NEXT_VERSION:
