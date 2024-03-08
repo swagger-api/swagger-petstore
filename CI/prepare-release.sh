@@ -25,6 +25,12 @@ echo "SC_RELEASE_TAG: $SC_RELEASE_TAG"
 python $CUR/CI/releaseNotes.py "$SC_LAST_RELEASE" "$SC_RELEASE_TITLE" "$SC_RELEASE_TAG"
 
 #####################
+### update the version to release in maven project with set version
+#####################
+mvn versions:set -DnewVersion=$SC_VERSION
+mvn versions:commit
+
+#####################
 ### update version in openapi.yaml file ###
 #####################
 sc_find="version\: $SC_VERSION\-SNAPSHOT"
