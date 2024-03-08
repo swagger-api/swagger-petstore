@@ -21,7 +21,7 @@ import io.swagger.oas.inflector.models.ResponseContext;
 import io.swagger.petstore.data.UserData;
 import io.swagger.petstore.model.User;
 import io.swagger.petstore.utils.Util;
-import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang3.RandomUtils;
 
 import javax.ws.rs.core.Response;
 import java.util.Date;
