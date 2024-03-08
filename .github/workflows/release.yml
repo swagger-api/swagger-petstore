@@ -70,7 +70,7 @@ jobs:
         branch: bump-snap-${{ env.SC_NEXT_VERSION }}-SNAPSHOT
     - name: deploy docker
       run: |
-        SC_RELEASE_TAG="v${{ env.SC_VERSION }}"
+        SC_RELEASE_TAG="${{ env.SC_VERSION }}"
         echo "$SC_RELEASE_TAG"
         
         TOKEN="${{ secrets.RANCHER2_BEARER_TOKEN }}"
@@ -78,8 +78,8 @@ jobs:
         CLUSTER_ID="c-n8zp2"
         NAMESPACE_NAME="swagger-oss"
         K8S_OBJECT_TYPE="daemonsets"
-        K8S_OBJECT_NAME="swagger-petstore3"
-        DEPLOY_IMAGE="swaggerapi/swagger-petstore3:$SC_RELEASE_TAG"
+        K8S_OBJECT_NAME="swagger-petstore-3"
+        DEPLOY_IMAGE="swaggerapi/petstore3:$SC_RELEASE_TAG"
         
         workloadStatus=""
         getStatus() {

@@ -2,7 +2,7 @@
 
 CUR=$(pwd)
 
-SC_RELEASE_TAG="v$SC_VERSION"
+SC_RELEASE_TAG="$SC_VERSION"
 
 echo "docker tag:"
 echo "$SC_RELEASE_TAG"
