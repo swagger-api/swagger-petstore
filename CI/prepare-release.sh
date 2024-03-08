@@ -10,8 +10,8 @@ SC_LAST_RELEASE=`python $CUR/CI/lastRelease.py`
 
 
 
-SC_RELEASE_TITLE="Swagger-Petstore $SC_VERSION released!"
-SC_RELEASE_TAG="v$SC_VERSION"
+SC_RELEASE_TITLE="Swagger Petstore OpenAPI 3.0 release $SC_VERSION"
+SC_RELEASE_TAG="swagger-petstore-v3-$SC_VERSION"
 
 echo "SC_VERSION: $SC_VERSION"
 echo "SC_NEXT_VERSION: $SC_NEXT_VERSION"
@@ -23,6 +23,13 @@ echo "SC_RELEASE_TAG: $SC_RELEASE_TAG"
 ### draft release Notes with next release after last release, with tag
 #####################
 python $CUR/CI/releaseNotes.py "$SC_LAST_RELEASE" "$SC_RELEASE_TITLE" "$SC_RELEASE_TAG"
+
+#####################
+### update version in openapi.yaml file ###
+#####################
+sc_find="version\: $SC_VERSION\-SNAPSHOT"
+sc_replace="version: $SC_VERSION"
+sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/resources/openapi.yaml
 
 #####################
 ### build and test maven ###

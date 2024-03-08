@@ -9,7 +9,7 @@ SC_QUALIFIER=`mvn -q -Dexec.executable="echo" -Dexec.args='${parsedVersion.quali
 SC_LAST_RELEASE=`python $CUR/CI/lastRelease.py`
 
 
-SC_RELEASE_TAG="v$SC_VERSION"
+SC_RELEASE_TAG="$SC_VERSION"
 
 
 #####################
