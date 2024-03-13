@@ -10,8 +10,8 @@ SC_LAST_RELEASE=`python $CUR/CI/lastRelease.py`
 
 
 
-SC_RELEASE_TITLE="Swagger Petstore OpenAPI 3.0 release $SC_VERSION"
-SC_RELEASE_TAG="swagger-petstore-v3-$SC_VERSION"
+SC_RELEASE_TITLE="Swagger Petstore OpenAPI 2.0 release $SC_VERSION"
+SC_RELEASE_TAG="swagger-petstore-v2-$SC_VERSION"
 
 echo "SC_VERSION: $SC_VERSION"
 echo "SC_NEXT_VERSION: $SC_NEXT_VERSION"

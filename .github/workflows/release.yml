@@ -2,7 +2,7 @@ name: Release
 
 on:
   workflow_dispatch:
-    branches: ["master", "v2", "v31"]
+    branches: ["v2"]
 
 jobs:
   build:
@@ -78,8 +78,8 @@ jobs:
         CLUSTER_ID="c-n8zp2"
         NAMESPACE_NAME="swagger-oss"
         K8S_OBJECT_TYPE="daemonsets"
-        K8S_OBJECT_NAME="swagger-petstore-3"
-        DEPLOY_IMAGE="swaggerapi/petstore3:$SC_RELEASE_TAG"
+        K8S_OBJECT_NAME="swagger-petstore"
+        DEPLOY_IMAGE="swaggerapi/petstore:$SC_RELEASE_TAG"
         
         workloadStatus=""
         getStatus() {
