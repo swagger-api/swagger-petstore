@@ -2,7 +2,7 @@ name: "Code scanning - action"
 
 on:
   push:
-    branches: ["master"]
+    branches: ["master", "v2", "v31"]
   pull_request:
     # The branches below must be a subset of the branches above
     branches: ["master"]

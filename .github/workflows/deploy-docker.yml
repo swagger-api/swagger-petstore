@@ -2,7 +2,7 @@ name: Deploy Docker
 
 on:
   workflow_dispatch:
-    branches: ["master"]
+    branches: ["master", "v2", "v31"]
     inputs:
       tag:
         description: tag/version to deploy

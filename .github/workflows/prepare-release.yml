@@ -2,7 +2,7 @@ name: Prepare Release
 
 on:
   workflow_dispatch:
-    branches: ["master"]
+    branches: ["master", "v2", "v31"]
 
 jobs:
   build:
