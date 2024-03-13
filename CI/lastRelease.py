@@ -7,10 +7,10 @@ def getLastReleaseTag():
     for l in content:
         draft = l["draft"]
         tag = l["tag_name"]
-        if str(draft) != 'True' and tag.startswith("swagger-petstore-v3-"):
+        if str(draft) != 'True' and tag.startswith("swagger-petstore-v2-"):
             return tag
-    print ("NO RELEASE TAG FOUND, using default swagger-petstore-v3-1.0.17")
-    return "swagger-petstore-v3-1.0.17"
+    print ("NO RELEASE TAG FOUND, using default swagger-petstore-v2-1.0.6")
+    return "swagger-petstore-v2-1.0.6"
 # main
 def main():
     result = getLastReleaseTag()

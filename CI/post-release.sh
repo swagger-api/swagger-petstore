@@ -3,7 +3,7 @@
 CUR=$(pwd)
 TMPDIR="$(dirname -- "${0}")"
 
-SC_RELEASE_TAG="swagger-petstore-v3-$SC_VERSION"
+SC_RELEASE_TAG="swagger-petstore-v2-$SC_VERSION"
 
 #####################
 ### publish pre-prepared release (tag is created)
