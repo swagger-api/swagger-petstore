@@ -10,3 +10,5 @@ target
 atlassian-ide-plugin.xml
 *.iml
 .java-version
+dependency-reduced-pom.xml
+*.pyc
