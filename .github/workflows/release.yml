@@ -78,8 +78,8 @@ jobs:
         CLUSTER_ID="c-n8zp2"
         NAMESPACE_NAME="swagger-oss"
         K8S_OBJECT_TYPE="daemonsets"
-        K8S_OBJECT_NAME="swagger-petstore-3"
-        DEPLOY_IMAGE="swaggerapi/petstore3:$SC_RELEASE_TAG"
+        K8S_OBJECT_NAME="swagger-petstore-31"
+        DEPLOY_IMAGE="swaggerapi/petstore31:$SC_RELEASE_TAG"
         
         workloadStatus=""
         getStatus() {
