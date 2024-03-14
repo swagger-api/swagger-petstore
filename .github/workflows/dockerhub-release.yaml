@@ -51,7 +51,7 @@ jobs:
           push: true
           platforms: linux/amd64
           provenance: false
-          tags: swaggerapi/petstore3:${{ env.TAG }}
+          tags: swaggerapi/petstore:${{ env.TAG }}
     env:
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
