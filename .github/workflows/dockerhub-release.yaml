@@ -2,7 +2,7 @@ name: Docker Release
 
 on:
   workflow_dispatch:
-    branches: ["master", "v2", "v31"]
+    branches: ["master"]
     inputs:
       tag:
         description: tag/version to release
