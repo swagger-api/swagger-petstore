@@ -259,7 +259,7 @@ paths:
       description: ''
       operationId: deletePet
       parameters:
-        - name: api_key
+        - name: api-key
           in: header
           description: ''
           required: false
@@ -815,5 +815,5 @@ components:
             'read:pets': read your pets
     api_key:
       type: apiKey
-      name: api_key
+      name: api-key
       in: header
