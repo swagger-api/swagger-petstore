@@ -216,7 +216,7 @@
         <swagger-parser-version>2.1.21  </swagger-parser-version>
         <swagger-core-version>2.2.17</swagger-core-version>
         <jackson-version>2.16.1</jackson-version>
-        <swagger-inflector-version>2.0.10</swagger-inflector-version>
+        <swagger-inflector-version>2.0.11</swagger-inflector-version>
         <jetty-version>9.4.53.v20231009</jetty-version>
         <logback-version>1.4.11</logback-version>
         <junit-version>4.13.2</junit-version>
