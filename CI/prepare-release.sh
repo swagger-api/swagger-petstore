@@ -35,7 +35,13 @@ mvn versions:commit
 #####################
 sc_find="version\: $SC_VERSION\-SNAPSHOT"
 sc_replace="version: $SC_VERSION"
-sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/resources/openapi.yaml
+sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/webapp/design-first/petstore.yaml
+
+
+
+sc_find="version\: $SC_VERSION\-SNAPSHOT"
+sc_replace="version: $SC_VERSION"
+sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/webapp/code-first/openapi.yaml
 
 #####################
 ### build and test maven ###
