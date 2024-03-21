@@ -21,19 +21,19 @@ mvn versions:commit
 #####################
 
 sc_find="version: $SC_VERSION"
-sc_replace="version\: $SC_SC_NEXT_VERSION\-SNAPSHOT"
+sc_replace="version\: $SC_NEXT_VERSION\-SNAPSHOT"
 sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/webapp/design-first/petstore.yaml
 
 
 sc_find="version: $SC_VERSION"
-sc_replace="version\: $SC_SC_NEXT_VERSION\-SNAPSHOT"
+sc_replace="version\: $SC_NEXT_VERSION\-SNAPSHOT"
 sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/webapp/code-first/openapi.yaml
 
 
 sc_find="\"version\" \: \"$SC_VERSION\""
-sc_replace="\"version \: \"$SC_SC_NEXT_VERSION\-SNAPSHOT\""
+sc_replace="\"version \: \"$SC_NEXT_VERSION\-SNAPSHOT\""
 sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/webapp/code-first/openapi.json
 
-sc_find="\"version\" \: \"$SC_VERSION\""
-sc_replace="\"version \: \"$SC_NEXT_VERSION\-SNAPSHOT\""
+sc_find="version \= \"$SC_VERSION\""
+sc_replace="version \= \"$SC_NEXT_VERSION\-SNAPSHOT\""
 sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/java/io/swagger/petstore/resource/DefinitionResource.java

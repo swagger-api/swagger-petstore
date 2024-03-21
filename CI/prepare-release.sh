@@ -43,12 +43,12 @@ sc_replace="version: $SC_VERSION"
 sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/webapp/code-first/openapi.yaml
 
 
-sc_find="\"version \: \"$SC_VERSION\-SNAPSHOT\""
+sc_find="\"version\" \: \"$SC_VERSION\-SNAPSHOT\""
 sc_replace="\"version\" \: \"$SC_VERSION\""
 sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/webapp/code-first/openapi.json
 
-sc_find="\"version \: \"$SC_VERSION\-SNAPSHOT\""
-sc_replace="\"version\" \: \"$SC_VERSION\""
+sc_find="version \= \"$SC_VERSION\-SNAPSHOT\""
+sc_replace="version \= \"$SC_VERSION\""
 sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/java/io/swagger/petstore/resource/DefinitionResource.java
 
 #####################
