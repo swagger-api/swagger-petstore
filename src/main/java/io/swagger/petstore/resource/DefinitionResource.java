@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
         info = @Info(
                 title = "Swagger Petstore - OpenAPI 3.1",
                 summary = "Pet Store 3.1",
-                version = "1.0.3-SNAPSHOT",
+                version = "1.0.4-SNAPSHOT",
                 description = "This is a sample Pet Store Server based on the OpenAPI 3.1 specification.\nYou can find out more about\nSwagger at [http://swagger.io](http://swagger.io).",
                 termsOfService = "http://swagger.io/terms/",
                 contact = @Contact (

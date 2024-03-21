@@ -31,7 +31,7 @@ sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/webapp/code-first/openapi.yam
 
 
 sc_find="\"version\" \: \"$SC_VERSION\""
-sc_replace="\"version \: \"$SC_NEXT_VERSION\-SNAPSHOT\""
+sc_replace="\"version\" \: \"$SC_NEXT_VERSION\-SNAPSHOT\""
 sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/webapp/code-first/openapi.json
 
 sc_find="version \= \"$SC_VERSION\""

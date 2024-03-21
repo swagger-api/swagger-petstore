@@ -31,7 +31,7 @@ mvn versions:set -DnewVersion=$SC_VERSION
 mvn versions:commit
 
 #####################
-### update version in openapi.yaml file ###
+### update versions in files around ###
 #####################
 sc_find="version\: $SC_VERSION\-SNAPSHOT"
 sc_replace="version: $SC_VERSION"
