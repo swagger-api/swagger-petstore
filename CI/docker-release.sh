@@ -13,4 +13,4 @@ docker tag $DOCKER_PETSTORE_IMAGE_NAME:$SC_RELEASE_TAG $DOCKER_PETSTORE_IMAGE_NA
 docker push $DOCKER_PETSTORE_IMAGE_NAME:$SC_RELEASE_TAG
 docker push $DOCKER_PETSTORE_IMAGE_NAME:latest
 echo "docker images:"
-docker images | grep -i petstore3
+docker images | grep -i petstore31
