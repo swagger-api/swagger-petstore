@@ -17,9 +17,14 @@ mvn versions:set -DnewVersion="${SC_NEXT_VERSION}-SNAPSHOT"
 mvn versions:commit
 
 #####################
-### update all other versions in files around to the next snapshot or new release, including readme and gradle ###
+### update all other versions in files around to the next snapshot or new release ###
 #####################
 
-sc_find="version\: $SC_VERSION"
-sc_replace="version: $SC_NEXT_VERSION-SNAPSHOT"
-sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/resources/openapi.yaml
+sc_find="<param-value>$SC_VERSION"
+sc_replace="<param-value>$SC_SC_NEXT_VERSION\-SNAPSHOT"
+sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/webapp/WEB-INF/web.xml
+
+
+sc_find="$SC_VERSION"
+sc_replace="$SC_NEXT_VERSION\-SNAPSHOT"
+sed -i -e "s/$sc_find/$sc_replace/g" Dockerfile

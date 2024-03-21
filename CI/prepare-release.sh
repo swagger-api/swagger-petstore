@@ -31,15 +31,15 @@ mvn versions:set -DnewVersion=$SC_VERSION
 mvn versions:commit
 
 #####################
-### update version in openapi.yaml file ###
+### update version in files ###
 #####################
 sc_find="<param-value>$SC_VERSION\-SNAPSHOT"
 sc_replace="<param-value>$SC_VERSION"
 sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/webapp/WEB-INF/web.xml
 
 
-sc_find="target/swagger-petstore-v2-$SC_VERSION\-SNAPSHOT"
-sc_replace="target/swagger-petstore-v2-$SC_VERSION"
+sc_find="$SC_VERSION\-SNAPSHOT"
+sc_replace="$SC_VERSION"
 sed -i -e "s/$sc_find/$sc_replace/g" Dockerfile
 
 #####################
