@@ -33,9 +33,14 @@ mvn versions:commit
 #####################
 ### update version in openapi.yaml file ###
 #####################
-sc_find="version\: $SC_VERSION\-SNAPSHOT"
-sc_replace="version: $SC_VERSION"
-sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/resources/openapi.yaml
+sc_find="<param-value>$SC_VERSION\-SNAPSHOT"
+sc_replace="<param-value>$SC_VERSION"
+sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/webapp/WEB-INF/web.xml
+
+
+sc_find="target/swagger-petstore-v2-$SC_VERSION\-SNAPSHOT"
+sc_replace="target/swagger-petstore-v2-$SC_VERSION"
+sed -i -e "s/$sc_find/$sc_replace/g" Dockerfile
 
 #####################
 ### build and test maven ###

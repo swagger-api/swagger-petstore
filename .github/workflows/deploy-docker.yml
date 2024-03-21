@@ -24,7 +24,7 @@ jobs:
           NAMESPACE_NAME="swagger-oss"
           K8S_OBJECT_TYPE="daemonsets"
           K8S_OBJECT_NAME="swagger-petstore"
-          DEPLOY_IMAGE="swaggerapi/swagger-petstore:$SC_RELEASE_TAG"
+          DEPLOY_IMAGE="swaggerapi/petstore:$SC_RELEASE_TAG"
           
           workloadStatus=""
           getStatus() {
