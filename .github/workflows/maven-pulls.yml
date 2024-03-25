@@ -2,7 +2,7 @@ name: Build Test PR
 
 on:
   pull_request:
-    branches: ["master"]
+    branches: ["master", "v2", "v31"]
 
 jobs:
   build:
