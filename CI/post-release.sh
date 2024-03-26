@@ -21,7 +21,7 @@ mvn versions:commit
 #####################
 
 sc_find="<param-value>$SC_VERSION"
-sc_replace="<param-value>$SC_SC_NEXT_VERSION\-SNAPSHOT"
+sc_replace="<param-value>$SC_NEXT_VERSION\-SNAPSHOT"
 sed -i -e "s/$sc_find/$sc_replace/g" $CUR/src/main/webapp/WEB-INF/web.xml
 
 
