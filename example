@@ -1,0 +1,16 @@
+import java.util.*;
+
+public class example {
+    public static void main(String args[]) {
+        HashMap m = new HashMap();
+        int a = 10;
+        int b = 20;
+        m.put("key1",a);
+        m.put("key2",b);
+        System.out.println("result: " + add(m));
+    }
+    static int add(HashMap m) {
+        int result = (Integer)m.get("key1") + (Integer)m.get("key2");
+        return result;
+    }
+}
