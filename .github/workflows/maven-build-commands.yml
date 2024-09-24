@@ -4,10 +4,10 @@ name: Maven Build Command
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 # Define jobs that will run the Maven commands
 jobs:
