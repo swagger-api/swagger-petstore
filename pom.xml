@@ -1,9 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>5</version>
+        <version>5</version> <!-- Verify that this version is correct -->
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.swagger</groupId>
     <artifactId>swagger-petstore</artifactId>
@@ -18,8 +21,11 @@
         <defaultGoal>install</defaultGoal>
         <directory>target</directory>
         <finalName>${project.artifactId}-${project.version}</finalName>
+
         <plugins>
+            <!-- Maven Compiler Plugin -->
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
@@ -27,6 +33,8 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
+            <!-- Build Helper Maven Plugin -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -46,8 +54,12 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Maven Dependency Plugin -->
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.2</version> <!-- Added missing version -->
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -69,6 +81,8 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Maven JAR Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -87,6 +101,8 @@
                     </archive>
                 </configuration>
             </plugin>
+
+            <!-- Jetty Maven Plugin -->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
@@ -108,6 +124,8 @@
                     </httpConnector>
                 </configuration>
             </plugin>
+
+            <!-- Download Maven Plugin -->
             <plugin>
                 <groupId>com.googlecode.maven-download-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
@@ -128,7 +146,10 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Maven Resources Plugin -->
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.4.3</version>
                 <executions>
@@ -155,8 +176,9 @@
             </plugin>
         </plugins>
     </build>
-    <dependencies>
 
+    <dependencies>
+        <!-- Jackson Dependencies -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -183,13 +205,12 @@
             <version>${jackson-version}</version>
         </dependency>
 
-
+        <!-- Swagger Dependencies -->
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-jaxrs2</artifactId>
             <version>${swagger-core-version}</version>
         </dependency>
-        <!-- inflector library -->
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-inflector</artifactId>
@@ -200,8 +221,8 @@
             <artifactId>swagger-parser</artifactId>
             <version>${swagger-parser-version}</version>
         </dependency>
-
     </dependencies>
+
     <repositories>
         <repository>
             <id>sonatype-snapshots</id>
@@ -211,15 +232,6 @@
             </snapshots>
         </repository>
     </repositories>
+
     <properties>
-        <maven-plugin-version>1.0.0</maven-plugin-version>
-        <swagger-parser-version>2.1.21  </swagger-parser-version>
-        <swagger-core-version>2.2.17</swagger-core-version>
-        <jackson-version>2.16.1</jackson-version>
-        <swagger-inflector-version>2.0.11</swagger-inflector-version>
-        <jetty-version>9.4.53.v20231009</jetty-version>
-        <logback-version>1.4.11</logback-version>
-        <junit-version>4.13.2</junit-version>
-        <slf4j-version>2.0.9</slf4j-version>
-    </properties>
-</project>
+        <maven-plugin-version>1.0.0</maven-plugin>
