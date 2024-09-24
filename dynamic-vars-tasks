@@ -1,0 +1,26 @@
+name: Dynamic Vars Tasks  
+  
+on:  
+  workflow_dispatch:  
+   inputs:  
+    SNAPSHOT_BUILD_VERSION:  
+      description: 'Snapshot build version'  
+      required: true  
+  
+jobs:  
+  build-and-deploy:  
+   runs-on: ubuntu-latest  
+   steps:  
+    - name: Checkout code  
+      uses: actions/checkout@v2  
+    - name: Set snapshot build version  
+      run: |  
+       echo "SNAPSHOT_BUILD_VERSION=${SNAPSHOT_BUILD_VERSION}" >> $GITHUB_ENV  
+    - name: Build and deploy  
+      run: |  
+       # Your build and deploy commands go here  
+       # For example:  
+       # npm install  
+       # npm run build  
+       # npm run deploy
+
