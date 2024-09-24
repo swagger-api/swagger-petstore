@@ -1,6 +1,6 @@
-name: Maven Build Command
+name: Maven CI Pipeline
 
-# Triggers the workflow on a push or pull request to the main branch
+# Triggers the workflow on push or pull requests to the 'main' branch
 on:
   push:
     branches:
@@ -9,26 +9,38 @@ on:
     branches:
       - master
 
-# Define jobs that will run the Maven commands
+  # Also, allow manual triggering via workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "New version for the pom.xml (e.g., 1.0.23-SNAPSHOT)"
+        required: true
+        default: "1.0.0-SNAPSHOT"
+
 jobs:
   build:
-    # The environment where the job runs, in this case, an Ubuntu VM
     runs-on: ubuntu-latest
 
-    # Steps define the actions the job will take
     steps:
       # Step 1: Check out the code from the repository
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Cache the Maven dependencies to speed up builds
-      - name: Cache Maven packages
+      # Step 2: Replace the version in pom.xml with the updated version
+      - name: Update version in pom.xml
+        run: |
+          echo "Updating POM version to ${{ github.event.inputs.version }}"
+          sed -i 's/<version>.*<\/version>/<version>${{ github.event.inputs.version }}<\/version>/' pom.xml
+
+      # Step 3: Cache Maven dependencies to speed up build times
+      - name: Cache Maven dependencies
         uses: actions/cache@v2
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-maven-
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
-      # Step 3: Run Maven commands to build and package the application
-      - name: Build with Maven
-        run: mvn clean install
+      # Step 4: Build and package the project using Maven
+      - name: Build and package with Maven
+        run: mvn clean package
