@@ -1,0 +1,57 @@
+name: Maven CI Pipeline/workflow
+
+# Trigger the workflow on push or pull requests to the 'main' branch
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+  # Also, allow manual triggering via workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "New version for the pom.xml (e.g., 1.1.1)"
+        required: true
+        default: "1.0.20-SNAPSHOT"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code from the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up JDK (Java 11 or adjust to your requirements)
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      # Step 3: Replace the version in pom.xml with the updated version
+      - name: Update version in pom.xml
+        run: |
+            echo "Updating POM version to ${{ github.event.inputs.version }}"
+            sed -i 's/<version>.*<\/version>/<version>${{ github.event.inputs.version }}<\/version>/' pom.xml
+
+
+      # Step 4: Cache Maven dependencies to speed up build times
+      - name: Cache Maven dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
+      # Step 5: Build and package the project using Maven
+      - name: Build and package with Maven
+        run: mvn clean install
+
+      # Step 6: (Optional) Test the application using Maven
+      - name: Run Maven tests
+        run: mvn test
