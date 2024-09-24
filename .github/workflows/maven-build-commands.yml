@@ -21,14 +21,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Java 11 (adjust version if needed)
-      # - name: Set up JDK 11
-      #   uses: actions/setup-java@v3
-      #  with:
-      #   java-version: "11"
-      #  distribution: "adopt"
-      #
-      # Step 3: Cache the Maven dependencies to speed up builds
+      # Step 2: Cache the Maven dependencies to speed up builds
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
@@ -36,6 +29,6 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
 
-      # Step 4: Run Maven commands to build and package the application
+      # Step 3: Run Maven commands to build and package the application
       - name: Build with Maven
         run: mvn clean install
