@@ -3,12 +3,12 @@ name: Maven Pipeline
 # This workflow triggers on push and pull request events on the main branch
 on:
   push:
-    branches: ["main"]
+    branches: ["master"]
     paths:
         - 'pom.xml'
 
   pull_request:
-    branches: ["main"]
+    branches: ["master"]
      
     paths:
         - 'pom.xml' 
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup-ci # Depends on the setup-ci job
 
-    
+
     steps:
       # Step 1: Checkout the repository code
       - name: Checkout Code
