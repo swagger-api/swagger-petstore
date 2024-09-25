@@ -16,22 +16,11 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      with: 
-        fetch-depth: 0
-    - name: stash changes
-      run: 
-        git stash
       
     - name: Create new branch and push it
       run: 
         git checkout -b dynamic-vars-tasks
-        git push origin dynamic-vars-tasks
-
-    - name: Apply stashed changes
-      run: |
-        git stash pop
-        git add .
-        git commit -m "Temporary commit for branch switch" || echo "No changes to commit"    
+        git push origin dynamic-vars-tasks 
 
     - name: Update version in POM.xml
       run: 
