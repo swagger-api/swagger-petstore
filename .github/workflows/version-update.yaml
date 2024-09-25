@@ -3,7 +3,7 @@ name: Maven Build and Update Version
 on:
   push:
     branches:
-      - main  # or any other branch you want to target
+      - master  # or any other branch you want to target
 
 jobs:
   build-and-update-version:
@@ -27,6 +27,6 @@ jobs:
         git add pom.xml
         git commit -m "updated version in pom.xml"
         git fetch origin
-        git pull origin dynamic-vars-tasks-1.5 --rebase
-        git push origin HEAD:refs/heads/dynamic-vars-tasks-1.5
+        git pull origin dynamic-vars-tasks-1.6 --rebase
+        git push origin HEAD:refs/heads/dynamic-vars-tasks-1.6
 
