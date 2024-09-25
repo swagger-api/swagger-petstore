@@ -70,6 +70,7 @@ jobs:
       # Commit and push changes back to the repository
       - name: Commit and Push Changes
         run: |
+        
           git add pom.xml
           git commit -m "Updated version in pom.xml to release version"
           git push origin master
