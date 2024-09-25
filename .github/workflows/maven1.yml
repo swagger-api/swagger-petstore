@@ -23,7 +23,7 @@ jobs:
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '1s1'
           distribution: 'adopt'
 
 
@@ -70,10 +70,6 @@ jobs:
       # Commit and push changes back to the repository
       - name: Commit and Push Changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add pom.xml
           git commit -m "Updated version in pom.xml to release version"
-          git push origin HEAD:${{ github.ref }}
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
+          git push origin master
