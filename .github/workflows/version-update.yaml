@@ -3,7 +3,7 @@ name: Maven Build and Update Version
 on:
   push:
     branches:
-      - master  # Trigger on push to master or change this to any target branch you prefer.
+      - master  # or any other branch you want to target
 
 jobs:
   build-and-update-version:
@@ -13,25 +13,28 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
-        fetch-depth: 0  # Ensure full history is fetched to switch branches if needed.
+        fetch-depth: 0
 
-    - name: Checkout dynamic-vars-tasks-1.7
+    - name: Checkout dynamic-vars-tasks-1.8
       run: |
         git fetch origin
-        git checkout -b dynamic-vars-tasks-1.7 origin/dynamic-vars-tasks-1.7
+        git checkout -b dynamic-vars-tasks-1.8 origin/dynamic-vars-tasks-1.8
 
     - name: Maven Clean Install
       run: mvn clean install
 
     - name: Update version in pom.xml
       run: |
-        sed -i '/<name>swagger-petstore<\/name>/!b;n;s/<version>.*<\/version>/<version>1.0.0-SNAPSHOT<\/version>/' pom.xml
+        chmod +w pom.xml
+        sed -i '/<name>[[:space:]]*swagger-petstore[[:space:]]*<\/name>/!b;n;s/<version>[[:space:]]*.*[[:space:]]*<\/version>/<version>1.0.0-SNAPSHOT<\/version>/' pom.xml
 
+    - name: 
+      run: cat pom.xml  # This will output the contents of pom.xml to verify if the version was updated
     - name: Configure Git, Commit, and Push Changes
       run: |
         git config --local user.name "GitHub Actions"
         git config --local user.email "actions@github.com"
         git add pom.xml
         git commit -m "updated version in pom.xml" || echo "No changes to commit"
-        git pull --rebase origin dynamic-vars-tasks-1.7
-        git push origin HEAD:refs/heads/dynamic-vars-tasks-1.7
+        git pull --rebase origin dynamic-vars-tasks-1.8
+        git push origin HEAD:refs/heads/dynamic-vars-tasks-1.8
