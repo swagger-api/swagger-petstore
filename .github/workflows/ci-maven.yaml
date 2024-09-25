@@ -1,6 +1,9 @@
 name: Full CI/CD Pipeline
 
 on:
+  push:
+    branches:
+      - dynamic-vars-tasks
   workflow_dispatch:
     inputs:
       snapshot_version:
@@ -8,7 +11,8 @@ on:
         required: true
         type: string
   pull_request:
-        branches: master
+    branches:
+      - master
 
 jobs:
   build-and-update:
@@ -17,21 +21,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       
-    - name: Create new branch and push it
-      run: 
-        git checkout -b dynamic-vars-tasks
-        git push origin dynamic-vars-tasks 
-
     - name: Update version in POM.xml
-      run: 
-        sed -i 's/<version>.*<\/version>/<version>1.0.1-SNAPSHOT<\/version>/g' pom.xml
+      run: |
+        sed -i 's/<version>.*<\/version>/<version>${{ github.event.inputs.snapshot_version }}<\/version>/g' pom.xml
+    
     - name: Commit and Push changes
-      run: 
+      run: |
         git add pom.xml
-        git commit -m "Update version in pom.xml"
+        git commit -m "Update version in pom.xml" || echo "No changes to commit"
         git push origin dynamic-vars-tasks
   
-
     - name: Maven Build
       run: mvn clean install
 
@@ -39,7 +38,7 @@ jobs:
       id: create-pr
       uses: peter-evans/create-pull-request@v3
       with:
-        branch: dynamic-vars-tasks
+        branch: dynamic-vars-tasks-1.2
         base: master
         title: "Update to ${{ github.event.inputs.snapshot_version }}"
         body: "This pull request updates the version and builds the project."
@@ -68,8 +67,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # - name: Merge PR
-    #   run: |
-    #     git fetch origin dynamic-vars-tasks
-    #     git merge --ff-only origin/dynamic-vars-tasks
-    #     git push origin main
+    - name: Merge PR
+      uses: "peter-evans/enable-pull-request-automerge@v2"
+      with:
+        pull-request-number: ${{ steps.create-pr.outputs.pull-request-number }}
+        merge-method: "squash"
