@@ -1,0 +1,32 @@
+name: Maven Build and Update Version
+
+on:
+  push:
+    branches:
+      - main  # or any other branch you want to target
+
+jobs:
+  build-and-update-version:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Maven Clean Install
+      run: mvn clean install
+
+    - name: Update version in pom.xml
+      run: 
+        sed -i '/<artifactId>swagger-petstore<\/artifactId>/!b;n;s/<version>.*<\/version>/<version>1.0.0-SNAPSHOT<\/version>/' pom.xml
+
+    - name: Commit and Push changes,Configure Git user
+      run: |
+        git config --local user.name "GitHub Actions"
+        git config --local user.email "actions@github.com"
+        git add pom.xml
+        git commit -m "updated version in pom.xml"
+        git fetch origin
+        git pull origin dynamic-vars-tasks-1.5 --rebase
+        git push origin HEAD:refs/heads/dynamic-vars-tasks-1.5
+
