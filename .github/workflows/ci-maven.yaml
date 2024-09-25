@@ -26,11 +26,11 @@ jobs:
     - name: Create or checkout branch
       run: |
         git fetch --all
-        if git show-ref --quiet refs/heads/dynamic-vars-tasks-1.3; then
-          git checkout dynamic-vars-tasks-1.3
+        if git show-ref --quiet refs/heads/dynamic-vars-tasks-1.4; then
+          git checkout dynamic-vars-tasks-1.4
         else
-          git checkout -b dynamic-vars-tasks-1.3
-          git push --set-upstream origin dynamic-vars-tasks-1.3
+          git checkout -b dynamic-vars-tasks-1.4
+          git push --set-upstream origin dynamic-vars-tasks-1.4
         fi
     
     - name: Update version in POM.xml
@@ -55,7 +55,7 @@ jobs:
       id: create-pr
       uses: peter-evans/create-pull-request@v3
       with:
-        branch: dynamic-vars-tasks-1.3
+        branch: dynamic-vars-tasks-1.4
         base: master
         title: "Update to ${{ github.event.inputs.snapshot_version }}"
         body: "This pull request updates the version and builds the project."
@@ -78,7 +78,7 @@ jobs:
 
   auto-merge:
     needs: codeql-analysis
-    if: github.event.pull_request.head.ref == 'dynamic-vars-tasks-1.3'
+    if: github.event.pull_request.head.ref == 'dynamic-vars-tasks-1.4'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
