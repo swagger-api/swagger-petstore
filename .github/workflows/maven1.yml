@@ -4,14 +4,12 @@ name: Maven Pipeline
 on:
   push:
     branches: ["master"]
-    paths:
-        - 'pom.xml'
+    
 
   pull_request:
     branches: ["master"]
      
-    paths:
-        - 'pom.xml' 
+    
 
 # Jobs: Define the stages of the pipeline
 jobs:
