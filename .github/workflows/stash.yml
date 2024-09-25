@@ -1,0 +1,89 @@
+name: Build and PR with CodeQL Scan/update 
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Snapshot build version'
+        required: true
+        default: ''
+
+jobs:
+  update-pom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Update POM.xml with input version
+        run: |
+          sed -i '/<name>swagger-petstore<\/name>/!b;n;s/<version>.*<\/version>/<version>${{ github.event.inputs.version }}T<\/version>/' pom.xml
+          
+      - name: Commit and push the POM.xml change
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git checkout -b update-version-${{ github.event.inputs.version }}
+          git commit -am "Updated pom.xml version to ${{ github.event.inputs.version }}"
+          git push origin update-version-${{ github.event.inputs.version }}
+
+  build:
+    needs: update-pom
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout updated branch
+        uses: actions/checkout@v3
+        with:
+          ref: update-version-${{ github.event.inputs.version }}
+
+      - name: Build the project
+        run: mvn clean install -U
+
+  create-pr:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          # token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Update pom.xml version to ${{ github.event.inputs.version }}"
+          branch: update-version-${{ github.event.inputs.version }}
+          title: "Update pom.xml version to ${{ github.event.inputs.version }}"
+          body: "This PR updates the pom.xml version to ${{ github.event.inputs.version }}."
+
+  codeql-scan:
+    needs: create-pr
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: java
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v2
+
+  merge-pr:
+    needs: codeql-scan
+    runs-on: ubuntu-latest
+    if: ${{ success() }}
+    steps:
+      - name: Merge Pull Request
+        run: |
+          gh pr merge update-version-${{ github.event.inputs.version }} --merge
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
