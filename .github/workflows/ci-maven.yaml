@@ -9,7 +9,7 @@ on:
         type: string
   pull_request:
     types: [opened, synchronize, reopened]
-    branches: [main]
+    branches: master
 
 jobs:
   build-and-update:
@@ -19,17 +19,15 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Create new branch
-      run: |
+      run: 
         git checkout -b dynamic-vars-tasks
         git push origin dynamic-vars-tasks
 
     - name: Update version in POM.xml
-      run: |
+      run: 
         sed -i 's/<version>.*<\/version>/<version>1.0.1-SNAPSHOT<\/version>/g' pom.xml
     - name: Commit and Push changes
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+      run: 
         git add pom.xml
         git commit -m "Update version in pom.xml"
         git push
@@ -43,7 +41,7 @@ jobs:
       uses: create-pull-request@v3
       with:
         branch: dynamic-vars-tasks
-        base: main
+        base: master
         title: "Update to ${{ github.event.inputs.snapshot_version }}"
         body: "This pull request updates the version and builds the project."
 
@@ -71,7 +69,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        ref: main
+        ref: master
 
     # - name: Merge PR
     #   run: |
