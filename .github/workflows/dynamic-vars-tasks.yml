@@ -13,13 +13,64 @@ jobs:
    steps:  
     - name: Checkout code  
       uses: actions/checkout@v2  
-    - name: Set snapshot build version  
+  
+    - name: Set up Java  
+      uses: actions/setup-java@v1  
+      with:  
+       java-version: '11'  
+  
+    - name: Create branch  
       run: |  
-       echo "SNAPSHOT_BUILD_VERSION=${SNAPSHOT_BUILD_VERSION}" >> $GITHUB_ENV  
-    - name: Build and deploy  
+       git checkout -b dynamic-vars-tasks  
+  
+    - name: Update pom.xml with snapshot build version  
       run: |  
-       # Your build and deploy commands go here  
-       # For example:  
-       # npm install  
-       # npm run build  
-       # npm run deploy
+       sed -i "s/<version>.*<\/version>/<version>${SNAPSHOT_BUILD_VERSION}<\/version>/" pom.xml  
+  
+    - name: Build  
+      run: |  
+       mvn clean package -Dmaven.test.skip=true  
+  
+    - name: Commit changes  
+      run: |  
+       git add .  
+       git commit -m "Update pom.xml with snapshot build version ${SNAPSHOT_BUILD_VERSION}"  
+  
+    - name: Push changes to branch  
+      uses: ad-m/github-push-action@v0.5.1  
+      with:  
+       github_token: ${{ secrets.GITHUB_TOKEN }}  
+       force: true  
+  
+    - name: Create PR  
+      uses: actions/github-script@v6  
+      with:  
+       github-token: ${{ secrets.GITHUB_TOKEN }}  
+       script: |  
+        github.pulls.create({  
+          owner: context.repo.owner,  
+          repo: context.repo.repo,  
+          title: 'Update pom.xml with snapshot build version ${SNAPSHOT_BUILD_VERSION}',  
+          head: 'dynamic-vars-tasks',  
+          base: 'main',  
+          body: 'Automatically generated PR'  
+        })  
+  
+    - name: CodeQL scanning  
+      uses: github/codeql-action/analyze@v2  
+      with:  
+       github-token: ${{ secrets.GITHUB_TOKEN }}  
+       languages: java  
+  
+    - name: Merge PR  
+      uses: actions/github-script@v6  
+      with:  
+       github-token: ${{ secrets.GITHUB_TOKEN }}  
+       script: |  
+        github.pulls.merge({  
+          owner: context.repo.owner,  
+          repo: context.repo.repo,  
+          pull_number: github.context.pullRequest.number,  
+          commit_title: 'Merge PR',  
+          commit_message: 'Automatically merged PR'  
+        })
