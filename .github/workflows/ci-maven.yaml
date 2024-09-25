@@ -17,10 +17,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       
-    - name: Create new branch
+    - name: Create new branch and push it
       run: 
         git checkout -b dynamic-vars-tasks
         git push origin dynamic-vars-tasks
+
+    - name: Add and Commit Changes (if any)
+      run: |
+        git add .
+        git commit -m "Temporary commit for branch switch" || echo "No changes to commit"    
 
     - name: Update version in POM.xml
       run: 
