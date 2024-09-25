@@ -25,14 +25,15 @@ jobs:
 
     - name: Update version in POM.xml
       run: |
-        NEW_VERSION="${{ github.event.inputs.snapshot_version }}"
-        mvn versions:set -DnewVersion=$NEW_VERSION
-        mvn versions:commit
-        git config --global user.name 'GitHub Action'
-        git config --global user.email 'action@github.com'
+        sed -i 's/<version>.*<\/version>/<version>1.0.1-SNAPSHOT<\/version>/g' pom.xml
+    - name: Commit and Push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         git add pom.xml
-        git commit -m "Update version to $NEW_VERSION"
-        git push --set-upstream origin dynamic-vars-tasks
+        git commit -m "Update version in pom.xml"
+        git push
+  
 
     - name: Maven Build
       run: mvn clean install
