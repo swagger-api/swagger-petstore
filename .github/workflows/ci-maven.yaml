@@ -8,8 +8,7 @@ on:
         required: true
         type: string
   pull_request:
-    types: [opened, synchronize, reopened]
-    branches: master
+        branches: master
 
 jobs:
   build-and-update:
@@ -68,8 +67,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      with:
-        ref: master
 
     # - name: Merge PR
     #   run: |
