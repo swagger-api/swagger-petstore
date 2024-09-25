@@ -73,3 +73,4 @@ jobs:
           git add pom.xml
           git commit -m "Updated version in pom.xml to release version"
           git push origin master
+          
