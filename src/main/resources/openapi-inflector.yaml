@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  title: Swagger Petstore API
+  description: API for managing a pet store
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/v2
+paths:
+  /pet:
+    post:
+      summary: Add a new pet to the store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                status:
+                  type: string
+      responses:
+        '200':
+          description: Pet added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  status:
+                    type: string
+  /pet/{petId}:
+    get:
+      summary: Find pet by ID
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          description: ID of pet to return
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  status:
+                    type: string
+        '404':
+          description: Pet not found
+
