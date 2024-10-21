@@ -66,4 +66,5 @@ Start JMeter
 ```
 #### 3. Open the test plan and run the test
 1. In JMeter click on the open iIcon and select the test plan file for Pet Store performance test "petStore_Test Plan.jmx"(src/test/java/performance)
-2. Click on the green **Start** button in the toolbar to run the test.
+2. After opening the test plan you will see four listeners (View Results Tree, Summary Report, Aggregate Report and Response Time Graph). Make sure the "Write results to file" path is pointing to the results file available on the projects performance folder (src/test/java/performance/results/test_results.xml)
+32. Click on the green **Start** button in the toolbar to run the test.
