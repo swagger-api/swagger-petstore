@@ -91,7 +91,7 @@ public class Pet {
         this.status = status;
     }
 
-    @Schema(name = "petDetails", ref = "/components/schemas/petdetails")
+    @Schema(name = "petDetails", ref = "/api/v31/components/schemas/petdetails")
     public PetDetails getPetDetails() {
         return petDetails;
     }
@@ -126,7 +126,7 @@ public class Pet {
     }
 
     @XmlElement(name = "petDetailsId")
-    @Schema(name = "petDetailsId", ref = "/components/schemas/petdetails#pet_details_id")
+    @Schema(name = "petDetailsId", ref = "/api/v31/components/schemas/petdetails#pet_details_id")
     public long getPetDetailsId() {
         return petDetailsId;
     }

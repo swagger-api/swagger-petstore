@@ -214,7 +214,7 @@
   "components" : {
     "schemas" : {
       "Category" : {
-        "$id" : "/components/schemas/category",
+        "$id" : "/api/v31/components/schemas/category",
         "description" : "Category",
         "properties" : {
           "id" : {
@@ -285,10 +285,10 @@
           "petDetailsId" : {
             "type" : "integer",
             "format" : "int64",
-            "$ref" : "/components/schemas/petdetails#pet_details_id"
+            "$ref" : "/api/v31/components/schemas/petdetails#pet_details_id"
           },
           "petDetails" : {
-            "$ref" : "/components/schemas/petdetails"
+            "$ref" : "/api/v31/components/schemas/petdetails"
           }
         },
         "required" : [ "name", "photoUrls" ],
@@ -297,7 +297,7 @@
         }
       },
       "PetDetails" : {
-        "$id" : "/components/schemas/petdetails",
+        "$id" : "/api/v31/components/schemas/petdetails",
         "$schema" : "https://json-schema.org/draft/2020-12/schema",
         "$vocabulary" : "https://spec.openapis.org/oas/3.1/schema-base",
         "properties" : {
@@ -308,11 +308,11 @@
             "example" : 10
           },
           "category" : {
-            "$ref" : "/components/schemas/category",
+            "$ref" : "/api/v31/components/schemas/category",
             "description" : "PetDetails Category"
           },
           "tag" : {
-            "$ref" : "/components/schemas/tag"
+            "$ref" : "/api/v31/components/schemas/tag"
           }
         },
         "xml" : {
@@ -320,7 +320,7 @@
         }
       },
       "Tag" : {
-        "$id" : "/components/schemas/tag",
+        "$id" : "/api/v31/components/schemas/tag",
         "properties" : {
           "id" : {
             "type" : "integer",

@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Schema(
-        $id = "/components/schemas/tag"
+        $id = "/api/v31/components/schemas/tag"
 )
 @XmlRootElement(name = "Tag")
 public class Tag {

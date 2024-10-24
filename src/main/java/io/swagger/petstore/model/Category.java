@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Schema(
         description = "Category",
-        $id = "/components/schemas/category"
+        $id = "/api/v31/components/schemas/category"
 )
 @XmlRootElement(name = "Category")
 public class Category {
