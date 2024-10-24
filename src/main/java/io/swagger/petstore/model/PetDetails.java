@@ -11,7 +11,7 @@ import java.util.List;
 @Schema(
         $schema = "https://json-schema.org/draft/2020-12/schema",
         $vocabulary = "https://spec.openapis.org/oas/3.1/schema-base",
-        $id = "/components/schemas/petdetails",
+        $id = "/api/v31/components/schemas/petdetails",
         type = "object"
 )
 public class PetDetails {
@@ -32,7 +32,7 @@ public class PetDetails {
         this.id = id;
     }
 
-    @Schema(description = "PetDetails Category", ref = "/components/schemas/category")
+    @Schema(description = "PetDetails Category", ref = "/api/v31/components/schemas/category")
     public Category getCategory() {
         return category;
     }
@@ -41,7 +41,7 @@ public class PetDetails {
         this.category = category;
     }
 
-    @Schema(ref = "/components/schemas/tag")
+    @Schema(ref = "/api/v31/components/schemas/tag")
     public Tag getTag() {
         return tag;
     }
