@@ -4,7 +4,7 @@
     <artifactId>swagger-petstore-v31</artifactId>
     <packaging>war</packaging>
     <name>Swagger Petstore V3.1</name>
-    <version>1.0.7</version>
+    <version>1.0.8-SNAPSHOT</version>
     <url>https://github.com/swagger-api/swagger-petstore</url>
     <scm>
         <connection>scm:git:git@github.com:swagger-api/swagger-petstore.git</connection>
