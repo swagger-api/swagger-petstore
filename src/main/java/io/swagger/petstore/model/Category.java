@@ -15,7 +15,7 @@ public class Category {
   private String name;
 
   @XmlElement(name = "id")
-  @Schema(example = "1")
+  @Schema(examples = "1")
   public long getId() {
     return id;
   }
@@ -25,7 +25,7 @@ public class Category {
   }
 
   @XmlElement(name = "name")
-  @Schema(example = "Dogs")
+  @Schema(examples = "Dogs")
   public String getName() {
     return name;
   }
