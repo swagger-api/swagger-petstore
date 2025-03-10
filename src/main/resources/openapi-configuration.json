@@ -10,13 +10,13 @@
         "info": {
             "version": "1.0",
             "title": "Swagger Pet Sample ",
-            "description": "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
-            "termsOfService": "http://swagger.io/terms/",
+            "description": "This is a sample server Petstore server.  You can find out more about Swagger at [https://swagger.io](https://swagger.io) or on [irc.freenode.net, #swagger](https://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
+            "termsOfService": "https://swagger.io/terms/",
             "contact": {
                 "email": "apiteam@swagger.io"
             },
             "license": {
-                "identifier": "license-id",
+                "identifier": "Apache-2.0",
                 "name": "Apache 2.0"
             }
         }

@@ -30,7 +30,7 @@ public class Pet {
     private PetDetails petDetails;
 
     @XmlElement(name = "id")
-    @Schema(example = "10")
+    @Schema(examples = "10")
     public Long getId() {
         return id;
     }
@@ -49,7 +49,7 @@ public class Pet {
     }
 
     @XmlElement(name = "name")
-    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "doggie")
+    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, examples = "doggie")
     public String getName() {
         return name;
     }
@@ -102,7 +102,7 @@ public class Pet {
 
     @XmlElement(name = "availableInstances")
     @Schema(
-            example = "7",
+            examples = "7",
             exclusiveMaximumValue = 10,
             exclusiveMinimumValue = 1,
             extensions = {

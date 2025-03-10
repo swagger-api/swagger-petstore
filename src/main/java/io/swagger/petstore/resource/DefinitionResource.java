@@ -22,9 +22,9 @@ import io.swagger.v3.oas.annotations.tags.Tags;
         info = @Info(
                 title = "Swagger Petstore - OpenAPI 3.1",
                 summary = "Pet Store 3.1",
-                version = "1.0.8-SNAPSHOT",
-                description = "This is a sample Pet Store Server based on the OpenAPI 3.1 specification.\nYou can find out more about\nSwagger at [http://swagger.io](http://swagger.io).",
-                termsOfService = "http://swagger.io/terms/",
+                version = "1.0.9-SNAPSHOT",
+                description = "This is a sample Pet Store Server based on the OpenAPI 3.1 specification.\nYou can find out more about\nSwagger at [https://swagger.io](https://swagger.io).",
+                termsOfService = "https://swagger.io/terms/",
                 contact = @Contact (
                         email = "apiteam@swagger.io"
                 ),
@@ -41,7 +41,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
         },
         externalDocs = @ExternalDocumentation(
                 description = "Find out more about Swagger",
-                url = "http://swagger.io"
+                url = "https://swagger.io"
         )
 )
 @Tags(
@@ -51,7 +51,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
                         description = "Everything about your Pets",
                         externalDocs = @ExternalDocumentation(
                                 description = "Find out more",
-                                url = "http://swagger.io"
+                                url = "https://swagger.io"
                         )
                 ),
                 @Tag(
@@ -59,7 +59,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
                         description = "Access to Petstore orders",
                         externalDocs = @ExternalDocumentation(
                                 description = "Find out more about our store",
-                                url = "http://swagger.io"
+                                url = "https://swagger.io"
                         )
                 ),
                 @Tag(
@@ -80,7 +80,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
                                     @OAuthScope(name = "write:pets", description = "modify pets in your account"),
                                     @OAuthScope(name = "read:pets", description = "read your pets")
                             },
-                            authorizationUrl = "https://petstore3.swagger.io/oauth/authorize"
+                            authorizationUrl = "https://petstore31.swagger.io/oauth/authorize"
                         )
                     )
                 ),
