@@ -16,7 +16,7 @@ EXPOSE 8080
 
 ENV OTEL_SERVICE_NAME=swagger-petstore \
     OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp.bugsnag.com \
-    OTEL_EXPORTER_OTLP_HEADERS="Authorization=Api-Key <YOUR_BUGSNAG_API_KEY>" \
+    OTEL_EXPORTER_OTLP_HEADERS="Authorization=Api-Key 395e06789c31ab1a37eefad2c9520599" \
     OTEL_LOGS_EXPORTER=otlp \
     OTEL_RESOURCE_ATTRIBUTES="deployment.environment=prod" \
     OTEL_EXPORTER_LOGGING_ENABLED=true
