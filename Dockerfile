@@ -16,9 +16,11 @@ EXPOSE 8080
 
 ENV OTEL_SERVICE_NAME=swagger-petstore \
     OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp.bugsnag.com \
-    OTEL_EXPORTER_OTLP_HEADERS="Authorization=Api-Key 395e06789c31ab1a37eefad2c9520599" \
     OTEL_LOGS_EXPORTER=otlp \
     OTEL_RESOURCE_ATTRIBUTES="deployment.environment=prod" \
     OTEL_EXPORTER_LOGGING_ENABLED=true
 
-CMD ["java", "-javaagent:/swagger-petstore/otel-javaagent.jar", "-jar", "-DswaggerUrl=openapi.yaml", "/swagger-petstore/jetty-runner.jar", "--log", "/var/log/yyyy_mm_dd-requests.log", "/swagger-petstore/server.war"]
+CMD ["sh", "-c", \
+    "exec java -javaagent:/swagger-petstore/otel-javaagent.jar -jar -DswaggerUrl=openapi.yaml \
+    -DOTEL_EXPORTER_OTLP_HEADERS=\"Authorization=Api-Key $BUGSNAG_API_KEY\" \
+    /swagger-petstore/jetty-runner.jar --log /var/log/yyyy_mm_dd-requests.log /swagger-petstore/server.war"]
