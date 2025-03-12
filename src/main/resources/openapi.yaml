@@ -414,6 +414,7 @@ paths:
         - store
       summary: Place an order for a pet.
       description: Place a new order in the store
+      x-swagger-router-controller: OrderController
       operationId: placeOrder
       requestBody:
         content:
@@ -549,6 +550,7 @@ paths:
         - user
       summary: Creates list of users with given input array.
       description: Creates list of users with given input array
+      x-swagger-router-controller: UserController
       operationId: createUsersWithListInput
       requestBody:
         content:
