@@ -49,6 +49,7 @@ jobs:
     env:
       ACTIONS_ALLOW_UNSECURE_COMMANDS:  true
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BUGSNAG_API_KEY: ${{ secrets.BUGSNAG_API_KEY }}
       SC_VERSION:
       SC_NEXT_VERSION:
 

@@ -14,13 +14,16 @@ COPY inflector.yaml /swagger-petstore/
 
 EXPOSE 8080
 
-ENV OTEL_SERVICE_NAME=swagger-petstore \
-    OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp.bugsnag.com \
-    OTEL_LOGS_EXPORTER=otlp \
-    OTEL_RESOURCE_ATTRIBUTES="deployment.environment=prod" \
-    OTEL_EXPORTER_LOGGING_ENABLED=true
+ENV JAVA_TOOL_OPTIONS="-javaagent:/swagger-petstore/otel-javaagent.jar" \
+    OTEL_JAVAAGENT_ENABLED=true \
+    OTEL_TRACES_EXPORTER=otlp \
+    OTEL_METRICS_EXPORTER=none \
+    OTEL_LOGS_EXPORTER=none \
+    OTEL_RESOURCE_ATTRIBUTES="service.name=swagger-petstore,deployment.environment=prod" \
+    OTEL_EXPORTER_OTLP_ENDPOINT="https://$BUGSNAG_API_KEY.otlp.bugsnag.com" \
+    OTEL_JAVAAGENT_LOGGING=simple
 
+# Run Swagger Petstore with OpenTelemetry
 CMD ["sh", "-c", \
-    "exec java -javaagent:/swagger-petstore/otel-javaagent.jar -jar -DswaggerUrl=openapi.yaml \
-    -DOTEL_EXPORTER_OTLP_HEADERS=\"Authorization=Api-Key $BUGSNAG_API_KEY\" \
+    "exec java $JAVA_TOOL_OPTIONS -jar -DswaggerUrl=openapi.yaml \
     /swagger-petstore/jetty-runner.jar --log /var/log/yyyy_mm_dd-requests.log /swagger-petstore/server.war"]
