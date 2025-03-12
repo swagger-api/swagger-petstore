@@ -23,7 +23,7 @@ public class PetDetails {
     private String status;
 
     @XmlElement(name = "id")
-    @Schema(examples = "10", $anchor = "pet_details_id")
+    @Schema(examples = {"10"}, $anchor = "pet_details_id")
     public long getId() {
         return id;
     }

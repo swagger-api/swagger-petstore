@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.1.1
 info:
   title: Swagger Petstore - OpenAPI 3.1
   summary: Pet Store 3.1
@@ -12,7 +12,7 @@ info:
     email: apiteam@swagger.io
   license:
     name: Apache 2.0
-    identifier: Apache-2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.9-SNAPSHOT
   x-namespace: Swagger
 externalDocs:
@@ -26,13 +26,6 @@ tags:
     externalDocs:
       description: Find out more
       url: https://swagger.io
-  - name: store
-    description: Access to Petstore orders
-    externalDocs:
-      description: Find out more about our store
-      url: https://swagger.io
-  - name: user
-    description: Operations about user
 paths:
   /pet:
     put:
@@ -79,19 +72,12 @@ paths:
           description: Pet not found
         '405':
           description: Validation exception
-        default: 
-          description: uccessful operation
+        default:
+          description: Unexpected error
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
-                readOnly: true
-                description: A Pet in XML Format
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
-                readOnly: true
-                description: A Pet in JSON Format          
+                $ref: "#/components/schemas/Error" 
       security:
         - petstore_auth:
             - write:pets
@@ -142,18 +128,11 @@ paths:
         '405':
           description: Invalid input
         default:
-          description: Successful operation
+          description: Unexpected error
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
-                readOnly: true
-                description: A Pet in XML Format
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
-                readOnly: true
-                description: A Pet in JSON Format         
+                $ref: "#/components/schemas/Error"        
       security:
         - petstore_auth:
             - write:pets
@@ -200,23 +179,11 @@ paths:
         '400':
           description: Invalid status value
         default:
-          description: successful operation
+          description: Unexpected error
           content:
-            application/xml:
-              schema:
-                type: array
-                minContains: 1
-                maxContains: 10
-                contains:
-                  $ref: '#/components/schemas/Pet'
-                  maxProperties: 3
-                items:
-                  $ref: '#/components/schemas/Pet'
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'          
+                $ref: "#/components/schemas/Error"          
       security:
         - petstore_auth:
             - write:pets
@@ -260,18 +227,11 @@ paths:
         '400':
           description: Invalid tag value
         default:
-          description: successful operation
+          description: Unexpected error
           content:
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'          
+                $ref: "#/components/schemas/Error"         
       security:
         - petstore_auth:
             - write:pets
@@ -315,18 +275,11 @@ paths:
         '404':
           description: Pet not found
         default:
-          description: successful operation
+          description: Unexpected error
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
-                readOnly: true
-                description: A Pet in XML Format
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
-                readOnly: true
-                description: A Pet in JSON Format          
+                $ref: "#/components/schemas/Error"         
       security:
         - api_key: []
         - petstore_auth:
@@ -357,8 +310,12 @@ paths:
           description: successfully deleted
         '400':
           description: Invalid pet value
-        default: 
-          description: successfully deleted
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
       security:
         - petstore_auth:
             - write:pets
@@ -475,6 +432,16 @@ components:
           type: string
       xml:
         name: '##default'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message         
   requestBodies:
     Pet:
       description: Pet object that needs to be added to the store
