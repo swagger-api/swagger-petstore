@@ -10,7 +10,7 @@
     },
     "license": {
       "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
     "version": "1.0.9-SNAPSHOT",
     "x-namespace": "Swagger"
@@ -41,7 +41,7 @@
           "pet"
         ],
         "summary": "Update an existing pet.",
-        "description": "Update an existing pet by Id",
+        "description": "Update an existing pet by Id.",
         "operationId": "updatePet",
         "requestBody": {
           "description": "Pet object that needs to be updated in the store",
@@ -123,7 +123,7 @@
           "pet"
         ],
         "summary": "Add a new pet to the store.",
-        "description": "Add a new pet to the store",
+        "description": "Add a new pet to the store.",
         "operationId": "addPet",
         "requestBody": {
           "description": "Create a new pet in the store",
@@ -208,7 +208,7 @@
           "pet"
         ],
         "summary": "Finds Pets by status.",
-        "description": "Multiple status values can be provided with comma separated strings",
+        "description": "Multiple status values can be provided with comma separated strings.",
         "operationId": "findPetsByStatus",
         "parameters": [
           {
@@ -361,7 +361,7 @@
           "pet"
         ],
         "summary": "Find pet by identifier.",
-        "description": "Returns a pet when 0 < ID <= 10.  ID > 10 or non-integers will simulate API error conditions",
+        "description": "Returns a pet when 0 < ID <= 10.  ID > 10 or non-integers will simulate API error conditions.",
         "operationId": "getPetById",
         "parameters": [
           {
@@ -432,7 +432,7 @@
           "pet"
         ],
         "summary": "Deletes a pet.",
-        "description": "Delete a pet based on it's identifier",
+        "description": "Delete a pet based on it's identifier.",
         "operationId": "deletePet",
         "parameters": [
           {

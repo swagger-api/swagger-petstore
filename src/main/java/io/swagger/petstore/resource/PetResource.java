@@ -30,7 +30,7 @@ public class PetResource {
     @Path("/{petId}")
     @Operation(summary = "Find pet by it's identifier.",
             tags = {"pets"},
-            description = "Returns a pet when 0 < ID <= 10.  ID > 10 or nonintegers will simulate API error conditions",
+            description = "Returns a pet when 0 < ID <= 10.  ID > 10 or non-integers will simulate API error conditions.",
             security = {
                     @SecurityRequirement(name = "petstore_auth", scopes = {"write:pets", "read:pets"}),
                     @SecurityRequirement(name = "api_key", scopes = {})
@@ -73,7 +73,7 @@ public class PetResource {
     }
 
     @POST
-    @Operation(summary = "Add a new pet to the store.", description = "Add a new pet to the store",
+    @Operation(summary = "Add a new pet to the store.", description = "Add a new pet to the store.",
             tags = {"pet"},
             security = {
                     @SecurityRequirement(name = "petstore_auth", scopes = {"write:pets", "read:pets"})
@@ -131,7 +131,7 @@ public class PetResource {
     }
 
     @PUT
-    @Operation(summary = "Update an existing pet.", description = "Update an existing pet by Id",
+    @Operation(summary = "Update an existing pet.", description = "Update an existing pet by Id.",
             tags = {"pet"},
             security = {
                     @SecurityRequirement(name = "petstore_auth", scopes = {"write:pets", "read:pets"})
