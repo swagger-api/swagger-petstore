@@ -10,7 +10,7 @@ info:
     Some useful links:
     - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
     - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
-  termsOfService: http://swagger.io/terms/
+  termsOfService: https://swagger.io/terms/
   contact:
     email: apiteam@swagger.io
   license:
@@ -21,7 +21,7 @@ externalDocs:
   description: Find out more about Swagger
   url: https://swagger.io
 servers:
-  - url: /v3
+  - url: https://petstore3.swagger.io/api/v3
 tags:
   - name: pet
     description: Everything about your Pets
@@ -73,14 +73,11 @@ paths:
         '422':
           description: Validation exception
         default:
-          description: Successful operation
+          description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
+                $ref: "#/components/schemas/Error"       
       security:
         - petstore_auth:
             - write:pets
@@ -119,14 +116,11 @@ paths:
         '422':
           description: Validation exception
         default:
-          description: Successful operation
+          description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
+                $ref: "#/components/schemas/Error"       
       security:
         - petstore_auth:
             - write:pets
@@ -168,18 +162,11 @@ paths:
         '400':
           description: Invalid status value
         default:
-          description: successful operation
+          description: Unexpected error
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
+                $ref: "#/components/schemas/Error"
       security:
         - petstore_auth:
             - write:pets
@@ -218,18 +205,11 @@ paths:
         '400':
           description: Invalid tag value
         default:
-          description: successful operation
+          description: Unexpected error
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
+                $ref: "#/components/schemas/Error"       
       security:
         - petstore_auth:
             - write:pets
@@ -264,14 +244,11 @@ paths:
         '404':
           description: Pet not found
         default:
-          description: successful operation
+          description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
+                $ref: "#/components/schemas/Error"           
       security:
         - api_key: []
         - petstore_auth:
@@ -310,18 +287,15 @@ paths:
                 $ref: '#/components/schemas/Pet'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Pet'
+                $ref: '#/components/schemas/Pet'        
         '400':
           description: Invalid input
         default:
-          description: successful operation
+          description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
+                $ref: "#/components/schemas/Error"         
       security:
         - petstore_auth:
             - write:pets
@@ -352,7 +326,11 @@ paths:
         '400':
           description: Invalid pet value
         default:
-          description: Pet deleted
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
       security:
         - petstore_auth:
             - write:pets
@@ -396,11 +374,11 @@ paths:
         '404':
           description: Pet not found
         default:
-          description: successful operation
+          description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: "#/components/schemas/Error"        
       security:
         - petstore_auth:
             - write:pets
@@ -423,14 +401,11 @@ paths:
                   type: integer
                   format: int32
         default:
-          description: successful operation
+          description: Unexpected error
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties:
-                  type: integer
-                  format: int32
+                $ref: "#/components/schemas/Error"       
       security:
         - api_key: []
   /store/order:
@@ -463,16 +438,17 @@ paths:
         '422':
           description: Validation exception
         default:
-          description: successful operation
+          description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Order'
+                $ref: "#/components/schemas/Error"        
   /store/order/{orderId}:
     get:
       tags:
         - store
       summary: Find purchase order by ID.
+      x-swagger-router-controller: OrderController
       description: For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
       operationId: getOrderById
       parameters:
@@ -498,19 +474,17 @@ paths:
         '404':
           description: Order not found
         default:
-          description: successful operation
+          description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Order'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Order'
+                $ref: "#/components/schemas/Error"        
     delete:
       tags:
         - store
       summary: Delete purchase order by identifier.
-      description: For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+      description: For valid response try integer IDs with value < 1000. Anything above 1000 or non-integers will generate API errors
+      x-swagger-router-controller: OrderController
       operationId: deleteOrder
       parameters:
         - name: orderId
@@ -528,13 +502,18 @@ paths:
         '404':
           description: Order not found
         default:
-          description: order deleted
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /user:
     post:
       tags:
         - user
       summary: Create user.
       description: This can only be done by the logged in user.
+      x-swagger-router-controller: UserController
       operationId: createUser
       requestBody:
         description: Created user object
@@ -557,16 +536,13 @@ paths:
                 $ref: '#/components/schemas/User'
             application/xml:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/User'        
         default:
-          description: successful operation
+          description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/Error"
   /user/createWithList:
     post:
       tags:
@@ -592,7 +568,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/User'
         default:
-          description: successful operation
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /user/login:
     get:
       tags:
@@ -637,25 +617,11 @@ paths:
         '400':
           description: Invalid username/password supplied
         default:
-          description: successful operation
-          headers:
-            X-Rate-Limit:
-              description: calls per hour allowed by the user
-              schema:
-                type: integer
-                format: int32
-            X-Expires-After:
-              description: date in UTC when token expires
-              schema:
-                type: string
-                format: date-time
+          description: Unexpected error
           content:
-            application/xml:
-              schema:
-                type: string
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/Error"          
   /user/logout:
     get:
       tags:
@@ -668,7 +634,11 @@ paths:
         '200':
           description: successful operation
         default:
-          description: successful operation
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /user/{username}:
     get:
       tags:
@@ -698,19 +668,17 @@ paths:
         '404':
           description: User not found
         default:
-          description: successful operation
+          description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/Error"         
     put:
       tags:
         - user
       summary: Update user resource.
       description: This can only be done by the logged in user.
+      x-swagger-router-controller: UserController
       operationId: updateUser
       parameters:
         - name: username
@@ -739,7 +707,11 @@ paths:
         '404':
           description: user not found
         default:
-          description: successful operation
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
     delete:
       tags:
         - user
@@ -761,10 +733,15 @@ paths:
         '404':
           description: User not found
         default:
-          description: User deleted
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     Order:
+      x-swagger-router-model: io.swagger.petstore.model.Order
       type: object
       properties:
         id:
@@ -795,6 +772,7 @@ components:
       xml:
         name: order
     Category:
+      x-swagger-router-model: io.swagger.petstore.model.Category
       type: object
       properties:
         id:
@@ -807,6 +785,7 @@ components:
       xml:
         name: category
     User:
+      x-swagger-router-model: io.swagger.petstore.model.User
       type: object
       properties:
         id:
@@ -839,6 +818,7 @@ components:
       xml:
         name: user
     Tag:
+      x-swagger-router-model: io.swagger.petstore.model.Tag
       type: object
       properties:
         id:
@@ -849,6 +829,7 @@ components:
       xml:
         name: tag
     Pet:
+      x-swagger-router-model: io.swagger.petstore.model.Pet
       required:
         - name
         - photoUrls
@@ -898,6 +879,16 @@ components:
           type: string
       xml:
         name: '##default'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message        
   requestBodies:
     Pet:
       description: Pet object that needs to be added to the store
@@ -923,8 +914,8 @@ components:
         implicit:
           authorizationUrl: https://petstore3.swagger.io/oauth/authorize
           scopes:
-            write:pets: modify pets in your account
-            read:pets: read your pets
+            "write:pets": modify pets in your account
+            "read:pets": read your pets
     api_key:
       type: apiKey
       name: api_key
