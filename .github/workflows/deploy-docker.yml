@@ -19,12 +19,13 @@ jobs:
           echo "$SC_RELEASE_TAG"
           
           TOKEN="${{ secrets.RANCHER2_BEARER_TOKEN }}"
+          BUGSNAG_API_KEY=${{ secrets.BUGSNAG_API_KEY }}
           RANCHER_HOST="rancher.tools.swagger.io"
           CLUSTER_ID="c-n8zp2"
           NAMESPACE_NAME="swagger-oss"
           K8S_OBJECT_TYPE="daemonsets"
           K8S_OBJECT_NAME="swagger-petstore3"
-          DEPLOY_IMAGE="swaggerapi/swagger-petstore3:$SC_RELEASE_TAG"
+          DEPLOY_IMAGE="swaggerapi/swagger-petstore3:$SC_RELEASE_TAG-telemetry"
           
           workloadStatus=""
           getStatus() {
@@ -49,7 +50,7 @@ jobs:
                 -H "Authorization: Bearer ${TOKEN}" \
                 -H 'Content-Type: application/json-patch+json' \
                 "https://${RANCHER_HOST}/k8s/clusters/${CLUSTER_ID}/apis/apps/v1/namespaces/${NAMESPACE_NAME}/${K8S_OBJECT_TYPE}/${K8S_OBJECT_NAME}" \
-                -d "[{\"op\": \"replace\", \"path\": \"/spec/template/spec/containers/0/image\", \"value\": \"${image}\"}]"
+                -d "[{\"op\": \"replace\", \"path\": \"/spec/template/spec/containers/0/image\", \"value\": \"${image}\"}, {"op":"add","path":"/spec/template/spec/containers/0/env","value":[{"name":"BUGSNAG_API_KEY","value":"${BUGSNAG_API_KEY}"}]}]"
               then
                   echo 'ERROR - image update k8s API call failed!'
                   echo "Exiting build..."
