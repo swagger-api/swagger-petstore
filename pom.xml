@@ -200,7 +200,11 @@
             <artifactId>swagger-parser</artifactId>
             <version>${swagger-parser-version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.7.36</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
