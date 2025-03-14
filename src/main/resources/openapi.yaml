@@ -246,6 +246,15 @@ paths:
           schema:
             type: string
       responses:
+        '200':
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Pet'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
         '405':
           description: Invalid input
       security:
@@ -273,6 +282,8 @@ paths:
             type: integer
             format: int64
       responses:
+        '200':
+          description: successful operation
         '400':
           description: Invalid pet value
       security:
@@ -415,6 +426,8 @@ paths:
             type: integer
             format: int64
       responses:
+        '200':
+          description: successful operation
         '400':
           description: Invalid ID supplied
         '404':
@@ -427,7 +440,7 @@ paths:
       description: This can only be done by the logged in user.
       operationId: createUser
       responses:
-        default:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -527,7 +540,7 @@ paths:
       operationId: logoutUser
       parameters: []
       responses:
-        default:
+        '200':
           description: successful operation
   '/user/{username}':
     get:
@@ -572,8 +585,15 @@ paths:
           schema:
             type: string
       responses:
-        default:
+        '200':
           description: successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
       requestBody:
         description: Update an existent user in the store
         content:
@@ -600,6 +620,8 @@ paths:
           schema:
             type: string
       responses:
+        '200':
+          description: successful operation
         '400':
           description: Invalid username supplied
         '404':
