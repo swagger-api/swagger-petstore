@@ -35,7 +35,7 @@ public class ApiResponse {
       setType("too busy");
       break;
     default:
-      setType("unknown");
+      setType("Unexpected error");
       break;
     }
     this.message = message;

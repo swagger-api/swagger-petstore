@@ -26,7 +26,7 @@ public class PetDetailsResource {
                 "      \"type\": \"integer\",\n" +
                 "      \"format\": \"int64\",\n" +
                 "      \"$anchor\": \"pet_details_id\",\n" +
-                "      \"example\": 10\n" +
+                "      \"examples\": [10]\n" +
                 "    },\n" +
                 "    \"category\": {\n" +
                 "      \"$ref\": \"/api/v31/components/schemas/category\",\n" +

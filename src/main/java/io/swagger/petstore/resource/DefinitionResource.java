@@ -29,8 +29,8 @@ import io.swagger.v3.oas.annotations.tags.Tags;
                         email = "apiteam@swagger.io"
                 ),
                 license = @License(
-                        name = "Apache 2.0 AND (MIT OR GPL-2.0-only)",
-                        identifier = "Apache-2.0 AND (MIT OR GPL-2.0-only)"
+                        name = "Apache 2.0",
+                        url = "https://www.apache.org/licenses/LICENSE-2.0.html"
                 ),
                 extensions = {@Extension(name = "", properties = {@ExtensionProperty(name = "x-namespace", value = "swagger")})}
         ),
