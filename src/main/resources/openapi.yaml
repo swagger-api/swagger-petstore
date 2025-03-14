@@ -112,7 +112,7 @@ paths:
     get:
       tags:
         - pet
-      summary: Finds Pets by status
+      summary: Find pets by status
       description: Multiple status values can be provided with comma separated strings
       operationId: findPetsByStatus
       parameters:
@@ -152,7 +152,7 @@ paths:
     get:
       tags:
         - pet
-      summary: Finds Pets by tags
+      summary: Find pets by tags
       description: >-
         Multiple tags can be provided with comma separated strings. Use tag1,
         tag2, tag3 for testing.
@@ -224,7 +224,7 @@ paths:
     post:
       tags:
         - pet
-      summary: Updates a pet in the store with form data
+      summary: Update a pet in the store with form data
       description: ''
       operationId: updatePetWithForm
       parameters:
@@ -255,7 +255,7 @@ paths:
     delete:
       tags:
         - pet
-      summary: Deletes a pet
+      summary: Delete a pet
       description: ''
       operationId: deletePet
       parameters:
@@ -283,7 +283,7 @@ paths:
     post:
       tags:
         - pet
-      summary: uploads an image
+      summary: Upload an image
       description: ''
       operationId: uploadFile
       parameters:
@@ -321,7 +321,7 @@ paths:
     get:
       tags:
         - store
-      summary: Returns pet inventories by status
+      summary: Return pet inventories by status
       description: Returns a map of status codes to quantities
       operationId: getInventory
       x-swagger-router-controller: OrderController
@@ -479,7 +479,7 @@ paths:
     get:
       tags:
         - user
-      summary: Logs user into the system
+      summary: Log user into the system
       description: ''
       operationId: loginUser
       parameters:
@@ -522,7 +522,7 @@ paths:
     get:
       tags:
         - user
-      summary: Logs out current logged in user session
+      summary: Log out current logged in user session
       description: ''
       operationId: logoutUser
       parameters: []
