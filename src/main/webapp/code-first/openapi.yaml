@@ -4,19 +4,19 @@ info:
   description: |-
     This is a sample Pet Store Server based on the OpenAPI 3.1 specification.
     You can find out more about
-    Swagger at [http://swagger.io](http://swagger.io).
-  termsOfService: http://swagger.io/terms/
+    Swagger at [https://swagger.io](https://swagger.io).
+  termsOfService: https://swagger.io/terms/
   contact:
     email: apiteam@swagger.io
   license:
-    name: Apache 2.0 AND (MIT OR GPL-2.0-only)
-    identifier: Apache-2.0 AND (MIT OR GPL-2.0-only)
-  version: 1.0.8-SNAPSHOT
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.9-SNAPSHOT
   summary: Pet Store 3.1
   x-namespace: swagger
 externalDocs:
   description: Find out more about Swagger
-  url: http://swagger.io
+  url: https://swagger.io
 servers:
 - url: /api/v31
 tags:
@@ -24,12 +24,12 @@ tags:
   description: Everything about your Pets
   externalDocs:
     description: Find out more
-    url: http://swagger.io
+    url: https://swagger.io
 - name: store
   description: Access to Petstore orders
   externalDocs:
     description: Find out more about our store
-    url: http://swagger.io
+    url: https://swagger.io
 - name: user
   description: Operations about user
 paths:
@@ -37,8 +37,8 @@ paths:
     put:
       tags:
       - pet
-      summary: Update an existing pet
-      description: Update an existing pet by Id
+      summary: Update an existing pet.
+      description: Update an existing pet by Id.
       operationId: updatePet
       requestBody:
         description: Pet object that needs to be updated in the store
@@ -78,6 +78,8 @@ paths:
           description: Pet not found
         "405":
           description: Validation exception
+        default:
+          description: Unexpected error
       security:
       - petstore_auth:
         - write:pets
@@ -85,8 +87,8 @@ paths:
     post:
       tags:
       - pet
-      summary: Add a new pet to the store
-      description: Add a new pet to the store
+      summary: Add a new pet to the store.
+      description: Add a new pet to the store.
       operationId: addPet
       requestBody:
         description: Create a new pet in the store
@@ -118,10 +120,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Pet'
-                description: A Pet in JSON Format
+                description: A Pet in JSON format
                 readOnly: true
         "405":
           description: Invalid input
+        default:
+          description: Unexpected error
       security:
       - petstore_auth:
         - write:pets
@@ -130,9 +134,9 @@ paths:
     get:
       tags:
       - pets
-      summary: Find pet by ID
-      description: Returns a pet when 0 < ID <= 10.  ID > 10 or nonintegers will simulate
-        API error conditions
+      summary: Find pet by it's identifier.
+      description: Returns a pet when 0 < ID <= 10.  ID > 10 or non-integers will
+        simulate API error conditions.
       operationId: getPetById
       parameters:
       - name: petId
@@ -146,7 +150,7 @@ paths:
           exclusiveMaximum: 10
           exclusiveMinimum: 1
       responses:
-        default:
+        "200":
           description: The pet
           content:
             application/json:
@@ -161,6 +165,8 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Pet not found
+        default:
+          description: Unexpected error
       security:
       - petstore_auth:
         - write:pets
@@ -175,10 +181,8 @@ components:
         id:
           type: integer
           format: int64
-          example: 1
         name:
           type: string
-          example: Dogs
       xml:
         name: Category
     Pet:
@@ -188,13 +192,13 @@ components:
         id:
           type: integer
           format: int64
-          example: 10
         category:
           $ref: '#/components/schemas/Category'
           description: Pet Category
         name:
           type: string
-          example: doggie
+          examples:
+          - doggie
         photoUrls:
           type: array
           items:
@@ -219,7 +223,8 @@ components:
         availableInstances:
           type: integer
           format: int32
-          example: 7
+          examples:
+          - "7"
           exclusiveMaximum: 10
           exclusiveMinimum: 1
           swagger-extension: true
@@ -243,7 +248,8 @@ components:
           type: integer
           format: int64
           $anchor: pet_details_id
-          example: 10
+          examples:
+          - "10"
         category:
           $ref: /api/v31/components/schemas/category
           description: PetDetails Category
@@ -266,7 +272,7 @@ components:
       type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          authorizationUrl: https://petstore31.swagger.io/oauth/authorize
           scopes:
             write:pets: modify pets in your account
             read:pets: read your pets

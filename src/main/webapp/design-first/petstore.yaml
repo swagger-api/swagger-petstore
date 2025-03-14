@@ -1,20 +1,23 @@
-openapi: 3.1.0
+openapi: 3.1.1
 info:
-  title: Swagger Petstore - OpenAPI 3.0
-  summary: "Pet Store 3.1"
-  description: "This is a sample Pet Store Server based on the OpenAPI 3.1 specification.\
-    \  You can find out more about\nSwagger at [http://swagger.io](http://swagger.io)."
-  termsOfService: http://swagger.io/terms/
+  title: Swagger Petstore - OpenAPI 3.1
+  summary: Pet Store 3.1
+  description: >-
+    This is a sample Pet Store Server based on the OpenAPI 3.1 specification. 
+    You can find out more about
+
+    Swagger at [https://swagger.io](https://swagger.io).
+  termsOfService: https://swagger.io/terms/
   contact:
     email: apiteam@swagger.io
   license:
-    name: Apache 2.0 AND (MIT OR GPL-2.0-only)
-    identifier: Apache-2.0 AND (MIT OR GPL-2.0-only)
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.8-SNAPSHOT
   x-namespace: Swagger
 externalDocs:
   description: Find out more about Swagger
-  url: http://swagger.io
+  url: https://swagger.io
 servers:
   - url: /api/v31
 tags:
@@ -22,21 +25,14 @@ tags:
     description: Everything about your Pets
     externalDocs:
       description: Find out more
-      url: http://swagger.io
-  - name: store
-    description: Access to Petstore orders
-    externalDocs:
-      description: Find out more about our store
-      url: http://swagger.io
-  - name: user
-    description: Operations about user
+      url: https://swagger.io
 paths:
   /pet:
     put:
       tags:
         - pet
-      summary: Update an existing pet
-      description: Update an existing pet by Id
+      summary: Update an existing pet.
+      description: Update an existing pet by Id.
       operationId: updatePet
       requestBody:
         description: Pet object that needs to be updated in the store
@@ -57,7 +53,7 @@ paths:
                 - id
         required: true
       responses:
-        "200":
+        '200':
           description: Successful operation
           content:
             application/xml:
@@ -70,12 +66,14 @@ paths:
                 $ref: '#/components/schemas/Pet'
                 readOnly: true
                 description: A Pet in JSON Format
-        "400":
+        '400':
           description: Invalid ID supplied
-        "404":
+        '404':
           description: Pet not found
-        "405":
+        '405':
           description: Validation exception
+        default:
+          description: Unexpected error
       security:
         - petstore_auth:
             - write:pets
@@ -83,8 +81,8 @@ paths:
     post:
       tags:
         - pet
-      summary: Add a new pet to the store
-      description: Add a new pet to the store
+      summary: Add a new pet to the store.
+      description: Add a new pet to the store.
       operationId: addPet
       requestBody:
         description: Create a new pet in the store
@@ -110,7 +108,7 @@ paths:
               description: A Pet as x-www-form-urlencoded
         required: true
       responses:
-        "200":
+        '200':
           description: Successful operation
           content:
             application/xml:
@@ -123,8 +121,10 @@ paths:
                 $ref: '#/components/schemas/Pet'
                 readOnly: true
                 description: A Pet in JSON Format
-        "405":
+        '405':
           description: Invalid input
+        default:
+          description: Unexpected error      
       security:
         - petstore_auth:
             - write:pets
@@ -133,8 +133,8 @@ paths:
     get:
       tags:
         - pet
-      summary: Finds Pets by status
-      description: Multiple status values can be provided with comma separated strings
+      summary: Finds Pets by status.
+      description: Multiple status values can be provided with comma separated strings.
       operationId: findPetsByStatus
       parameters:
         - name: status
@@ -150,7 +150,7 @@ paths:
               - pending
               - sold
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/xml:
@@ -168,8 +168,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Pet'
-        "400":
+        '400':
           description: Invalid status value
+        default:
+          description: Unexpected error        
       security:
         - petstore_auth:
             - write:pets
@@ -181,9 +183,10 @@ paths:
     get:
       tags:
         - pet
-      summary: Finds Pets by tags
-      description: "Multiple tags can be provided with comma separated strings. Use\
-        \ tag1, tag2, tag3 for testing."
+      summary: Finds Pets by tags.
+      description: >-
+        Multiple tags can be provided with comma separated strings. Use tag1,
+        tag2, tag3 for testing.
       operationId: findPetsByTags
       parameters:
         - name: tags
@@ -196,7 +199,7 @@ paths:
             items:
               type: string
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/xml:
@@ -209,8 +212,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Pet'
-        "400":
+        '400':
           description: Invalid tag value
+        default:
+          description: Unexpected error        
       security:
         - petstore_auth:
             - write:pets
@@ -219,9 +224,10 @@ paths:
     get:
       tags:
         - pet
-      summary: Find pet by ID
-      description: Returns a pet when 0 < ID <= 10.  ID > 10 or non-integers will simulate
-        API error conditions
+      summary: Find pet by identifier.
+      description: >-
+        Returns a pet when 0 < ID <= 10.  ID > 10 or non-integers will simulate
+        API error conditions.
       operationId: getPetById
       parameters:
         - name: petId
@@ -235,7 +241,7 @@ paths:
             exclusiveMaximum: 10
             exclusiveMinimum: 1
       responses:
-        "200":
+        '200':
           description: successful operation
           content:
             application/xml:
@@ -248,10 +254,12 @@ paths:
                 $ref: '#/components/schemas/Pet'
                 readOnly: true
                 description: A Pet in JSON Format
-        "400":
+        '400':
           description: Invalid ID supplied
-        "404":
+        '404':
           description: Pet not found
+        default:
+          description: Unexpected error     
       security:
         - api_key: []
         - petstore_auth:
@@ -260,13 +268,13 @@ paths:
     delete:
       tags:
         - pet
-      summary: Deletes a pet
-      description: ""
+      summary: Deletes a pet.
+      description: Delete a pet based on it's identifier.
       operationId: deletePet
       parameters:
         - name: api_key
           in: header
-          description: ""
+          description: ''
           required: false
           schema:
             type: string
@@ -278,8 +286,12 @@ paths:
             type: integer
             format: int64
       responses:
-        "400":
+        '200':
+          description: successfully deleted
+        '400':
           description: Invalid pet value
+        default:
+          description: Unexpected error
       security:
         - petstore_auth:
             - write:pets
@@ -293,10 +305,12 @@ components:
         id:
           type: integer
           format: int64
-          example: 1
+          examples: 
+            - 1
         name:
           type: string
-          example: Dogs
+          examples: 
+            - Dogs
       xml:
         name: Category
     Tag:
@@ -321,10 +335,12 @@ components:
         id:
           type: integer
           format: int64
-          example: 10
+          examples: 
+            - 10
         name:
           type: string
-          example: doggie
+          examples: 
+            - doggie
         category:
           $ref: '#/components/schemas/Category'
           description: Pet Category
@@ -352,14 +368,15 @@ components:
         availableInstances:
           type: integer
           format: int32
-          example: 7
+          examples: 
+            - 7
           exclusiveMaximum: 10
           exclusiveMinimum: 1
           swagger-extension: true
         petDetails:
-          $ref: '/components/schemas/petdetails'
+          $ref: #/components/schemas/petdetails
         petDetailsId:
-          $ref: '/components/schemas/petdetails#pet_details_id'
+          $ref: /components/schemas/petdetails#pet_details_id
       xml:
         name: pet
     PetDetails:
@@ -371,12 +388,13 @@ components:
         id:
           type: integer
           format: int64
-          example: 10
+          examples: 
+            - 10
           $anchor: pet_details_id
         tag:
-          $ref: '/components/schemas/tag'
+          $ref: '#/components/schemas/Tag'
         category:
-          $ref: '/components/schemas/category'
+          $ref: '#/components/schemas/Category'
           description: PetDetails Category
     ApiResponse:
       type: object
@@ -390,6 +408,16 @@ components:
           type: string
       xml:
         name: '##default'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message         
   requestBodies:
     Pet:
       description: Pet object that needs to be added to the store
@@ -415,7 +443,6 @@ components:
       in: header
     mutual_tls:
       type: mutualTLS
-
 webhooks:
   newPet:
     post:
@@ -424,8 +451,10 @@ webhooks:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Pet"
+              $ref: '#/components/schemas/Pet'
               description: Webhook Pet
       responses:
-        "200":
-          description: Return a 200 status to indicate that the data was received successfully
+        '200':
+          description: >-
+            Return a 200 status to indicate that the data was received
+            successfully
