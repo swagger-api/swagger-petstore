@@ -52,6 +52,16 @@ jobs:
           platforms: linux/amd64
           provenance: false
           tags: swaggerapi/petstore3:${{ env.TAG }}
+      - name: Build generator image and push
+        if: env.RELEASE_OK == 'yes'
+        uses: docker/build-push-action@v5
+        with:
+          file: Dockerfile-telemetry
+          context: .
+          push: true
+          platforms: linux/amd64
+          provenance: false
+          tags: swaggerapi/petstore3:${{ env.TAG }}-telemetry
     env:
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
