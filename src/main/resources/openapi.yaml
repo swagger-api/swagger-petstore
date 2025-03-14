@@ -267,7 +267,7 @@ paths:
             type: string
         - name: petId
           in: path
-          description: Pet id to delete
+          description: Pet ID to delete
           required: true
           schema:
             type: integer
