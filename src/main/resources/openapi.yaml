@@ -16,7 +16,7 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.21-SNAPSHOT
+  version: 1.0.23-SNAPSHOT
 externalDocs:
   description: Find out more about Swagger
   url: https://swagger.io
@@ -74,10 +74,6 @@ paths:
           description: Validation exception
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"       
       security:
         - petstore_auth:
             - write:pets
@@ -117,10 +113,6 @@ paths:
           description: Validation exception
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"       
       security:
         - petstore_auth:
             - write:pets
@@ -163,10 +155,6 @@ paths:
           description: Invalid status value
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
       security:
         - petstore_auth:
             - write:pets
@@ -206,10 +194,6 @@ paths:
           description: Invalid tag value
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"       
       security:
         - petstore_auth:
             - write:pets
@@ -245,10 +229,6 @@ paths:
           description: Pet not found
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"           
       security:
         - api_key: []
         - petstore_auth:
@@ -292,10 +272,6 @@ paths:
           description: Invalid input
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"         
       security:
         - petstore_auth:
             - write:pets
@@ -327,10 +303,6 @@ paths:
           description: Invalid pet value
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
       security:
         - petstore_auth:
             - write:pets
@@ -375,10 +347,6 @@ paths:
           description: Pet not found
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"        
       security:
         - petstore_auth:
             - write:pets
@@ -390,6 +358,7 @@ paths:
       summary: Returns pet inventories by status.
       description: Returns a map of status codes to quantities.
       operationId: getInventory
+      x-swagger-router-controller: OrderController
       responses:
         '200':
           description: successful operation
@@ -402,10 +371,6 @@ paths:
                   format: int32
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"       
       security:
         - api_key: []
   /store/order:
@@ -440,10 +405,6 @@ paths:
           description: Validation exception
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"        
   /store/order/{orderId}:
     get:
       tags:
@@ -476,10 +437,6 @@ paths:
           description: Order not found
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"        
     delete:
       tags:
         - store
@@ -504,10 +461,6 @@ paths:
           description: Order not found
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
   /user:
     post:
       tags:
@@ -540,10 +493,6 @@ paths:
                 $ref: '#/components/schemas/User'        
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
   /user/createWithList:
     post:
       tags:
@@ -571,10 +520,6 @@ paths:
                 $ref: '#/components/schemas/User'
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
   /user/login:
     get:
       tags:
@@ -620,10 +565,6 @@ paths:
           description: Invalid username/password supplied
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"          
   /user/logout:
     get:
       tags:
@@ -637,10 +578,6 @@ paths:
           description: successful operation
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
   /user/{username}:
     get:
       tags:
@@ -671,10 +608,6 @@ paths:
           description: User not found
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"         
     put:
       tags:
         - user
@@ -710,10 +643,6 @@ paths:
           description: user not found
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
     delete:
       tags:
         - user
@@ -736,10 +665,6 @@ paths:
           description: User not found
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
 components:
   schemas:
     Order:
@@ -881,16 +806,6 @@ components:
           type: string
       xml:
         name: '##default'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-      required:
-        - code
-        - message        
   requestBodies:
     Pet:
       description: Pet object that needs to be added to the store
