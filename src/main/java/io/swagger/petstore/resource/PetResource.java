@@ -36,7 +36,7 @@ public class PetResource {
                     @SecurityRequirement(name = "api_key", scopes = {})
             },
             responses = {
-                    @ApiResponse(description = "The pet", content = {
+                    @ApiResponse(responseCode = "200", description = "The pet", content = {
                             @Content(
                                     mediaType = "application/json",
                                     schema = @Schema(implementation = Pet.class, description = "A Pet in JSON format")
@@ -45,8 +45,10 @@ public class PetResource {
                                     mediaType = "application/xml",
                                     schema = @Schema(implementation = Pet.class, description = "A Pet in XML format")
                             )
-                    }), @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
-                    @ApiResponse(responseCode = "404", description = "Pet not found")
+                    }), 
+                    @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+                    @ApiResponse(responseCode = "404", description = "Pet not found"),
+                    @ApiResponse(description = "Unexpected error")
             })
     public Response getPetById(
             @Parameter(
@@ -86,23 +88,24 @@ public class PetResource {
                             content = {
                                     @Content(
                                             mediaType = "application/xml",
-                                            schema = @Schema(
+                                            schema = @Schema( implementation = Pet.class,
                                                     accessMode = Schema.AccessMode.READ_ONLY,
                                                     description = "A Pet in XML Format"
                                             )
                                     ),
                                     @Content(
                                             mediaType = "application/json",
-                                            schema = @Schema(
-                                                    accessMode = Schema.AccessMode.READ_ONLY,
-                                                    description = "A Pet in JSON Format"
-                                            )
+                                            schema = @Schema( implementation = Pet.class, 
+                                                accessMode = Schema.AccessMode.READ_ONLY,
+                                                description = "A Pet in JSON format"
+                                                )
                                     )
                             }
                     ),
-                    @ApiResponse(responseCode = "405", description = "Invalid input")})
+                    @ApiResponse(responseCode = "405", description = "Invalid input"),
+                    @ApiResponse(description = "Unexpected error")})
     @Consumes({"application/json", "application/xml"})
-    public Pet addPet(
+    public Response addPet(
             @RequestBody(
                     description = "Create a new pet in the store",
                     required = true,
@@ -127,7 +130,7 @@ public class PetResource {
                     }
             ) Pet pet) {
         petData.addPet(pet);
-        return pet;
+        return Response.ok().entity(pet).build();
     }
 
     @PUT
@@ -144,25 +147,29 @@ public class PetResource {
                             content = {
                                     @Content(
                                             mediaType = "application/xml",
-                                            schema = @Schema(
-                                                    accessMode = Schema.AccessMode.READ_ONLY,
-                                                    description = "A Pet in XML Format"
+                                            schema = @Schema( 
+                                                implementation = Pet.class,
+                                                accessMode = Schema.AccessMode.READ_ONLY,
+                                                description = "A Pet in XML Format"
                                             )
                                     ),
                                     @Content(
                                             mediaType = "application/json",
                                             schema = @Schema(
-                                                    accessMode = Schema.AccessMode.READ_ONLY,
-                                                    description = "A Pet in JSON Format"
+                                                implementation = Pet.class, 
+                                                accessMode = Schema.AccessMode.READ_ONLY,
+                                                description = "A Pet in JSON Format"
                                             )
                                     )
                             }
                     ),
                     @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
                     @ApiResponse(responseCode = "404", description = "Pet not found"),
-                    @ApiResponse(responseCode = "405", description = "Validation exception")})
+                    @ApiResponse(responseCode = "405", description = "Validation exception"),
+                    @ApiResponse(description = "Unexpected error") 
+                })
     @Consumes({"application/json", "application/xml"})
-    public Pet updatePet(
+    public Response updatePet(
             @RequestBody(
                     description = "Pet object that needs to be updated in the store",
                     required = true,
@@ -194,9 +201,9 @@ public class PetResource {
         } catch (Exception e) {
             System.err.println("ERROR " + e.getMessage());
             e.printStackTrace();
-            throw new WebApplicationException("Internal error handling request", e);
+            throw new WebApplicationException("Unexpected error", e);
         }
-        return pet;
+        return Response.ok().entity(pet).build();
     }
 
 /*  @GET
