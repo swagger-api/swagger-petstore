@@ -13,7 +13,7 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.9-SNAPSHOT
+  version: 1.0.8-SNAPSHOT
   x-namespace: Swagger
 externalDocs:
   description: Find out more about Swagger
@@ -74,10 +74,6 @@ paths:
           description: Validation exception
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error" 
       security:
         - petstore_auth:
             - write:pets
@@ -128,11 +124,7 @@ paths:
         '405':
           description: Invalid input
         default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"        
+          description: Unexpected error      
       security:
         - petstore_auth:
             - write:pets
@@ -179,11 +171,7 @@ paths:
         '400':
           description: Invalid status value
         default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"          
+          description: Unexpected error        
       security:
         - petstore_auth:
             - write:pets
@@ -227,11 +215,7 @@ paths:
         '400':
           description: Invalid tag value
         default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"         
+          description: Unexpected error        
       security:
         - petstore_auth:
             - write:pets
@@ -275,11 +259,7 @@ paths:
         '404':
           description: Pet not found
         default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"         
+          description: Unexpected error     
       security:
         - api_key: []
         - petstore_auth:
@@ -312,10 +292,6 @@ paths:
           description: Invalid pet value
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
       security:
         - petstore_auth:
             - write:pets
@@ -398,7 +374,7 @@ components:
           exclusiveMinimum: 1
           swagger-extension: true
         petDetails:
-          $ref: /components/schemas/petdetails
+          $ref: #/components/schemas/petdetails
         petDetailsId:
           $ref: /components/schemas/petdetails#pet_details_id
       xml:
@@ -416,9 +392,9 @@ components:
             - 10
           $anchor: pet_details_id
         tag:
-          $ref: /components/schemas/tag
+          $ref: '#/components/schemas/Tag'
         category:
-          $ref: /components/schemas/category
+          $ref: '#/components/schemas/Category'
           description: PetDetails Category
     ApiResponse:
       type: object

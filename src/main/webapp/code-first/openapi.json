@@ -12,7 +12,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "1.0.9-SNAPSHOT",
+    "version": "1.0.8-SNAPSHOT",
     "x-namespace": "Swagger"
   },
   "externalDocs": {
@@ -99,14 +99,7 @@
             "description": "Validation exception"
           },
           "default": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
+            "description": "Unexpected error"
           }
         },
         "security": [
@@ -182,14 +175,7 @@
             "description": "Invalid input"
           },
           "default": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
+            "description": "Unexpected error"
           }
         },
         "security": [
@@ -260,14 +246,7 @@
             "description": "Invalid status value"
           },
           "default": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
+            "description": "Unexpected error"
           }
         },
         "security": [
@@ -335,14 +314,7 @@
             "description": "Invalid tag value"
           },
           "default": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
+            "description": "Unexpected error"
           }
         },
         "security": [
@@ -405,14 +377,7 @@
             "description": "Pet not found"
           },
           "default": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
+            "description": "Unexpected error"
           }
         },
         "security": [
@@ -463,14 +428,7 @@
             "description": "Invalid pet value"
           },
           "default": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
+            "description": "Unexpected error"
           }
         },
         "security": [
@@ -591,7 +549,7 @@
             "swagger-extension": true
           },
           "petDetails": {
-            "$ref": "/components/schemas/petdetails"
+            "$ref": null
           },
           "petDetailsId": {
             "$ref": "/components/schemas/petdetails#pet_details_id"
@@ -616,10 +574,10 @@
             "$anchor": "pet_details_id"
           },
           "tag": {
-            "$ref": "/components/schemas/tag"
+            "$ref": "#/components/schemas/Tag"
           },
           "category": {
-            "$ref": "/components/schemas/category",
+            "$ref": "#/components/schemas/Category",
             "description": "PetDetails Category"
           }
         }
