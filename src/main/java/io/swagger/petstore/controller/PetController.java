@@ -16,6 +16,7 @@
 
 package io.swagger.petstore.controller;
 
+import com.bugsnag.Bugsnag;
 import io.swagger.oas.inflector.models.RequestContext;
 import io.swagger.oas.inflector.models.ResponseContext;
 import io.swagger.petstore.data.PetData;
@@ -33,9 +34,20 @@ import java.util.List;
 public class PetController {
 
     private static PetData petData = new PetData();
+    private static Bugsnag bugsnag;
+
+    static {
+        String bugsnagApiKey = System.getenv("BUGSNAG_API_KEY");
+        if (bugsnagApiKey != null) {
+            bugsnag = new Bugsnag(bugsnagApiKey);
+        } else {
+            throw new IllegalStateException("BUGSNAG_API_KEY environment variable is not set");
+        }
+    }
 
     public ResponseContext findPetsByStatus(final RequestContext request, final String status) {
         if (status == null) {
+            bugsnag.notify(new RuntimeException("No status provided"));
             return new ResponseContext()
                     .status(Response.Status.BAD_REQUEST)
                     .entity("No status provided. Try again?");
@@ -44,9 +56,11 @@ public class PetController {
         final List<Pet> petByStatus = petData.findPetByStatus(status);
 
         if (petByStatus == null) {
+            bugsnag.notify(new RuntimeException("Pets not found"));
             return new ResponseContext().status(Response.Status.NOT_FOUND).entity("Pets not found");
         }
 
+        bugsnag.notify(new RuntimeException("Pets not found"));
         return new ResponseContext()
                 .contentType(Util.getMediaType(request))
                 .entity(petByStatus);
@@ -54,6 +68,7 @@ public class PetController {
 
     public ResponseContext getPetById(final RequestContext request, final Long petId) {
         if (petId == null) {
+            bugsnag.notify(new RuntimeException("No petId provided"));
             return new ResponseContext()
                     .status(Response.Status.BAD_REQUEST)
                     .entity("No petId provided. Try again?");
@@ -67,17 +82,20 @@ public class PetController {
                     .entity(pet);
         }
 
+        bugsnag.notify(new RuntimeException("Pets not found"));
         return new ResponseContext().status(Response.Status.NOT_FOUND).entity("Pet not found");
     }
 
     public ResponseContext updatePetWithForm(final RequestContext request, final Long petId, final String name, final String status) {
         if (petId == null) {
+            bugsnag.notify(new RuntimeException("No petId provided"));
             return new ResponseContext()
                     .status(Response.Status.BAD_REQUEST)
                     .entity("No Pet provided. Try again?");
         }
 
         if (name == null) {
+            bugsnag.notify(new RuntimeException("No name provided"));
             return new ResponseContext()
                     .status(Response.Status.BAD_REQUEST)
                     .entity("No Name provided. Try again?");
@@ -87,6 +105,7 @@ public class PetController {
         final Pet existingPet = petData.getPetById(petId);
 
         if (existingPet == null) {
+            bugsnag.notify(new RuntimeException("No pet provided"));
             return new ResponseContext().status(Response.Status.NOT_FOUND).entity("Pet not found");
         }
 
@@ -102,6 +121,7 @@ public class PetController {
 
     public ResponseContext deletePet(final RequestContext request, final String apiKey, final Long petId) {
         if (petId == null) {
+            bugsnag.notify(new RuntimeException("No petId provided"));
             return new ResponseContext()
                     .status(Response.Status.BAD_REQUEST)
                     .entity("No petId provided. Try again?");
@@ -118,6 +138,7 @@ public class PetController {
                     .contentType(outputType)
                     .entity("Pet deleted");
         } else {
+            bugsnag.notify(new RuntimeException("Pet couldn't be deleted"));
             return new ResponseContext().status(Response.Status.NOT_MODIFIED).entity("Pet couldn't be deleted.");
         }
 
@@ -125,17 +146,20 @@ public class PetController {
 
     public ResponseContext uploadFile(final RequestContext request, final Long petId, final String apiKey, final File file) {
         if (petId == null) {
+            bugsnag.notify(new RuntimeException("No petId provided"));
             return new ResponseContext()
                     .status(Response.Status.BAD_REQUEST)
                     .entity("No petId provided. Try again?");
         }
 
         if (file == null) {
+            bugsnag.notify(new RuntimeException("No file provided"));
             return new ResponseContext().status(Response.Status.BAD_REQUEST).entity("No file uploaded");
         }
 
         final Pet existingPet = petData.getPetById(petId);
         if (existingPet == null) {
+            bugsnag.notify(new RuntimeException("No pet provided"));
             return new ResponseContext().status(Response.Status.NOT_FOUND).entity("Pet not found");
         }
 
@@ -150,12 +174,14 @@ public class PetController {
                     .contentType(Util.getMediaType(request))
                     .entity(pet);
         } else {
+            bugsnag.notify(new RuntimeException("Pet couldn't be updated"));
             return new ResponseContext().status(Response.Status.NOT_MODIFIED).entity("Pet couldn't be updated.");
         }
     }
 
     public ResponseContext addPet(final RequestContext request, final Pet pet) {
         if (pet == null) {
+            bugsnag.notify(new RuntimeException("No pet provided"));
             return new ResponseContext()
                     .status(Response.Status.BAD_REQUEST)
                     .entity("No Pet provided. Try again?");
@@ -176,6 +202,7 @@ public class PetController {
 
     public ResponseContext updatePet(final RequestContext request, final Pet pet) {
         if (pet == null) {
+            bugsnag.notify(new RuntimeException("No pet provided"));
             return new ResponseContext()
                     .status(Response.Status.BAD_REQUEST)
                     .entity("No Pet provided. Try again?");
@@ -183,6 +210,7 @@ public class PetController {
 
         final Pet existingPet = petData.getPetById(pet.getId());
         if (existingPet == null) {
+            bugsnag.notify(new RuntimeException("No pet provided"));
             return new ResponseContext().status(Response.Status.NOT_FOUND).entity("Pet not found");
         }
 
@@ -202,6 +230,7 @@ public class PetController {
 
     public ResponseContext findPetsByTags(final RequestContext request, final List<String> tags) {
         if (tags == null || tags.size() == 0) {
+            bugsnag.notify(new RuntimeException("No tags provided"));
             return new ResponseContext()
                     .status(Response.Status.BAD_REQUEST)
                     .entity("No tags provided. Try again?");
