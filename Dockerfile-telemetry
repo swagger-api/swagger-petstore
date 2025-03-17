@@ -28,6 +28,6 @@ ENV JAVA_TOOL_OPTIONS="-javaagent:/swagger-petstore/otel-javaagent.jar" \
     OTEL_INSTRUMENTATION_HTTP_SERVER_CAPTURE_ROUTE=true \
     OTEL_ATTRIBUTE_VALUE_LENGTH_LIMIT=256
 
-CMD ["sh", "-c", "export OTEL_EXPORTER_OTLP_ENDPOINT=https://$BUGSNAG_API_KEY.otlp.bugsnag.com && \
+CMD ["sh", "-c", "export BUGSNAG_API_KEY=$BUGSNAG_API_KEY && export OTEL_EXPORTER_OTLP_ENDPOINT=https://$BUGSNAG_API_KEY.otlp.bugsnag.com && \
     exec java $JAVA_TOOL_OPTIONS -Dorg.eclipse.jetty.server.RequestLog=DEBUG -Dorg.eclipse.jetty.server.HttpChannel=DEBUG \
     -jar -DswaggerUrl=openapi.yaml /swagger-petstore/jetty-runner.jar --log /var/log/yyyy_mm_dd-requests.log /swagger-petstore/server.war"]
