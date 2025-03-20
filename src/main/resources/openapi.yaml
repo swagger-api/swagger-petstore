@@ -129,7 +129,8 @@ paths:
           in: query
           description: Status values that need to be considered for filter
           required: false
-          explode: true
+          style: form
+          explode: false
           schema:
             type: string
             default: available
@@ -171,7 +172,8 @@ paths:
           in: query
           description: Tags to filter by
           required: false
-          explode: true
+          style: form
+          explode: false
           schema:
             type: array
             items:
