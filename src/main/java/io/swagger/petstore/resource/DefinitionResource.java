@@ -53,20 +53,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
                                 description = "Find out more",
                                 url = "https://swagger.io"
                         )
-                ),
-                @Tag(
-                        name = "store",
-                        description = "Access to Petstore orders",
-                        externalDocs = @ExternalDocumentation(
-                                description = "Find out more about our store",
-                                url = "https://swagger.io"
-                        )
-                ),
-                @Tag(
-                        name = "user",
-                        description = "Operations about user"
                 )
-
         }
 )
 @SecuritySchemes(
