@@ -11,7 +11,7 @@
       "name" : "Apache 2.0",
       "url" : "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version" : "1.0.9-SNAPSHOT",
+    "version" : "1.0.9",
     "summary" : "Pet Store 3.1",
     "x-namespace" : "swagger"
   },
@@ -157,7 +157,7 @@
     },
     "/pet/{petId}" : {
       "get" : {
-        "tags" : [ "pets" ],
+        "tags" : [ "pet" ],
         "summary" : "Find pet by it's identifier.",
         "description" : "Returns a pet when 0 < ID <= 10.  ID > 10 or non-integers will simulate API error conditions.",
         "operationId" : "getPetById",
