@@ -29,7 +29,7 @@ public class PetResource {
     @GET
     @Path("/{petId}")
     @Operation(summary = "Find pet by it's identifier.",
-            tags = {"pets"},
+            tags = {"pet"},
             description = "Returns a pet when 0 < ID <= 10.  ID > 10 or non-integers will simulate API error conditions.",
             security = {
                     @SecurityRequirement(name = "petstore_auth", scopes = {"write:pets", "read:pets"}),
@@ -209,7 +209,7 @@ public class PetResource {
 /*  @GET
   @Path("/findByStatus")
   @Operation(summary = "Finds Pets by status",
-          tags = {"pets"},
+          tags = {"pet"},
     description = "Multiple status values can be provided with comma seperated strings",
           responses = {
                   @ApiResponse(
@@ -237,7 +237,7 @@ public class PetResource {
   @GET
   @Path("/findByTags")
   @Operation(summary = "Finds Pets by tags",
-          tags = {"pets"},
+          tags = {"pet"},
     description = "Muliple tags can be provided with comma seperated strings. Use tag1, tag2, tag3 for testing.",
     responses = {
             @ApiResponse(description = "Pets matching criteria",
