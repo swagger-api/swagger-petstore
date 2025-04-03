@@ -11,7 +11,7 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.9
+  version: 1.0.10-SNAPSHOT
   summary: Pet Store 3.1
   x-namespace: swagger
 externalDocs:
