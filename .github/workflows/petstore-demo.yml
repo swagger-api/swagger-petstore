@@ -22,3 +22,10 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean install
+
+    - name: Simulate Deployment
+      run: |
+        echo "Packaging the application..."
+        echo "Deploying to development environment..."
+        echo "✅ Deployment complete"
+
