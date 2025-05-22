@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - uses: tibdex/github-app-token@v1
       id: generate-token
       with:
@@ -20,10 +20,21 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-    - name: Set up Java 11
-      uses: actions/setup-java@v1
+    - name: Set up Java
+      uses: actions/setup-java@v4
       with:
         java-version: 11
+        distribution: temurin
+        server-id: central
+        server-username: MAVEN_USERNAME
+        server-password: MAVEN_PASSWORD
+    - name: Cache local Maven repository
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
     - name: Run pre release script
       id: preRelease
       run: |
@@ -189,3 +200,5 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SC_VERSION:
       SC_NEXT_VERSION:
+      MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+      MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
