@@ -1,15 +1,35 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>5</version>
-  </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.swagger</groupId>
   <artifactId>swagger-petstore-v2</artifactId>
   <packaging>war</packaging>
   <name>swagger-petstore-v2</name>
+  <description>swagger-petstore-v2</description>
+  <url>https://github.com/swagger-api/swagger-petstore</url>
   <version>1.0.8-SNAPSHOT</version>
+  <scm>
+    <connection>scm:git:git@github.com:swagger-api/swagger-codegen-generators.git</connection>
+    <developerConnection>scm:git:git@github.com:swagger-api/swagger-codegen-generators.git</developerConnection>
+    <url>https://github.com/swagger-api/swagger-petstore</url>
+  </scm>
+  <issueManagement>
+    <system>github</system>
+    <url>https://github.com/swagger-api/swagger-petstore/issues</url>
+  </issueManagement>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>frantuma</id>
+      <name>Francesco Tumanischvili</name>
+      <email>frantuma@yahoo.com</email>
+    </developer>
+  </developers>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -22,6 +42,7 @@
     <jetty-version>9.2.9.v20150224</jetty-version>
     <jetty-maven-version>8.1.11.v20130520</jetty-maven-version>
     <jackson-version>2.9.10</jackson-version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
