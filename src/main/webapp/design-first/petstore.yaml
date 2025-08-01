@@ -124,7 +124,7 @@ paths:
         '405':
           description: Invalid input
         default:
-          description: Unexpected error      
+          description: Unexpected error
       security:
         - petstore_auth:
             - write:pets
@@ -140,7 +140,7 @@ paths:
         - name: status
           in: query
           description: Status values that need to be considered for filter
-          required: false
+          required: true
           explode: true
           schema:
             type: string
@@ -171,7 +171,7 @@ paths:
         '400':
           description: Invalid status value
         default:
-          description: Unexpected error        
+          description: Unexpected error
       security:
         - petstore_auth:
             - write:pets
@@ -192,7 +192,7 @@ paths:
         - name: tags
           in: query
           description: Tags to filter by
-          required: false
+          required: true
           explode: true
           schema:
             type: array
@@ -215,7 +215,7 @@ paths:
         '400':
           description: Invalid tag value
         default:
-          description: Unexpected error        
+          description: Unexpected error
       security:
         - petstore_auth:
             - write:pets
@@ -259,7 +259,7 @@ paths:
         '404':
           description: Pet not found
         default:
-          description: Unexpected error     
+          description: Unexpected error
       security:
         - api_key: []
         - petstore_auth:
@@ -305,11 +305,11 @@ components:
         id:
           type: integer
           format: int64
-          examples: 
+          examples:
             - 1
         name:
           type: string
-          examples: 
+          examples:
             - Dogs
       xml:
         name: Category
@@ -335,11 +335,11 @@ components:
         id:
           type: integer
           format: int64
-          examples: 
+          examples:
             - 10
         name:
           type: string
-          examples: 
+          examples:
             - doggie
         category:
           $ref: '#/components/schemas/Category'
@@ -368,7 +368,7 @@ components:
         availableInstances:
           type: integer
           format: int32
-          examples: 
+          examples:
             - 7
           exclusiveMaximum: 10
           exclusiveMinimum: 1
@@ -388,7 +388,7 @@ components:
         id:
           type: integer
           format: int64
-          examples: 
+          examples:
             - 10
           $anchor: pet_details_id
         tag:
@@ -417,7 +417,7 @@ components:
           type: string
       required:
         - code
-        - message         
+        - message
   requestBodies:
     Pet:
       description: Pet object that needs to be added to the store
