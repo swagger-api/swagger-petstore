@@ -128,7 +128,7 @@ paths:
         - name: status
           in: query
           description: Status values that need to be considered for filter
-          required: false
+          required: true
           explode: true
           schema:
             type: string
@@ -170,7 +170,7 @@ paths:
         - name: tags
           in: query
           description: Tags to filter by
-          required: false
+          required: true
           explode: true
           schema:
             type: array
@@ -267,7 +267,7 @@ paths:
                 $ref: '#/components/schemas/Pet'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Pet'        
+                $ref: '#/components/schemas/Pet'
         '400':
           description: Invalid input
         default:
@@ -490,7 +490,7 @@ paths:
                 $ref: '#/components/schemas/User'
             application/xml:
               schema:
-                $ref: '#/components/schemas/User'        
+                $ref: '#/components/schemas/User'
         default:
           description: Unexpected error
   /user/createWithList:
