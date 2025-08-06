@@ -6,7 +6,7 @@
     <name>swagger-petstore</name>
     <description>swagger-petstore</description>
     <url>https://github.com/swagger-api/swagger-petstore</url>
-    <version>1.0.27-SNAPSHOT</version>
+    <version>1.0.27</version>
     <scm>
         <connection>scm:git:git@github.com:swagger-api/swagger-petstore.git</connection>
         <developerConnection>scm:git:git@github.com:swagger-api/swagger-petstore.git</developerConnection>
