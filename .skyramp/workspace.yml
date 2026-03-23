@@ -1,0 +1,23 @@
+# Skyramp Workspace Configuration
+workspace:
+  repoName: swagger-api/swagger-petstore
+  repoUrl: https://github.com/swagger-api/swagger-petstore.git
+metadata:
+  schemaVersion: v1
+  mcpVersion: 0.0.62
+  executorVersion: v1.3.13
+  createdAt: "2026-03-23T17:34:32.085Z"
+  updatedAt: "2026-03-23T17:34:32.089Z"
+services:
+  - serviceName: swagger-petstore
+    language: java
+    framework: junit
+    outputDir: .
+    api:
+      schemaPath: /Users/archit/Projects/swagger-api/swagger-petstore/src/main/resources/openapi.yaml
+      authType: oauth
+      authHeader: Authorization
+      baseUrl: http://localhost:8080/api/v3
+    runtimeDetails:
+      serverStartCommand: mvn package jetty:run
+      runtime: local
