@@ -88,7 +88,7 @@
                         </goals>
                         <configuration>
                             <skipCache>true</skipCache>
-                            <url>https://github.com/swagger-api/swagger-ui/archive/master.tar.gz</url>
+                            <url>https://github.com/swagger-api/swagger-ui/archive/main.tar.gz</url>
                             <unpack>true</unpack>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                         </configuration>
@@ -150,7 +150,7 @@
                             <outputDirectory>target/${project.artifactId}-${project.version}</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.build.directory}/swagger-ui-master/dist</directory>
+                                    <directory>${project.build.directory}/swagger-ui-main/dist</directory>
                                     <filtering>true</filtering>
                                     <excludes>
                                         <exclude>index.html</exclude>
@@ -211,7 +211,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>${jackson-version}</version>
+            <version>${jackson-annotations-version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -299,7 +299,7 @@
                 <dependency>
                     <groupId>com.sun.xml.bind</groupId>
                     <artifactId>jaxb-osgi</artifactId>
-                    <version>2.3.8</version>
+                    <version>2.3.9</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -318,14 +318,15 @@
     </profiles>
     <properties>
         <maven-plugin-version>1.0.0</maven-plugin-version>
-        <swagger-parser-version>2.1.18</swagger-parser-version>
-        <swagger-core-version>2.2.17</swagger-core-version>
-        <jackson-version>2.15.3</jackson-version>
-        <jetty-version>9.4.53.v20231009</jetty-version>
-        <logback-version>1.4.11</logback-version>
+        <swagger-parser-version>2.1.46</swagger-parser-version>
+        <swagger-core-version>2.2.53</swagger-core-version>
+        <jackson-version>2.22.1</jackson-version>
+        <jackson-annotations-version>2.22</jackson-annotations-version>
+        <jetty-version>9.4.57.v20241219</jetty-version>
+        <logback-version>1.5.38</logback-version>
         <junit-version>4.13.2</junit-version>
         <slf4j-version>2.0.9</slf4j-version>
-        <jersey2-version>2.40</jersey2-version>
+        <jersey2-version>2.48</jersey2-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>

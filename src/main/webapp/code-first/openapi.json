@@ -213,15 +213,18 @@
   "components" : {
     "schemas" : {
       "Category" : {
+        "type" : "object",
         "$id" : "/api/v31/components/schemas/category",
         "description" : "Category",
         "properties" : {
           "id" : {
             "type" : "integer",
-            "format" : "int64"
+            "format" : "int64",
+            "examples" : [ 1 ]
           },
           "name" : {
-            "type" : "string"
+            "type" : "string",
+            "examples" : [ "Dogs" ]
           }
         },
         "xml" : {
@@ -229,12 +232,14 @@
         }
       },
       "Pet" : {
+        "type" : "object",
         "$schema" : "https://json-schema.org/draft/2020-12/schema",
         "description" : "Pet",
         "properties" : {
           "id" : {
             "type" : "integer",
-            "format" : "int64"
+            "format" : "int64",
+            "examples" : [ 10 ]
           },
           "category" : {
             "$ref" : "#/components/schemas/Category",
@@ -273,7 +278,7 @@
           "availableInstances" : {
             "type" : "integer",
             "format" : "int32",
-            "examples" : [ "7" ],
+            "examples" : [ 7 ],
             "exclusiveMaximum" : 10,
             "exclusiveMinimum" : 1,
             "swagger-extension" : true
@@ -293,6 +298,7 @@
         }
       },
       "PetDetails" : {
+        "type" : "object",
         "$id" : "/api/v31/components/schemas/petdetails",
         "$schema" : "https://json-schema.org/draft/2020-12/schema",
         "$vocabulary" : "https://spec.openapis.org/oas/3.1/schema-base",
@@ -301,7 +307,7 @@
             "type" : "integer",
             "format" : "int64",
             "$anchor" : "pet_details_id",
-            "examples" : [ "10" ]
+            "examples" : [ 10 ]
           },
           "category" : {
             "$ref" : "/api/v31/components/schemas/category",
@@ -316,6 +322,7 @@
         }
       },
       "Tag" : {
+        "type" : "object",
         "$id" : "/api/v31/components/schemas/tag",
         "properties" : {
           "id" : {
