@@ -38,14 +38,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Pet'
+              $ref: "#/components/schemas/Pet"
               description: A Pet in JSON Format
               required:
               - id
               writeOnly: true
           application/xml:
             schema:
-              $ref: '#/components/schemas/Pet'
+              $ref: "#/components/schemas/Pet"
               description: A Pet in XML Format
               required:
               - id
@@ -57,12 +57,12 @@ paths:
           content:
             application/xml:
               schema:
-                $ref: '#/components/schemas/Pet'
+                $ref: "#/components/schemas/Pet"
                 description: A Pet in XML Format
                 readOnly: true
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
+                $ref: "#/components/schemas/Pet"
                 description: A Pet in JSON Format
                 readOnly: true
         "400":
@@ -88,14 +88,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Pet'
+              $ref: "#/components/schemas/Pet"
               description: A Pet in JSON Format
               required:
               - id
               writeOnly: true
           application/xml:
             schema:
-              $ref: '#/components/schemas/Pet'
+              $ref: "#/components/schemas/Pet"
               description: A Pet in XML Format
               required:
               - id
@@ -107,12 +107,12 @@ paths:
           content:
             application/xml:
               schema:
-                $ref: '#/components/schemas/Pet'
+                $ref: "#/components/schemas/Pet"
                 description: A Pet in XML Format
                 readOnly: true
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
+                $ref: "#/components/schemas/Pet"
                 description: A Pet in JSON format
                 readOnly: true
         "405":
@@ -148,11 +148,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
+                $ref: "#/components/schemas/Pet"
                 description: A Pet in JSON format
             application/xml:
               schema:
-                $ref: '#/components/schemas/Pet'
+                $ref: "#/components/schemas/Pet"
                 description: A Pet in XML format
         "400":
           description: Invalid ID supplied
@@ -168,25 +168,33 @@ paths:
 components:
   schemas:
     Category:
+      type: object
       $id: /api/v31/components/schemas/category
       description: Category
       properties:
         id:
           type: integer
           format: int64
+          examples:
+          - 1
         name:
           type: string
+          examples:
+          - Dogs
       xml:
         name: Category
     Pet:
+      type: object
       $schema: https://json-schema.org/draft/2020-12/schema
       description: Pet
       properties:
         id:
           type: integer
           format: int64
+          examples:
+          - 10
         category:
-          $ref: '#/components/schemas/Category'
+          $ref: "#/components/schemas/Category"
           description: Pet Category
         name:
           type: string
@@ -203,7 +211,7 @@ components:
         tags:
           type: array
           items:
-            $ref: '#/components/schemas/Tag'
+            $ref: "#/components/schemas/Tag"
           xml:
             wrapped: true
         status:
@@ -217,7 +225,7 @@ components:
           type: integer
           format: int32
           examples:
-          - "7"
+          - 7
           exclusiveMaximum: 10
           exclusiveMinimum: 1
           swagger-extension: true
@@ -233,6 +241,7 @@ components:
       xml:
         name: Pet
     PetDetails:
+      type: object
       $id: /api/v31/components/schemas/petdetails
       $schema: https://json-schema.org/draft/2020-12/schema
       $vocabulary: https://spec.openapis.org/oas/3.1/schema-base
@@ -242,7 +251,7 @@ components:
           format: int64
           $anchor: pet_details_id
           examples:
-          - "10"
+          - 10
         category:
           $ref: /api/v31/components/schemas/category
           description: PetDetails Category
@@ -251,6 +260,7 @@ components:
       xml:
         name: PetDetails
     Tag:
+      type: object
       $id: /api/v31/components/schemas/tag
       properties:
         id:
@@ -283,7 +293,7 @@ webhooks:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Pet'
+              $ref: "#/components/schemas/Pet"
               description: Webhook Pet
       responses:
         "200":
