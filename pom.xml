@@ -320,9 +320,9 @@
         <maven-plugin-version>1.0.0</maven-plugin-version>
         <swagger-parser-version>2.1.46</swagger-parser-version>
         <swagger-core-version>2.2.53</swagger-core-version>
-        <jackson-version>2.22.1</jackson-version>
+        <jackson-version>2.22.2</jackson-version>
         <jackson-annotations-version>2.22</jackson-annotations-version>
-        <jetty-version>9.4.57.v20241219</jetty-version>
+        <jetty-version>9.4.58.v20250814</jetty-version>
         <logback-version>1.5.38</logback-version>
         <junit-version>4.13.2</junit-version>
         <slf4j-version>2.0.9</slf4j-version>
