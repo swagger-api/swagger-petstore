@@ -1,4 +1,4 @@
-FROM openjdk:8-jre
+FROM eclipse-temurin:8-jre
 
 WORKDIR /petstore
 COPY target/lib/jetty-runner* /petstore/jetty-runner.jar
