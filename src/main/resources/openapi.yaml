@@ -521,25 +521,27 @@ paths:
         default:
           description: Unexpected error
   /user/login:
-    get:
+    post:
       tags:
         - user
       summary: Logs user into the system.
       description: Log into the system.
       operationId: loginUser
-      parameters:
-        - name: username
-          in: query
-          description: The user name for login
-          required: false
-          schema:
-            type: string
-        - name: password
-          in: query
-          description: The password for login in clear text
-          required: false
-          schema:
-            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  description: The user name for login
+                  type: string
+                password:
+                  description: The password for login in clear text
+                  type: string
+              required:
+                - username
+                - password
       responses:
         '200':
           description: successful operation
@@ -566,7 +568,7 @@ paths:
         default:
           description: Unexpected error
   /user/logout:
-    get:
+    put:
       tags:
         - user
       summary: Logs out current logged in user session.
