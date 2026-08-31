@@ -1,0 +1,31 @@
+name: Petstore Demo CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    - name: Build with Maven
+      run: mvn clean install
+
+    - name: Simulate Deployment
+      run: |
+        echo "Packaging the application..."
+        echo "Deploying to development environment..."
+        echo "✅ Deployment complete"
+
