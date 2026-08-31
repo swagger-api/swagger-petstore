@@ -106,7 +106,7 @@ public class UserController {
                 .contentType(Util.getMediaType(request))
                 .header("X-Rate-Limit", String.valueOf(5000))
                 .header("X-Expires-After", date.toString())
-                .entity("Logged in user session: " + RandomUtils.nextLong());
+                .entity("\"Logged in user session: " + RandomUtils.nextLong() + "\"");
     }
 
     public ResponseContext logoutUser(final RequestContext request) {
