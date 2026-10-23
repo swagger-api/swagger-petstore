@@ -2,7 +2,7 @@ name: Release
 
 on:
   workflow_dispatch:
-    branches: ["v2"]
+    branches: ["master"]
 
 jobs:
   build:
@@ -23,11 +23,18 @@ jobs:
     - name: Set up Java
       uses: actions/setup-java@v4
       with:
-        java-version: 8
+        java-version: 11
         distribution: temurin
         server-id: central
         server-username: MAVEN_USERNAME
         server-password: MAVEN_PASSWORD
+    - name: Cache local Maven repository
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
     - name: Run pre release script
       id: preRelease
       run: |
@@ -78,12 +85,13 @@ jobs:
         echo "$SC_RELEASE_TAG"
         
         TOKEN="${{ secrets.RANCHER2_BEARER_TOKEN }}"
+        BUGSNAG_API_KEY=${{ secrets.BUGSNAG_API_KEY }}
         RANCHER_HOST="rancher.tools.swagger.io"
         CLUSTER_ID="c-n8zp2"
         NAMESPACE_NAME="swagger-oss"
         K8S_OBJECT_TYPE="daemonsets"
-        K8S_OBJECT_NAME="swagger-petstore"
-        DEPLOY_IMAGE="swaggerapi/petstore:$SC_RELEASE_TAG"
+        K8S_OBJECT_NAME="swagger-petstore-3"
+        DEPLOY_IMAGE="swaggerapi/petstore3:$SC_RELEASE_TAG-telemetry"
         
         workloadStatus=""
         getStatus() {
@@ -108,7 +116,7 @@ jobs:
               -H "Authorization: Bearer ${TOKEN}" \
               -H 'Content-Type: application/json-patch+json' \
               "https://${RANCHER_HOST}/k8s/clusters/${CLUSTER_ID}/apis/apps/v1/namespaces/${NAMESPACE_NAME}/${K8S_OBJECT_TYPE}/${K8S_OBJECT_NAME}" \
-              -d "[{\"op\": \"replace\", \"path\": \"/spec/template/spec/containers/0/image\", \"value\": \"${image}\"}]"
+                -d "[{\"op\": \"replace\", \"path\": \"/spec/template/spec/containers/0/image\", \"value\": \"${image}\"}, {\"op\":\"add\",\"path\":\"/spec/template/spec/containers/0/env\",\"value\":[{\"name\":\"BUGSNAG_API_KEY\",\"value\":\"${BUGSNAG_API_KEY}\"},{\"name\":\"notifierClass\",\"value\":\"io.swagger.petstore.notification.BugSnagNotifier\"}]}]"
             then
                 echo 'ERROR - image update k8s API call failed!'
                 echo "Exiting build..."
@@ -194,4 +202,3 @@ jobs:
       SC_NEXT_VERSION:
       MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
       MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
-
