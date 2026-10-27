@@ -2,7 +2,7 @@ name: Release
 
 on:
   workflow_dispatch:
-    branches: ["master"]
+    branches: ["v31"]
 
 jobs:
   build:
@@ -83,6 +83,7 @@ jobs:
         commit-message: bump snapshot ${{ env.SC_NEXT_VERSION }}-SNAPSHOT
         title: 'bump snapshot ${{ env.SC_NEXT_VERSION }}-SNAPSHOT'
         branch: bump-snap-${{ env.SC_NEXT_VERSION }}-SNAPSHOT
+    # NEW DEPLOYMENT (Replaces Rancher)
     - name: Configure AWS Credentials
       if: env.RELEASE_OK == 'yes'
       uses: aws-actions/configure-aws-credentials@v4
@@ -101,21 +102,13 @@ jobs:
 
     - name: Deploy to Kubernetes
       if: env.RELEASE_OK == 'yes'
-      env:
-        BUGSNAG_API_KEY: ${{ secrets.BUGSNAG_API_KEY }}
       run: |
-        IMAGE="swaggerapi/petstore3:${{ env.SC_VERSION }}-telemetry"
+        IMAGE="swaggerapi/petstore31:${{ env.SC_VERSION }}
 
         echo "Deploying image: $IMAGE"
 
-        kubectl set image daemonset/swagger-petstore-3 \
-          swagger-petstore-3=$IMAGE \
+        kubectl set image daemonset/swagger-petstore-31 \
+          swagger-petstore-31=$IMAGE \
           -n swagger-oss
 
-        kubectl set env daemonset/swagger-petstore-3 \
-          -c swagger-petstore-3 \
-          -n swagger-oss \
-          BUGSNAG_API_KEY="$BUGSNAG_API_KEY" \
-          notifierClass=io.swagger.petstore.notification.BugSnagNotifier
-
-        kubectl rollout status daemonset/swagger-petstore-3 -n swagger-oss
+        kubectl rollout status daemonset/swagger-petstore-31 -n swagger-oss
