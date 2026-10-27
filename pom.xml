@@ -58,7 +58,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.16.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -67,7 +67,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.12</version>
+                <version>3.6.2</version>
                 <executions>
                     <execution>
                         <id>add-source</id>
@@ -109,7 +109,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>3.5.1</version>
             </plugin>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
@@ -134,7 +134,7 @@
             <plugin>
                 <groupId>com.googlecode.maven-download-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
-                <version>1.6.8</version>
+                <version>1.13.0</version>
                 <executions>
                     <execution>
                         <id>swagger-ui</id>
@@ -153,7 +153,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.4.3</version>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <id>copy-resources</id>
@@ -178,6 +178,17 @@
             </plugin>
         </plugins>
     </build>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>${jackson-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
 
         <dependency>
@@ -247,9 +258,9 @@
 
     </dependencies>
     <properties>
-        <swagger-parser-version>2.1.46</swagger-parser-version>
-        <swagger-core-version>2.2.53</swagger-core-version>
-        <jackson-version>2.22.2</jackson-version>
+        <swagger-parser-version>2.1.48</swagger-parser-version>
+        <swagger-core-version>2.2.55</swagger-core-version>
+        <jackson-version>2.22.4</jackson-version>
         <jackson-annotations-version>2.22</jackson-annotations-version>
         <swagger-inflector-version>2.0.17</swagger-inflector-version>
         <jetty-version>9.4.58.v20250814</jetty-version>
