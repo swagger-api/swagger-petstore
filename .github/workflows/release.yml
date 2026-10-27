@@ -2,7 +2,7 @@ name: Release
 
 on:
   workflow_dispatch:
-    branches: ["master"]
+    branches: ["v2"]
 
 jobs:
   build:
@@ -104,18 +104,18 @@ jobs:
       env:
         BUGSNAG_API_KEY: ${{ secrets.BUGSNAG_API_KEY }}
       run: |
-        IMAGE="swaggerapi/petstore3:${{ env.SC_VERSION }}-telemetry"
+        IMAGE="swaggerapi/petstore:${{ env.SC_VERSION }}-telemetry"
 
         echo "Deploying image: $IMAGE"
 
-        kubectl set image daemonset/swagger-petstore-3 \
-          swagger-petstore-3=$IMAGE \
+        kubectl set image daemonset/swagger-petstore \
+          swagger-petstore=$IMAGE \
           -n swagger-oss
 
-        kubectl set env daemonset/swagger-petstore-3 \
-          -c swagger-petstore-3 \
+        kubectl set env daemonset/swagger-petstore \
+          -c swagger-petstore \
           -n swagger-oss \
           BUGSNAG_API_KEY="$BUGSNAG_API_KEY" \
           notifierClass=io.swagger.petstore.notification.BugSnagNotifier
 
-        kubectl rollout status daemonset/swagger-petstore-3 -n swagger-oss
+        kubectl rollout status daemonset/swagger-petstore -n swagger-oss
