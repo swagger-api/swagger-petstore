@@ -90,16 +90,32 @@
                         <phase>package</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
-                            <goal>copy</goal>
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>unpack-jetty-home</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.eclipse.jetty</groupId>
-                                    <artifactId>jetty-runner</artifactId>
+                                    <artifactId>jetty-home</artifactId>
                                     <version>${jetty-version}</version>
-                                    <destFileName>jetty-runner.jar</destFileName>
+                                    <type>tar.gz</type>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <fileMappers>
+                                        <!-- unpack to target/jetty-home instead of target/jetty-home-<version> -->
+                                        <org.codehaus.plexus.components.io.filemappers.RegExpFileMapper>
+                                            <pattern>^jetty-home-[^/]+/</pattern>
+                                            <replacement>jetty-home/</replacement>
+                                        </org.codehaus.plexus.components.io.filemappers.RegExpFileMapper>
+                                    </fileMappers>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
@@ -111,19 +127,26 @@
                 <version>3.5.1</version>
             </plugin>
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
+                <groupId>org.eclipse.jetty.ee8</groupId>
+                <artifactId>jetty-ee8-maven-plugin</artifactId>
                 <version>${jetty-version}</version>
                 <configuration>
-                    <monitoredDirName>.</monitoredDirName>
-                    <scanTargets>
-                        <scanTarget>inflector.yaml</scanTarget>
-                    </scanTargets>
-                    <scanIntervalSeconds>1</scanIntervalSeconds>
+                    <scanTargetPatterns>
+                        <scanTargetPattern>
+                            <directory>${project.basedir}</directory>
+                            <includes>
+                                <include>**/inflector.yaml</include>
+                            </includes>
+                        </scanTargetPattern>
+                    </scanTargetPatterns>
+                    <scan>1</scan>
                     <webApp>
                         <contextPath>/</contextPath>
+                        <resourceBases>
+                            <resourceBase>${project.basedir}/src/main/webapp</resourceBase>
+                            <resourceBase>${project.build.directory}/swagger-ui-main/dist</resourceBase>
+                        </resourceBases>
                     </webApp>
-                    <webAppSourceDirectory>target/${project.artifactId}-${project.version}</webAppSourceDirectory>
                     <httpConnector>
                         <port>8080</port>
                         <idleTimeout>60000</idleTimeout>
@@ -262,7 +285,7 @@
         <jackson-version>2.22.4</jackson-version>
         <jackson-annotations-version>2.22</jackson-annotations-version>
         <swagger-inflector-version>2.0.17</swagger-inflector-version>
-        <jetty-version>9.4.58.v20250814</jetty-version>
+        <jetty-version>12.1.14</jetty-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>
