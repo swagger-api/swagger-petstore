@@ -32,7 +32,7 @@ public class UserController {
     private static UserData userData = new UserData();
 
     public ResponseContext createUser(final RequestContext request, final User user) {
-        if (user == null) {
+        if (user == null || user.getUsername() == null || user.getUsername().isEmpty()) {
             return new ResponseContext()
                     .status(Response.Status.BAD_REQUEST)
                     .entity("No User provided. Try again?");
@@ -76,6 +76,11 @@ public class UserController {
         }
 
         for (final User user : users) {
+            if(user.getUsername() == null || user.getUsername().isEmpty()){
+                return new ResponseContext()
+                        .status(Response.Status.BAD_REQUEST)
+                        .entity("No User name provided. Try again?");
+            }
             userData.addUser(user);
         }
 
@@ -92,6 +97,11 @@ public class UserController {
         }
 
         for (final User user : users) {
+            if(user.getUsername() == null || user.getUsername().isEmpty()){
+                return new ResponseContext()
+                        .status(Response.Status.BAD_REQUEST)
+                        .entity("No User name provided. Try again?");
+            }
             userData.addUser(user);
         }
 
@@ -143,7 +153,7 @@ public class UserController {
                     .entity("No Username provided. Try again?");
         }
 
-        if (user == null) {
+        if (user == null || user.getUsername() == null || user.getUsername().isEmpty()) {
             return new ResponseContext()
                     .status(Response.Status.BAD_REQUEST)
                     .entity("No User provided. Try again?");

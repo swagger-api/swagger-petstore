@@ -20,6 +20,7 @@ import io.swagger.petstore.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UserData {
     private static List<User> users = new ArrayList<>();
@@ -52,7 +53,7 @@ public class UserData {
 
     public User findUserByName(final String username) {
         for (final User user : users) {
-            if (user.getUsername().equals(username)) {
+            if (Objects.equals(user.getUsername(),username)) {
                 return user;
             }
         }
@@ -62,7 +63,7 @@ public class UserData {
     public void addUser(final User user) {
         if (users.size() > 0) {
             for (int i = users.size() - 1; i >= 0; i--) {
-                if (users.get(i).getUsername().equals(user.getUsername())) {
+                if (Objects.equals(users.get(i).getUsername(),user.getUsername())) {
                     users.remove(i);
                 }
             }
@@ -71,7 +72,7 @@ public class UserData {
     }
 
     public void deleteUser(final String username) {
-        users.removeIf(user -> user.getUsername().equals(username));
+        users.removeIf(user -> Objects.equals(user.getUsername(),username));
     }
 
     public static User createUser(final long id, final String username, final String firstName,
