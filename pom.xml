@@ -97,7 +97,7 @@
               <goal>copy</goal>
             </goals>
             <configuration>
-              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+              <outputDirectory>${project.build.directory}/jetty-runner</outputDirectory>
               <artifactItems>
                 <artifactItem>
                   <groupId>org.eclipse.jetty</groupId>
@@ -106,6 +106,28 @@
                   <destFileName>jetty-runner.jar</destFileName>
                 </artifactItem>
               </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>strip-mina-from-jetty-runner</id>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <!-- jetty-runner bundles mina-core 2.2.3 (critical CVEs), but it's not used -->
+                <zip destfile="${project.build.directory}/lib/jetty-runner.jar">
+                  <zipfileset src="${project.build.directory}/jetty-runner/jetty-runner.jar"
+                              excludes="org/apache/mina/**,META-INF/maven/org.apache.mina/**"/>
+                </zip>
+              </target>
             </configuration>
           </execution>
         </executions>
