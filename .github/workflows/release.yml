@@ -103,7 +103,7 @@ jobs:
     - name: Deploy to Kubernetes
       if: env.RELEASE_OK == 'yes'
       run: |
-        IMAGE="swaggerapi/petstore31:${{ env.SC_VERSION }}
+        IMAGE="swaggerapi/petstore31:${{ env.SC_VERSION }}"
 
         echo "Deploying image: $IMAGE"
 
