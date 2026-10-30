@@ -75,6 +75,8 @@ jobs:
     - name: Run post release script
       id: postRelease
       if: env.RELEASE_OK == 'yes'
+      env:
+        GH_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |
         . ./CI/post-release.sh
     - name: Create Next Snapshot Pull Request
