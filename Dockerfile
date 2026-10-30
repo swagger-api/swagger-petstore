@@ -3,7 +3,7 @@ FROM eclipse-temurin:8-jre
 WORKDIR /petstore
 COPY target/lib/jetty-runner* /petstore/jetty-runner.jar
 COPY ./run.sh /petstore/
-ADD target/swagger-petstore-v2-1.0.8-SNAPSHOT /petstore/webapp
+ADD target/swagger-petstore-v2-1.0.8 /petstore/webapp
 
 RUN apt-get update
 
