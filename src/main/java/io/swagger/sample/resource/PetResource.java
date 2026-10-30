@@ -23,14 +23,12 @@ import io.swagger.sample.data.PetData;
 import io.swagger.sample.exception.NotFoundException;
 import io.swagger.sample.model.Pet;
 import io.swagger.util.Json;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 
@@ -96,10 +94,19 @@ public class PetResource {
     @ApiParam(value = "file detail") @FormDataParam("file") FormDataContentDisposition fileDetail) {
     try {
       LOGGER.debug("uploadFile {} {}", petId, testString);
-      String uploadedFileLocation = "./" + fileDetail.getFileName();
-      LOGGER.info("uploading to " + uploadedFileLocation);
-      IOUtils.copy(inputStream, new FileOutputStream(uploadedFileLocation));
-      String msg = "additionalMetadata: " + testString + "\nFile uploaded to " + uploadedFileLocation + ", " + (new java.io.File(uploadedFileLocation)).length() + " bytes";
+
+      String fileName = fileDetail != null ? baseName(fileDetail.getFileName()) : null;
+      long uploadedByteCount = 0;
+      if (inputStream != null) {
+        try (InputStream in = inputStream) {
+          byte[] buffer = new byte[4096];
+          int read;
+          while ((read = in.read(buffer)) != -1) {
+            uploadedByteCount += read;
+          }
+        }
+      }
+      String msg = "additionalMetadata: " + testString + "\nUploaded " + fileName + ", " + uploadedByteCount + " bytes";
       io.swagger.sample.model.ApiResponse output = new io.swagger.sample.model.ApiResponse(200, msg);
       return Response.status(200).entity(output).build();
     }
@@ -205,4 +212,13 @@ public class PetResource {
     else
       return Response.status(404).entity(new io.swagger.sample.model.ApiResponse(404, "not found")).build();
   }
+
+  private static String baseName(String fileName) {
+    if (fileName == null) {
+      return null;
+    }
+    int lastSeparator = Math.max(fileName.lastIndexOf('/'), fileName.lastIndexOf('\\'));
+    return fileName.substring(lastSeparator + 1);
+  }
+
 }
