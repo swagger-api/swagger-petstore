@@ -6,7 +6,7 @@
   <name>swagger-petstore-v2</name>
   <description>swagger-petstore-v2</description>
   <url>https://github.com/swagger-api/swagger-petstore</url>
-  <version>1.0.8</version>
+  <version>1.0.9-SNAPSHOT</version>
   <scm>
     <connection>scm:git:git@github.com:swagger-api/swagger-codegen-generators.git</connection>
     <developerConnection>scm:git:git@github.com:swagger-api/swagger-codegen-generators.git</developerConnection>
