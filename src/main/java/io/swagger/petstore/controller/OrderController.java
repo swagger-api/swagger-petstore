@@ -19,6 +19,7 @@ package io.swagger.petstore.controller;
 import io.swagger.oas.inflector.models.RequestContext;
 import io.swagger.oas.inflector.models.ResponseContext;
 import io.swagger.petstore.data.OrderData;
+import io.swagger.petstore.data.PetData;
 import io.swagger.petstore.model.Order;
 import io.swagger.petstore.utils.Util;
 import org.joda.time.DateTime;
@@ -30,6 +31,7 @@ import java.util.Date;
 public class OrderController {
 
     private static OrderData orderData = new OrderData();
+    private static PetData petData = new PetData();
 
     public ResponseContext getInventory(final RequestContext request) {
         return new ResponseContext()
@@ -60,6 +62,10 @@ public class OrderController {
             return new ResponseContext()
                     .status(Response.Status.BAD_REQUEST)
                     .entity("No Order provided. Try again?");
+        }
+
+        if (petData.getPetById(order.getPetId()) == null) {
+            return new ResponseContext().status(Response.Status.NOT_FOUND).entity("Pet not found");
         }
 
         orderData.addOrder(order);
