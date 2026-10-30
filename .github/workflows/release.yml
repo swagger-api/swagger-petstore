@@ -14,26 +14,26 @@ jobs:
       contents: write
 
     steps:
-    - uses: actions/checkout@v4
-    - uses: tibdex/github-app-token@v1
+    - uses: actions/checkout@v7
+    - uses: actions/create-github-app-token@v3
       id: generate-token
       with:
-        app_id: ${{ secrets.APP_ID }}
-        private_key: ${{ secrets.APP_PRIVATE_KEY }}
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v4
+        client-id: ${{ secrets.APP_ID }}
+        private-key: ${{ secrets.APP_PRIVATE_KEY }}
+    - name: Set up Python 3.13
+      uses: actions/setup-python@v7
       with:
-        python-version: '3.10'
+        python-version: '3.13'
     - name: Set up Java
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v6
       with:
-        java-version: 11
+        java-version: 8
         distribution: temurin
         server-id: central
         server-username: MAVEN_USERNAME
         server-password: MAVEN_PASSWORD
     - name: Cache local Maven repository
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -76,7 +76,7 @@ jobs:
       run: |
         . ./CI/post-release.sh
     - name: Create Next Snapshot Pull Request
-      uses: peter-evans/create-pull-request@v4
+      uses: peter-evans/create-pull-request@v8
       if: env.RELEASE_OK == 'yes'
       with:
         token: ${{ steps.generate-token.outputs.token }}
@@ -85,7 +85,7 @@ jobs:
         branch: bump-snap-${{ env.SC_NEXT_VERSION }}-SNAPSHOT
     - name: Configure AWS Credentials
       if: env.RELEASE_OK == 'yes'
-      uses: aws-actions/configure-aws-credentials@v4
+      uses: aws-actions/configure-aws-credentials@v6
       with:
         audience: sts.amazonaws.com
         aws-region: us-east-1
