@@ -34,21 +34,13 @@ jobs:
             --role-arn arn:aws:iam::886148526908:role/CloudformationBuild
 
       - name: Deploy to Kubernetes
-        env:
-          BUGSNAG_API_KEY: ${{ secrets.BUGSNAG_API_KEY }}
         run: |
-          IMAGE="swaggerapi/petstore3:${{ github.event.inputs.tag }}-telemetry"
+          IMAGE="swaggerapi/petstore:${{ github.event.inputs.tag }}"
 
           echo "Deploying image: $IMAGE"
 
-          kubectl set image daemonset/swagger-petstore-3 \
-            swagger-petstore-3=$IMAGE \
+          kubectl set image daemonset/swagger-petstore \
+            swagger-petstore=$IMAGE \
             -n swagger-oss
 
-          kubectl set env daemonset/swagger-petstore-3 \
-            -c swagger-petstore-3 \
-            -n swagger-oss \
-            BUGSNAG_API_KEY="$BUGSNAG_API_KEY" \
-            notifierClass=io.swagger.petstore.notification.BugSnagNotifier
-
-          kubectl rollout status daemonset/swagger-petstore-3 -n swagger-oss
+          kubectl rollout status daemonset/swagger-petstore -n swagger-oss
